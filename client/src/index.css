@@ -1,0 +1,173 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(240, 10%, 3.9%);
+  --foreground: hsl(0, 0%, 98%);
+  --muted: hsl(240, 3.7%, 15.9%);
+  --muted-foreground: hsl(240, 5%, 64.9%);
+  --popover: hsl(240, 10%, 3.9%);
+  --popover-foreground: hsl(0, 0%, 98%);
+  --card: hsl(240, 10%, 3.9%);
+  --card-foreground: hsl(0, 0%, 98%);
+  --border: hsl(240, 3.7%, 15.9%);
+  --input: hsl(240, 3.7%, 15.9%);
+  --primary: hsl(180, 100%, 50%);
+  --primary-foreground: hsl(0, 0%, 0%);
+  --secondary: hsl(240, 3.7%, 15.9%);
+  --secondary-foreground: hsl(0, 0%, 98%);
+  --accent: hsl(240, 3.7%, 15.9%);
+  --accent-foreground: hsl(0, 0%, 98%);
+  --destructive: hsl(0, 62.8%, 30.6%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --ring: hsl(240, 4.9%, 83.9%);
+  --radius: 0.5rem;
+  --tron: hsl(180, 100%, 50%);
+  --tron-dark: hsl(180, 100%, 35%);
+  --dark-bg: hsl(0, 0%, 5%);
+  --dark-card: hsl(240, 10%, 10%);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, hsl(0, 0%, 5%) 0%, hsl(240, 10%, 10%) 100%);
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Orbitron', monospace;
+  }
+}
+
+@layer components {
+  .glass-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 255, 247, 0.3);
+    transition: all 0.3s ease;
+  }
+  
+  .glass-card:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: hsl(var(--tron));
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 255, 247, 0.2);
+  }
+  
+  .neon-border {
+    border: 2px solid hsl(var(--tron));
+    box-shadow: 0 0 10px rgba(0, 255, 247, 0.5), inset 0 0 10px rgba(0, 255, 247, 0.1);
+  }
+  
+  .text-glow {
+    text-shadow: 0 0 10px hsl(var(--tron)), 0 0 20px hsl(var(--tron)), 0 0 30px hsl(var(--tron));
+  }
+  
+  .particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: hsl(var(--tron));
+    border-radius: 50%;
+    animation: float 4s infinite ease-in-out;
+  }
+  
+  .skill-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: linear-gradient(90deg, hsl(var(--tron)), hsl(207, 90%, 54%));
+    border-radius: inherit;
+    transition: width 2s ease-in-out;
+  }
+  
+  .typing-animation {
+    border-right: 2px solid hsl(var(--tron));
+    animation: blink 1s infinite;
+  }
+  
+  .perspective-card {
+    perspective: 1000px;
+  }
+  
+  .perspective-card:hover .card-inner {
+    transform: rotateY(5deg) rotateX(5deg);
+  }
+  
+  .card-inner {
+    transition: transform 0.3s ease;
+    transform-style: preserve-3d;
+  }
+}
+
+@layer utilities {
+  .text-tron {
+    color: hsl(var(--tron));
+  }
+  
+  .bg-tron {
+    background-color: hsl(var(--tron));
+  }
+  
+  .border-tron {
+    border-color: hsl(var(--tron));
+  }
+  
+  .from-tron {
+    --tw-gradient-from: hsl(var(--tron));
+  }
+  
+  .to-tron {
+    --tw-gradient-to: hsl(var(--tron));
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(180deg); }
+}
+
+@keyframes glow {
+  0% { box-shadow: 0 0 20px hsl(var(--tron)); }
+  100% { box-shadow: 0 0 30px hsl(var(--tron)), 0 0 40px hsl(var(--tron)); }
+}
+
+@keyframes slideUp {
+  0% { transform: translateY(30px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes blink {
+  0%, 50% { border-color: hsl(var(--tron)); }
+  51%, 100% { border-color: transparent; }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.8s ease-out;
+}
+
+.animate-fade-in {
+  animation: fadeIn 1s ease-out;
+}
