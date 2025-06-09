@@ -145,10 +145,6 @@ export default function Projects() {
         >
           <motion.h2 
             className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-tron via-cyan-300 to-tron bg-clip-text text-transparent px-4"
-            whileHover={{ 
-              scale: 1.05,
-              textShadow: "0 0 20px rgba(0, 255, 247, 0.5)"
-            }}
           >
             Featured Projects
           </motion.h2>

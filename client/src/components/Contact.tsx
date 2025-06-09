@@ -59,8 +59,8 @@ export default function Contact() {
     {
       icon: "fas fa-envelope",
       title: "Email",
-      value: "tharunvankayala@gmail.com",
-      href: "mailto:tharunvankayala@gmail.com"
+      value: "tharun.vankayala@gmail.com",
+      href: "mailto:tharun.vankayala@gmail.com"
     },
     {
       icon: "fas fa-phone",
