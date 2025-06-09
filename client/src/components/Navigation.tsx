@@ -5,6 +5,9 @@ export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
+  const [touchStart, setTouchStart] = useState<{ x: number; y: number } | null>(null);
+  const [dragOffset, setDragOffset] = useState(0);
+  const [rippleEffect, setRippleEffect] = useState<{ x: number; y: number; id: number } | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,6 +28,51 @@ export default function Navigation() {
       });
     }
     setIsMobileMenuOpen(false);
+  };
+
+  // Touch gesture handlers for swipe-to-close
+  const handleTouchStart = (e: React.TouchEvent) => {
+    const touch = e.touches[0];
+    setTouchStart({ x: touch.clientX, y: touch.clientY });
+    setDragOffset(0);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!touchStart) return;
+    
+    const touch = e.touches[0];
+    const deltaX = touch.clientX - touchStart.x;
+    const deltaY = Math.abs(touch.clientY - touchStart.y);
+    
+    // Only allow horizontal swipe if it's primarily horizontal movement
+    if (deltaY < 50 && deltaX > 0) {
+      setDragOffset(Math.min(deltaX, 320)); // Limit to menu width
+    }
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStart) return;
+    
+    // Close menu if dragged more than 1/3 of the way
+    if (dragOffset > 106) {
+      setIsMobileMenuOpen(false);
+    }
+    
+    setTouchStart(null);
+    setDragOffset(0);
+  };
+
+  // Ripple effect for touch feedback
+  const createRipple = (e: React.TouchEvent | React.MouseEvent) => {
+    const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
+    const x = ('touches' in e ? e.touches[0].clientX : e.clientX) - rect.left;
+    const y = ('touches' in e ? e.touches[0].clientY : e.clientY) - rect.top;
+    
+    const rippleId = Date.now();
+    setRippleEffect({ x, y, id: rippleId });
+    
+    // Clear ripple after animation
+    setTimeout(() => setRippleEffect(null), 600);
   };
 
   return (
@@ -143,7 +191,8 @@ export default function Navigation() {
               style={{
                 backgroundColor: '#000000',
                 background: '#000000',
-                opacity: 1
+                opacity: 1,
+                transform: `translateX(${dragOffset}px)`
               }}
               initial={{ x: '100%', opacity: 0 }}
               animate={{ 
@@ -167,6 +216,25 @@ export default function Navigation() {
                   opacity: { duration: 0.2 }
                 }
               }}
+              drag="x"
+              dragConstraints={{ left: 0, right: 320 }}
+              dragElastic={0.2}
+              onDragStart={() => setTouchStart({ x: 0, y: 0 })}
+              onDrag={(event, info) => {
+                if (info.offset.x > 0) {
+                  setDragOffset(info.offset.x);
+                }
+              }}
+              onDragEnd={(event, info) => {
+                if (info.offset.x > 106) {
+                  setIsMobileMenuOpen(false);
+                }
+                setDragOffset(0);
+                setTouchStart(null);
+              }}
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
               onClick={(e) => e.stopPropagation()}
             >
               <motion.div 
@@ -244,7 +312,9 @@ export default function Navigation() {
                     key={item.href}
                     href={item.href}
                     onClick={(e) => handleNavClick(e, item.href)}
-                    className="flex items-center gap-4 py-3 px-4 rounded-lg transition-all duration-300 group relative overflow-hidden"
+                    onTouchStart={createRipple}
+                    onMouseDown={createRipple}
+                    className="flex items-center gap-4 py-3 px-4 rounded-lg transition-all duration-300 group relative overflow-hidden cursor-pointer"
                     onMouseEnter={() => setHoveredItem(item.href)}
                     onMouseLeave={() => setHoveredItem(null)}
                     variants={{
@@ -269,7 +339,8 @@ export default function Navigation() {
                       transition: { duration: 0.2 }
                     }}
                     whileTap={{
-                      scale: 0.98,
+                      scale: 0.96,
+                      backgroundColor: 'rgba(0, 255, 255, 0.2)',
                       transition: { duration: 0.1 }
                     }}
                     style={{
