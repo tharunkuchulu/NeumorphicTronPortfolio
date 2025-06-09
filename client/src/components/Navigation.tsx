@@ -96,7 +96,7 @@ export default function Navigation() {
 
       {/* Mobile Menu Button - Simple Tron Style */}
       <button 
-        className="md:hidden fixed bottom-5 right-5 z-[9999] w-12 h-12 bg-black/80 border-2 border-tron rounded-lg flex items-center justify-center backdrop-blur-sm hover:bg-tron/10 transition-all duration-300"
+        className="md:hidden fixed bottom-8 right-5 z-[9999] w-12 h-12 bg-black/80 border-2 border-tron rounded-lg flex items-center justify-center backdrop-blur-sm hover:bg-tron/10 transition-all duration-300"
         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         aria-label="Toggle mobile menu"
       >
@@ -107,7 +107,7 @@ export default function Navigation() {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div 
-            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-40 md:hidden"
+            className="fixed inset-0 bg-black/90 backdrop-blur-sm z-40 md:hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
