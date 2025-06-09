@@ -3,6 +3,10 @@ import { createServer, type Server } from "http";
 import { z } from "zod";
 import path from "path";
 import fs from "fs";
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const contactSchema = z.object({
   name: z.string().min(2),
@@ -49,12 +53,32 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Resume download endpoint
   app.get("/api/download-resume", (req, res) => {
-    // In a real application, you would serve the actual resume file
-    // For now, we'll return a 404 since no resume file is uploaded
-    res.status(404).json({ 
-      success: false, 
-      message: "Resume file not found. Please upload a resume PDF to the server." 
-    });
+    try {
+      const resumePath = path.resolve(process.cwd(), "attached_assets", "THARUN_VANKAYALA_RESUME_1749451325800.pdf");
+      
+      // Check if file exists
+      if (!fs.existsSync(resumePath)) {
+        return res.status(404).json({
+          success: false,
+          message: "Resume file not found."
+        });
+      }
+
+      // Set headers for file download
+      res.setHeader('Content-Type', 'application/pdf');
+      res.setHeader('Content-Disposition', 'attachment; filename="Tharun_Vankayala_Resume.pdf"');
+      
+      // Stream the file
+      const fileStream = fs.createReadStream(resumePath);
+      fileStream.pipe(res);
+      
+    } catch (error) {
+      console.error("Error serving resume:", error);
+      res.status(500).json({
+        success: false,
+        message: "Error downloading resume."
+      });
+    }
   });
 
   const httpServer = createServer(app);
