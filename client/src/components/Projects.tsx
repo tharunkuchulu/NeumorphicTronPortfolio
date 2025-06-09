@@ -352,22 +352,27 @@ export default function Projects() {
                       href={projects[activeProject].demo} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="flex-1 text-center bg-gradient-to-r from-tron to-cyan-400 text-black px-6 py-3 font-semibold rounded-xl hover:from-cyan-400 hover:to-tron hover:scale-105 transition-all duration-300 transform hover:shadow-2xl hover:shadow-cyan-400/60"
+                      className="flex-1 text-center bg-gradient-to-r from-tron to-cyan-400 text-black px-6 py-3 font-semibold rounded-xl hover:from-cyan-300 hover:to-blue-400 hover:scale-110 transition-all duration-300 transform hover:shadow-2xl hover:shadow-cyan-400/80 border border-tron/30 hover:border-cyan-300"
                       style={{ 
                         transition: 'all 0.3s ease',
-                        boxShadow: 'none'
+                        boxShadow: '0 0 15px rgba(0, 255, 247, 0.3)',
+                        textShadow: '0 0 10px rgba(0, 0, 0, 0.5)'
                       }}
                       onMouseEnter={(e) => {
-                        e.currentTarget.style.boxShadow = '0 0 30px rgba(0, 255, 247, 0.8), 0 0 60px rgba(0, 255, 247, 0.5)';
+                        e.currentTarget.style.boxShadow = '0 0 40px rgba(0, 255, 247, 1), 0 0 80px rgba(0, 255, 247, 0.7), 0 0 120px rgba(0, 255, 247, 0.4)';
+                        e.currentTarget.style.transform = 'scale(1.1) translateY(-2px)';
+                        e.currentTarget.style.background = 'linear-gradient(45deg, #00ffff, #0099ff)';
                       }}
                       onMouseLeave={(e) => {
-                        e.currentTarget.style.boxShadow = 'none';
+                        e.currentTarget.style.boxShadow = '0 0 15px rgba(0, 255, 247, 0.3)';
+                        e.currentTarget.style.transform = 'scale(1) translateY(0px)';
+                        e.currentTarget.style.background = 'linear-gradient(to right, #00ffff, #22d3ee)';
                       }}
                     >
                       <i className="fas fa-external-link-alt mr-2"></i>Live Demo
                     </a>
                   ) : (
-                    <div className="flex-1 text-center bg-gray-700 text-gray-400 px-6 py-3 font-semibold rounded-xl cursor-not-allowed">
+                    <div className="flex-1 text-center bg-gray-700 text-gray-400 px-6 py-3 font-semibold rounded-xl cursor-not-allowed opacity-60">
                       <i className="fas fa-clock mr-2"></i>Demo Soon
                     </div>
                   )}
