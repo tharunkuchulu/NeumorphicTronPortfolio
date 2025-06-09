@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
 import useScrollAnimation from "@/hooks/useScrollAnimation";
+import codecademyCertPdf from "@assets/Tharun Vankayala_Program Certificate_AcadmixEdu_1749450725065.pdf";
+import be10xCertPdf from "@assets/AI Tools Workshop by Be10x_1749450701093.pdf";
 
 export default function Certifications() {
   const { ref, controls } = useScrollAnimation();
@@ -11,7 +13,7 @@ export default function Certifications() {
       icon: "fas fa-certificate",
       color: "from-blue-500/20 to-purple-500/20",
       borderColor: "border-blue-500/30",
-      link: null
+      link: codecademyCertPdf
     },
     {
       title: "Python Programming (Basic)",
@@ -43,7 +45,7 @@ export default function Certifications() {
       icon: "fas fa-robot",
       color: "from-tron/20 to-cyan-500/20",
       borderColor: "border-tron/30",
-      link: null
+      link: be10xCertPdf
     }
   ];
 

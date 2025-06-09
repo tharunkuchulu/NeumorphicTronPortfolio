@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import useScrollAnimation from "@/hooks/useScrollAnimation";
+import offerLetterPdf from "@assets/Internship Offer Letter_Tharun Vankayala_1749450701092.pdf";
 
 export default function Experience() {
   const { ref, controls } = useScrollAnimation();
@@ -62,6 +63,26 @@ export default function Experience() {
                 <p>Oversaw secure data handling and project confidentiality, ensuring compliance with organizational standards.</p>
               </motion.div>
             </div>
+            
+            {/* View Offer Letter Button */}
+            <motion.div
+              className="mt-8 flex justify-center"
+              initial={{ opacity: 0, y: 20 }}
+              animate={controls}
+              transition={{ duration: 0.6, delay: 1 }}
+            >
+              <motion.a
+                href={offerLetterPdf}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-tron/20 text-tron px-6 py-3 rounded-lg border border-tron/30 text-sm font-semibold hover:bg-tron hover:text-black transition-all duration-300 flex items-center gap-2"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <i className="fas fa-file-pdf"></i>
+                View Offer Letter
+              </motion.a>
+            </motion.div>
           </motion.div>
         </div>
       </div>
