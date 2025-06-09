@@ -84,7 +84,7 @@ export default function Hero() {
         {Array.from({ length: 8 }).map((_, i) => (
           <motion.div
             key={`h-${i}`}
-            className="absolute w-full h-0.5 bg-gradient-to-r from-transparent via-tron to-transparent"
+            className="absolute w-full h-0.5 bg-gradient-to-r from-transparent via-tron to-transparent circuit-line"
             style={{ top: `${(i + 1) * 12}%` }}
             initial={{ scaleX: 0, opacity: 0 }}
             animate={{ 
@@ -105,7 +105,7 @@ export default function Hero() {
         {Array.from({ length: 6 }).map((_, i) => (
           <motion.div
             key={`v-${i}`}
-            className="absolute h-full w-0.5 bg-gradient-to-b from-transparent via-tron to-transparent"
+            className="absolute h-full w-0.5 bg-gradient-to-b from-transparent via-tron to-transparent circuit-line"
             style={{ left: `${(i + 1) * 16}%` }}
             initial={{ scaleY: 0, opacity: 0 }}
             animate={{ 
@@ -236,11 +236,11 @@ export default function Hero() {
       </motion.div>
       
       {/* Enhanced Floating Data Particles */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none particle-system">
         {Array.from({ length: 20 }).map((_, i) => (
           <motion.div
             key={`particle-${i}`}
-            className="absolute rounded-full"
+            className="absolute rounded-full floating-particle"
             style={{
               left: `${Math.random() * 100}%`,
               top: `100%`,
