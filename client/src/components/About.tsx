@@ -16,73 +16,54 @@ export default function About() {
           About Me
         </motion.h2>
         
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+        <div className="max-w-4xl mx-auto">
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
+            initial={{ opacity: 0, y: 50 }}
             animate={controls}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <div className="glass-card p-8 rounded-2xl">
+            <div className="glass-card p-8 rounded-2xl text-center">
               <h3 className="font-orbitron text-2xl font-semibold mb-6 text-tron">
                 <i className="fas fa-user-astronaut mr-3"></i>
                 Profile Summary
               </h3>
-              <p className="text-gray-300 leading-relaxed mb-6">
+              <p className="text-gray-300 leading-relaxed mb-6 text-lg">
                 Proficient in developing scalable web applications as a Python Full Stack Developer, 
                 leveraging FastAPI, React.js, and AWS for efficient software solutions.
               </p>
-              <p className="text-gray-300 leading-relaxed">
+              <p className="text-gray-300 leading-relaxed mb-8 text-lg">
                 Skilled in API integration, cloud computing, and AI-driven development, ensuring 
                 high-performance systems and secure user experiences.
               </p>
-              <div className="mt-8 flex flex-wrap gap-4">
+              <div className="flex justify-center gap-6">
                 <motion.a 
                   href="mailto:tharunvankayala@gmail.com" 
-                  className="text-tron hover:text-white transition-colors"
+                  className="text-tron hover:text-white transition-colors p-3 glass-card rounded-full"
                   whileHover={{ scale: 1.2, rotate: 10 }}
                   aria-label="Email"
                 >
-                  <i className="fas fa-envelope text-xl"></i>
+                  <i className="fas fa-envelope text-2xl"></i>
                 </motion.a>
                 <motion.a 
                   href="https://github.com/tharunkuchulu" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="text-tron hover:text-white transition-colors"
+                  className="text-tron hover:text-white transition-colors p-3 glass-card rounded-full"
                   whileHover={{ scale: 1.2, rotate: -10 }}
                   aria-label="GitHub"
                 >
-                  <i className="fab fa-github text-xl"></i>
+                  <i className="fab fa-github text-2xl"></i>
                 </motion.a>
                 <motion.a 
                   href="https://linkedin.com/in/tharun-vankayala" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="text-tron hover:text-white transition-colors"
+                  className="text-tron hover:text-white transition-colors p-3 glass-card rounded-full"
                   whileHover={{ scale: 1.2, rotate: 10 }}
                   aria-label="LinkedIn"
                 >
                   <i className="fab fa-linkedin text-xl"></i>
                 </motion.a>
-              </div>
-            </div>
-          </motion.div>
-          
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={controls}
-            transition={{ duration: 0.8, delay: 0.4 }}
-          >
-            <div className="glass-card p-8 rounded-2xl">
-              <h3 className="font-orbitron text-2xl font-semibold mb-6 text-tron">
-                <i className="fas fa-graduation-cap mr-3"></i>
-                Education
-              </h3>
-              <div className="border-l-2 border-tron pl-6">
-                <h4 className="text-xl font-semibold text-white mb-2">B.Tech in Computer Science and Engineering</h4>
-                <p className="text-tron font-medium mb-2">SRM University AP</p>
-                <p className="text-gray-400 mb-2">Sept 2020 – Jun 2024</p>
-                <p className="text-gray-300">CGPA: 7.85</p>
               </div>
             </div>
           </motion.div>

@@ -37,27 +37,39 @@ export default function Navigation() {
     >
       <div className="container mx-auto px-6 py-4">
         <div className="flex justify-between items-center">
-          <motion.div 
-            className="font-orbitron text-xl font-bold text-tron"
+          <motion.a 
+            href="#hero"
+            onClick={(e) => handleNavClick(e, '#hero')}
+            className="font-orbitron text-xl font-bold text-tron cursor-pointer hover:text-white transition-colors duration-300"
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 400, damping: 10 }}
           >
             Tharun Vankayala
-          </motion.div>
+          </motion.a>
           
           <div className="hidden md:flex space-x-8">
-            {['#home', '#about', '#projects', '#skills', '#experience', '#contact'].map((href, index) => (
+            {['#about', '#projects', '#skills', '#experience', '#education', '#certifications', '#contact'].map((href, index) => (
               <motion.a
                 key={href}
                 href={href}
                 onClick={(e) => handleNavClick(e, href)}
-                className="hover:text-tron transition-colors duration-300 capitalize"
-                whileHover={{ scale: 1.1 }}
+                className="relative py-2 px-1 hover:text-tron transition-all duration-300 capitalize group"
+                whileHover={{ scale: 1.05 }}
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
               >
-                {href.slice(1)}
+                <span className="relative z-10">{href.slice(1)}</span>
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-tron/20 to-cyan-500/20 rounded-md opacity-0 group-hover:opacity-100"
+                  initial={false}
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.2 }}
+                />
+                <motion.div
+                  className="absolute bottom-0 left-0 h-0.5 bg-tron origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300"
+                  style={{ width: '100%' }}
+                />
               </motion.a>
             ))}
           </div>
@@ -79,7 +91,7 @@ export default function Navigation() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
           >
-            {['#home', '#about', '#projects', '#skills', '#experience', '#contact'].map((href) => (
+            {['#about', '#projects', '#skills', '#experience', '#education', '#certifications', '#contact'].map((href) => (
               <a
                 key={href}
                 href={href}
