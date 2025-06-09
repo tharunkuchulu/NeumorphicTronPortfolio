@@ -313,7 +313,7 @@ export default function Navigation() {
                     onClick={(e) => handleNavClick(e, item.href)}
                     onTouchStart={createRipple}
                     onMouseDown={createRipple}
-                    className="flex items-center gap-4 py-3 px-4 rounded-lg transition-all duration-300 group relative overflow-hidden cursor-pointer"
+                    className="flex items-center gap-4 py-3 px-4 rounded-lg bg-black/80 transition-all duration-300 group relative overflow-hidden cursor-pointer"
                     onMouseEnter={() => setHoveredItem(item.href)}
                     onMouseLeave={() => setHoveredItem(null)}
                     variants={{
