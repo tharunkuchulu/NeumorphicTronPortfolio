@@ -116,22 +116,32 @@ export default function Hero() {
           >
             <motion.button 
               onClick={handleDownloadResume}
-              className="neon-border px-8 py-4 bg-transparent text-tron font-semibold rounded-lg hover:bg-tron hover:text-black transition-all duration-300"
+              className="glass-card px-8 py-4 text-tron font-semibold rounded-lg border border-tron/30 hover:border-tron hover:text-white hover:bg-tron/10 transition-all duration-300 relative overflow-hidden group"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <i className="fas fa-download mr-2"></i>
-              Download Resume
+              <span className="relative z-10 flex items-center">
+                <i className="fas fa-download mr-2"></i>
+                Download Resume
+              </span>
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-tron/20 to-cyan-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              />
             </motion.button>
             
             <motion.button 
               onClick={handleViewProjects}
-              className="glass-card px-8 py-4 text-white font-semibold rounded-lg hover:text-tron transition-all duration-300"
+              className="glass-card px-8 py-4 text-white font-semibold rounded-lg border border-gray-600/30 hover:border-tron hover:text-tron hover:bg-tron/10 transition-all duration-300 relative overflow-hidden group"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <i className="fas fa-rocket mr-2"></i>
-              View Projects
+              <span className="relative z-10 flex items-center">
+                <i className="fas fa-rocket mr-2"></i>
+                View Projects
+              </span>
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-tron/20 to-cyan-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              />
             </motion.button>
           </motion.div>
         </motion.div>
