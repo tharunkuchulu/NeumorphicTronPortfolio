@@ -21,7 +21,7 @@ const createEmailTransporter = () => {
   // For development, use Ethereal Email (fake SMTP service)
   // In production, use a real email service like Gmail, SendGrid, etc.
   if (process.env.NODE_ENV === 'production') {
-    return nodemailer.createTransporter({
+    return nodemailer.createTransport({
       service: 'gmail',
       auth: {
         user: process.env.EMAIL_USER,
@@ -30,7 +30,7 @@ const createEmailTransporter = () => {
     });
   } else {
     // For development - just log emails to console
-    return nodemailer.createTransporter({
+    return nodemailer.createTransport({
       streamTransport: true,
       newline: 'unix',
       buffer: true

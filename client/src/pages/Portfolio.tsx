@@ -9,14 +9,18 @@ import Certifications from "@/components/Certifications";
 import SoftSkills from "@/components/SoftSkills";
 import Contact from "@/components/Contact";
 import FloatingParticles from "@/components/FloatingParticles";
+import AdvancedBackground from "@/components/AdvancedBackground";
+import PWAPrompt from "@/components/PWAPrompt";
 import FloatingActionButton from "@/components/FloatingActionButton";
 import ScrollProgress from "@/components/ScrollProgress";
 
 export default function Portfolio() {
   return (
-    <div className="min-h-screen bg-dark-bg text-white relative">
+    <div className="min-h-screen bg-dark-bg dark:bg-dark-bg light:bg-dark-bg text-white dark:text-white light:text-foreground relative">
       <ScrollProgress />
-      <FloatingParticles />
+      <AdvancedBackground intensity="medium" theme="circuit" />
+      <FloatingParticles count={6} maxParticles={10} enabled={true} />
+      <PWAPrompt />
       <Navigation />
       <Hero />
       <About />

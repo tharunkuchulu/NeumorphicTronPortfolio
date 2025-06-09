@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
+import PerformanceOptimizer from "@/components/PerformanceOptimizer";
 import Portfolio from "@/pages/Portfolio";
 import NotFound from "@/pages/not-found";
 
@@ -23,8 +24,10 @@ function App() {
       <ThemeProvider defaultTheme="dark" storageKey="portfolio-theme">
         <QueryClientProvider client={queryClient}>
           <TooltipProvider>
-            <Toaster />
-            <Router />
+            <PerformanceOptimizer>
+              <Toaster />
+              <Router />
+            </PerformanceOptimizer>
           </TooltipProvider>
         </QueryClientProvider>
       </ThemeProvider>
