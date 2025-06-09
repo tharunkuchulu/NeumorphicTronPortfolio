@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,6 +23,7 @@ export default function Navigation() {
         block: 'start'
       });
     }
+    setIsMobileMenuOpen(false);
   };
 
   return (
@@ -89,7 +91,80 @@ export default function Navigation() {
             ))}
           </div>
           
+          {/* Mobile Menu Button */}
+          <button 
+            className="md:hidden text-tron"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            style={{ 
+              position: 'fixed',
+              bottom: '20px',
+              right: '20px',
+              zIndex: 1000,
+              width: '56px',
+              height: '56px',
+              borderRadius: '50%',
+              background: 'linear-gradient(to right, #00ffff, #3b82f6)',
+              border: 'none',
+              boxShadow: '0 4px 16px rgba(0, 255, 255, 0.3)'
+            }}
+            aria-label="Toggle mobile menu"
+          >
+            <i className={`fas ${isMobileMenuOpen ? 'fa-times' : 'fa-bars'} text-xl text-black`}></i>
+          </button>
         </div>
+
+        {/* Mobile Menu Overlay */}
+        {isMobileMenuOpen && (
+          <motion.div 
+            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-40 md:hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            <motion.div 
+              className="fixed right-0 top-0 h-full w-80 bg-dark-card/95 backdrop-blur-lg border-l border-tron/30 p-6"
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex justify-between items-center mb-8">
+                <h3 className="text-tron font-orbitron text-xl font-bold">Navigation</h3>
+                <button 
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="text-gray-400 hover:text-tron"
+                >
+                  <i className="fas fa-times text-xl"></i>
+                </button>
+              </div>
+              
+              <div className="space-y-4">
+                {[
+                  { href: '#hero', label: 'Home', icon: 'fas fa-home' },
+                  { href: '#about', label: 'About', icon: 'fas fa-user' },
+                  { href: '#projects', label: 'Projects', icon: 'fas fa-code' },
+                  { href: '#skills', label: 'Skills', icon: 'fas fa-cog' },
+                  { href: '#experience', label: 'Experience', icon: 'fas fa-briefcase' },
+                  { href: '#education', label: 'Education', icon: 'fas fa-graduation-cap' },
+                  { href: '#certifications', label: 'Certifications', icon: 'fas fa-certificate' },
+                  { href: '#contact', label: 'Contact', icon: 'fas fa-envelope' }
+                ].map((item) => (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    onClick={(e) => handleNavClick(e, item.href)}
+                    className="flex items-center gap-4 py-3 px-4 rounded-lg hover:bg-tron/10 hover:text-tron transition-all duration-300 group"
+                  >
+                    <i className={`${item.icon} text-tron group-hover:scale-110 transition-transform`}></i>
+                    <span className="text-white group-hover:text-tron font-medium">{item.label}</span>
+                  </a>
+                ))}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
       </div>
     </motion.nav>
   );

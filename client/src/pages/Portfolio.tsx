@@ -28,8 +28,7 @@ export default function Portfolio() {
       <SoftSkills />
       <Contact />
       
-      {/* Floating Action Button */}
-      <FloatingActionButton />
+
       
       {/* Footer */}
       <footer className="py-8 border-t border-gray-800">

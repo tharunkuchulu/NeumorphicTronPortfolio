@@ -213,7 +213,7 @@ export default function Projects() {
               exit={{ opacity: 0, scale: 0.98, y: -20 }}
               transition={{ duration: 0.5, ease: "easeInOut" }}
             >
-              <div className="h-full p-8 flex flex-col lg:flex-row gap-8 performance-optimized">
+              <div className="h-full p-4 sm:p-6 lg:p-8 flex flex-col lg:flex-row gap-6 lg:gap-8 performance-optimized max-w-full overflow-hidden">
               {/* Left: Project Icon & Meta */}
               <div className="lg:w-1/3 flex flex-col items-center justify-center relative">
                 {/* Project Icon Container with Fixed Circles */}
@@ -260,7 +260,7 @@ export default function Projects() {
               </div>
 
               {/* Right: Project Details */}
-              <div className="lg:w-2/3 flex flex-col justify-center">
+              <div className="lg:w-2/3 flex flex-col justify-center min-w-0">
                 <motion.div
                   className="mb-6"
                   initial={{ opacity: 0, x: 30 }}
@@ -322,7 +322,7 @@ export default function Projects() {
 
                 {/* Action Buttons */}
                 <motion.div
-                  className="flex flex-col sm:flex-row gap-3 w-full"
+                  className="flex flex-col sm:flex-row gap-3 w-full max-w-md mx-auto lg:mx-0"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.7 }}
@@ -331,7 +331,7 @@ export default function Projects() {
                     href={projects[activeProject].github} 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="flex-1 text-center border-2 border-tron px-4 py-3 bg-transparent text-tron font-semibold rounded-xl hover:bg-tron hover:text-black hover:scale-105 transition-all duration-300 transform hover:shadow-2xl hover:shadow-tron/60 hover:border-cyan-300 text-sm"
+                    className="flex-1 text-center border-2 border-tron px-4 py-3 bg-transparent text-tron font-semibold rounded-xl hover:bg-tron hover:text-black hover:scale-105 transition-all duration-300 transform hover:shadow-2xl hover:shadow-tron/60 hover:border-cyan-300 text-sm min-w-0 whitespace-nowrap overflow-hidden"
                     style={{ 
                       transition: 'all 0.3s ease',
                       boxShadow: 'none'

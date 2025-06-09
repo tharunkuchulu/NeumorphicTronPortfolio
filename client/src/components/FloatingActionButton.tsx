@@ -26,12 +26,12 @@ export default function FloatingActionButton() {
 
   return (
     <div 
-      className="fixed z-[9999]" 
       style={{ 
         position: 'fixed', 
         bottom: '20px', 
         right: '20px',
-        zIndex: 9999
+        zIndex: 9999,
+        pointerEvents: 'auto'
       }}
     >
       {/* Navigation Menu */}
