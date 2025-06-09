@@ -322,7 +322,7 @@ export default function Projects() {
 
                 {/* Action Buttons */}
                 <motion.div
-                  className="flex flex-col xs:flex-row gap-2 xs:gap-3"
+                  className="flex flex-col sm:flex-row gap-3 w-full"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.7 }}
@@ -331,7 +331,7 @@ export default function Projects() {
                     href={projects[activeProject].github} 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="flex-1 text-center border-2 border-tron px-3 xs:px-4 sm:px-6 py-2 xs:py-2.5 sm:py-3 bg-transparent text-tron font-semibold rounded-lg xs:rounded-xl hover:bg-tron hover:text-black hover:scale-105 transition-all duration-300 transform hover:shadow-2xl hover:shadow-tron/60 hover:border-cyan-300 text-xs xs:text-sm sm:text-base min-w-0"
+                    className="flex-1 text-center border-2 border-tron px-4 py-3 bg-transparent text-tron font-semibold rounded-xl hover:bg-tron hover:text-black hover:scale-105 transition-all duration-300 transform hover:shadow-2xl hover:shadow-tron/60 hover:border-cyan-300 text-sm"
                     style={{ 
                       transition: 'all 0.3s ease',
                       boxShadow: 'none'
@@ -351,7 +351,7 @@ export default function Projects() {
                       href={projects[activeProject].demo} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="flex-1 text-center bg-gradient-to-r from-tron to-cyan-400 text-black px-3 xs:px-4 sm:px-6 py-2 xs:py-2.5 sm:py-3 font-semibold rounded-lg xs:rounded-xl hover:from-cyan-300 hover:to-blue-400 hover:scale-110 transition-all duration-300 transform hover:shadow-2xl hover:shadow-cyan-400/80 border border-tron/30 hover:border-cyan-300 text-xs xs:text-sm sm:text-base min-w-0"
+                      className="flex-1 text-center bg-gradient-to-r from-tron to-cyan-400 text-black px-4 py-3 font-semibold rounded-xl hover:from-cyan-300 hover:to-blue-400 hover:scale-110 transition-all duration-300 transform hover:shadow-2xl hover:shadow-cyan-400/80 border border-tron/30 hover:border-cyan-300 text-sm"
                       style={{ 
                         transition: 'all 0.3s ease',
                         boxShadow: '0 0 15px rgba(0, 255, 247, 0.3)',
@@ -371,8 +371,8 @@ export default function Projects() {
                       <i className="fas fa-external-link-alt mr-2"></i>Live Demo
                     </a>
                   ) : (
-                    <div className="flex-1 text-center bg-gray-700 text-gray-400 px-3 xs:px-4 sm:px-6 py-2 xs:py-2.5 sm:py-3 font-semibold rounded-lg xs:rounded-xl cursor-not-allowed opacity-60 text-xs xs:text-sm sm:text-base min-w-0">
-                      <i className="fas fa-clock mr-1 xs:mr-2"></i>Demo Soon
+                    <div className="flex-1 text-center bg-gray-700 text-gray-400 px-4 py-3 font-semibold rounded-xl cursor-not-allowed opacity-60 text-sm">
+                      <i className="fas fa-clock mr-2"></i>Demo Soon
                     </div>
                   )}
                 </motion.div>
