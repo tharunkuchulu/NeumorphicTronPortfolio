@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
 
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -27,68 +26,35 @@ export default function Navigation() {
   };
 
   return (
-    <motion.nav 
-      className={`fixed top-0 left-0 right-0 w-full z-50 glass-card rounded-none border-x-0 border-t-0 transition-all duration-300 ${
-        isScrolled ? 'backdrop-blur-lg bg-opacity-90' : ''
+    <nav 
+      className={`fixed top-0 left-0 right-0 w-full z-50 transition-all duration-300 ${
+        isScrolled 
+          ? 'bg-dark-card/95 border-b border-tron/20' 
+          : 'bg-dark-card/80 border-b border-gray-800/30'
       }`}
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
-      style={{ position: 'fixed' }}
+      style={{ position: 'fixed', top: 0 }}
     >
       <div className="container mx-auto px-6 py-4">
         <div className="flex justify-between items-center">
-          <motion.a 
+          <a 
             href="#hero"
             onClick={(e) => handleNavClick(e, '#hero')}
-            className="font-orbitron text-xl font-bold text-tron cursor-pointer hover:text-white transition-colors duration-300"
-            whileHover={{ scale: 1.05 }}
-            transition={{ type: "spring", stiffness: 400, damping: 10 }}
+            className="font-orbitron text-xl font-bold text-tron cursor-pointer hover:text-white transition-all duration-300 hover:scale-105"
           >
             Tharun Vankayala
-          </motion.a>
+          </a>
           
           <div className="hidden md:flex space-x-8">
-            {['#about', '#projects', '#skills', '#experience', '#certifications', '#contact'].map((href, index) => (
-              <motion.a
+            {['#about', '#projects', '#skills', '#experience', '#certifications', '#contact'].map((href) => (
+              <a
                 key={href}
                 href={href}
                 onClick={(e) => handleNavClick(e, href)}
-                className="relative py-2 px-4 hover:text-tron transition-all duration-300 capitalize group overflow-hidden"
-                whileHover={{ scale: 1.05 }}
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
+                className="relative py-2 px-4 hover:text-tron transition-all duration-300 capitalize group"
               >
                 <span className="relative z-10">{href.slice(1)}</span>
-                
-                {/* Glowing underline effect */}
-                <motion.div
-                  className="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-tron via-cyan-400 to-tron origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out"
-                  style={{ 
-                    width: '100%',
-                    boxShadow: '0 0 8px rgba(0, 255, 255, 0.6), 0 0 16px rgba(0, 255, 255, 0.4)'
-                  }}
-                />
-                
-                {/* Glow effect on hover */}
-                <motion.div
-                  className="absolute bottom-0 left-0 h-0.5 bg-tron opacity-0 group-hover:opacity-100 blur-sm transition-opacity duration-500"
-                  style={{ width: '100%' }}
-                />
-                
-                {/* Shimmer effect */}
-                <motion.div
-                  className="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-100"
-                  style={{ width: '100%' }}
-                  animate={{ x: ['-100%', '200%'] }}
-                  transition={{ 
-                    duration: 1.5, 
-                    delay: 0.2,
-                    ease: "easeInOut"
-                  }}
-                />
-              </motion.a>
+                <div className="absolute bottom-0 left-0 h-0.5 bg-tron origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 w-full"></div>
+              </a>
             ))}
           </div>
           
@@ -103,26 +69,20 @@ export default function Navigation() {
         
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <motion.div 
-            className="md:hidden mt-4 space-y-4"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-          >
+          <div className="md:hidden mt-4 space-y-2 animate-fadeIn">
             {['#about', '#projects', '#skills', '#experience', '#certifications', '#contact'].map((href) => (
               <a
                 key={href}
                 href={href}
                 onClick={(e) => handleNavClick(e, href)}
-                className="block hover:text-tron transition-colors duration-300 capitalize py-3 px-4 rounded-lg hover:bg-tron/10 relative group"
+                className="block hover:text-tron transition-colors duration-300 capitalize py-3 px-4 rounded-lg hover:bg-tron/10"
               >
-                <span className="relative z-10">{href.slice(1)}</span>
-                <div className="absolute bottom-0 left-4 right-4 h-0.5 bg-tron scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+                {href.slice(1)}
               </a>
             ))}
-          </motion.div>
+          </div>
         )}
       </div>
-    </motion.nav>
+    </nav>
   );
 }
