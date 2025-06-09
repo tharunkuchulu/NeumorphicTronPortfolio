@@ -78,51 +78,224 @@ export default function Hero() {
 
   return (
     <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden">
-      {/* Floating 3D Elements */}
+      {/* Circuit Board Background Pattern */}
+      <div className="absolute inset-0 opacity-15">
+        {/* Horizontal Circuit Lines */}
+        {Array.from({ length: 12 }).map((_, i) => (
+          <motion.div
+            key={`h-${i}`}
+            className="absolute w-full h-px bg-tron"
+            style={{ top: `${(i + 1) * 8.33}%` }}
+            initial={{ scaleX: 0, opacity: 0 }}
+            animate={{ 
+              scaleX: [0, 1, 0.8, 1],
+              opacity: [0, 0.6, 0.3, 0.6]
+            }}
+            transition={{
+              duration: 4,
+              delay: i * 0.3,
+              repeat: Infinity,
+              repeatType: "reverse"
+            }}
+          />
+        ))}
+        
+        {/* Vertical Circuit Lines */}
+        {Array.from({ length: 8 }).map((_, i) => (
+          <motion.div
+            key={`v-${i}`}
+            className="absolute h-full w-px bg-tron"
+            style={{ left: `${(i + 1) * 12.5}%` }}
+            initial={{ scaleY: 0, opacity: 0 }}
+            animate={{ 
+              scaleY: [0, 1, 0.7, 1],
+              opacity: [0, 0.4, 0.2, 0.4]
+            }}
+            transition={{
+              duration: 5,
+              delay: i * 0.4,
+              repeat: Infinity,
+              repeatType: "reverse"
+            }}
+          />
+        ))}
+
+        {/* Circuit Nodes */}
+        {Array.from({ length: 15 }).map((_, i) => (
+          <motion.div
+            key={`node-${i}`}
+            className="absolute w-2 h-2 bg-tron rounded-full"
+            style={{
+              left: `${10 + (i % 5) * 20}%`,
+              top: `${20 + Math.floor(i / 5) * 20}%`
+            }}
+            animate={{
+              scale: [0.5, 1.2, 0.8, 1],
+              opacity: [0.3, 1, 0.5, 0.8]
+            }}
+            transition={{
+              duration: 3,
+              delay: i * 0.2,
+              repeat: Infinity,
+              repeatType: "reverse"
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Advanced Floating Geometric Shapes */}
       <motion.div 
-        className="absolute top-1/4 left-1/4 w-20 h-20 border-2 border-tron rounded-full opacity-20"
+        className="absolute top-20 left-16 w-16 h-16 border-2 border-tron/40"
+        style={{
+          borderImage: "linear-gradient(45deg, #00ffff, transparent, #00ffff) 1"
+        }}
         animate={{ 
-          y: [-10, 10, -10],
-          rotate: [0, 180, 360]
+          y: [-15, 15, -15],
+          rotate: [0, 180, 360],
+          scale: [1, 1.1, 1]
         }}
         transition={{ 
-          duration: 6,
+          duration: 8,
           repeat: Infinity,
           ease: "easeInOut"
         }}
       />
+
       <motion.div 
-        className="absolute bottom-1/4 right-1/4 w-16 h-16 border-2 border-tron opacity-30"
+        className="absolute top-32 right-20 w-12 h-12 border-2 border-tron/30 rotate-45"
         animate={{ 
           y: [10, -10, 10],
-          rotate: [0, -180, -360]
+          rotate: [45, 225, 405],
+          borderColor: ['rgba(0, 255, 255, 0.3)', 'rgba(0, 255, 255, 0.8)', 'rgba(0, 255, 255, 0.3)']
         }}
         transition={{ 
-          duration: 8,
+          duration: 6,
           repeat: Infinity,
           ease: "easeInOut",
           delay: 1
         }}
       />
+
+      <motion.div 
+        className="absolute bottom-32 left-20 w-20 h-20 border border-tron/25 rounded-full"
+        animate={{ 
+          scale: [1, 1.3, 1],
+          opacity: [0.25, 0.6, 0.25],
+          rotate: [0, 360]
+        }}
+        transition={{ 
+          duration: 10,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 2
+        }}
+      />
+
+      <motion.div 
+        className="absolute bottom-40 right-16"
+        animate={{ 
+          y: [-8, 8, -8],
+          rotate: [0, -360]
+        }}
+        transition={{ 
+          duration: 7,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 1.5
+        }}
+      >
+        <div className="w-14 h-14 border-2 border-tron/35 transform rotate-45">
+          <div className="w-6 h-6 border border-tron/50 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rotate-45"></div>
+        </div>
+      </motion.div>
+
+      {/* Floating Hexagons */}
+      <motion.div 
+        className="absolute top-1/2 left-8"
+        animate={{ 
+          y: [-12, 12, -12],
+          rotate: [0, 120, 240, 360]
+        }}
+        transition={{ 
+          duration: 9,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+      >
+        <div className="w-10 h-10 border border-tron/40 transform rotate-45 clip-path-hexagon"></div>
+      </motion.div>
       
+      {/* Floating Data Particles */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {Array.from({ length: 25 }).map((_, i) => (
+          <motion.div
+            key={`particle-${i}`}
+            className="absolute w-1 h-1 bg-tron/60 rounded-full"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`
+            }}
+            animate={{
+              y: [0, -100, -200],
+              x: [0, Math.random() * 50 - 25],
+              opacity: [0, 1, 0],
+              scale: [0.5, 1, 0.3]
+            }}
+            transition={{
+              duration: 8 + Math.random() * 4,
+              delay: Math.random() * 5,
+              repeat: Infinity,
+              ease: "easeOut"
+            }}
+          />
+        ))}
+      </div>
+
       <div className="container mx-auto px-6 text-center relative z-10">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1 }}
         >
+          {/* Enhanced Title with Holographic Effect */}
           <motion.h1 
-            className="font-orbitron text-5xl md:text-7xl font-bold mb-6 text-glow"
+            className="font-orbitron text-5xl md:text-7xl font-bold mb-6 text-glow relative"
             initial={{ opacity: 0, y: -50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
           >
-            Tharun Vankayala
+            <motion.span
+              className="relative inline-block"
+              animate={{
+                textShadow: [
+                  '0 0 30px rgba(0, 255, 255, 0.5)',
+                  '0 0 50px rgba(0, 255, 255, 0.8)',
+                  '0 0 30px rgba(0, 255, 255, 0.5)'
+                ]
+              }}
+              transition={{ duration: 3, repeat: Infinity }}
+            >
+              Tharun Vankayala
+              
+              {/* Holographic Scan Line */}
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-tron/20 to-transparent"
+                animate={{
+                  x: ['-100%', '200%']
+                }}
+                transition={{
+                  duration: 4,
+                  delay: 2,
+                  repeat: Infinity,
+                  repeatDelay: 8
+                }}
+              />
+            </motion.span>
           </motion.h1>
           
           <div className="text-xl md:text-2xl mb-8 text-gray-300 h-12 flex items-center justify-center">
             <motion.span 
-              className="inline-block text-tron font-semibold"
+              className="inline-block text-tron font-semibold relative"
               animate={{
                 textShadow: [
                   '0 0 10px rgba(0, 255, 255, 0.5)',
@@ -132,16 +305,56 @@ export default function Hero() {
               }}
               transition={{ duration: 2, repeat: Infinity }}
             >
-              {displayText}
-              {showCursor && (
-                <motion.span 
-                  className="border-r-2 border-tron ml-1"
-                  animate={{ opacity: [1, 0, 1] }}
+              {/* Terminal Prompt */}
+              <span className="text-gray-500 font-mono mr-2">$</span>
+              
+              {/* Glitch Effect Container */}
+              <motion.span
+                className="relative"
+                animate={{
+                  x: [0, 1, -1, 0],
+                  textShadow: [
+                    '0 0 0 rgba(255, 0, 0, 0)',
+                    '2px 0 0 rgba(255, 0, 0, 0.1)',
+                    '-2px 0 0 rgba(0, 255, 0, 0.1)',
+                    '0 0 0 rgba(255, 0, 0, 0)'
+                  ]
+                }}
+                transition={{
+                  duration: 0.1,
+                  repeat: Infinity,
+                  repeatDelay: 3,
+                  ease: "easeInOut"
+                }}
+              >
+                {displayText}
+              </motion.span>
+              
+              {/* Enhanced Terminal Cursor */}
+              <motion.span 
+                className="inline-block w-3 h-6 bg-tron ml-1 relative"
+                animate={{ 
+                  opacity: [1, 1, 0, 0],
+                  scaleY: [1, 1, 0.1, 1]
+                }}
+                transition={{ 
+                  duration: 1.2, 
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              >
+                <motion.div
+                  className="absolute inset-0 bg-tron"
+                  animate={{
+                    boxShadow: [
+                      '0 0 5px rgba(0, 255, 255, 0.5)',
+                      '0 0 15px rgba(0, 255, 255, 1)',
+                      '0 0 5px rgba(0, 255, 255, 0.5)'
+                    ]
+                  }}
                   transition={{ duration: 1, repeat: Infinity }}
-                >
-                  |
-                </motion.span>
-              )}
+                />
+              </motion.span>
             </motion.span>
           </div>
           
