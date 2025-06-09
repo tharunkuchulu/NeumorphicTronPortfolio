@@ -478,7 +478,7 @@ export default function Projects() {
                     </motion.a>
                   ) : (
                     <motion.div 
-                      className="flex-1 text-center bg-gray-600 text-gray-300 px-4 py-2 text-sm font-semibold rounded-lg cursor-not-allowed"
+                      className="flex-1 text-center bg-gray-600 text-gray-300 px-4 py-2 text-sm font-semibold rounded-lg cursor-not-allowed hover:bg-gray-500 transition-all duration-300"
                       whileHover={{ scale: 1.02 }}
                     >
                       <i className="fas fa-clock mr-2"></i>Demo Soon

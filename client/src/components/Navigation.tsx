@@ -48,7 +48,7 @@ export default function Navigation() {
           </motion.a>
           
           <div className="hidden md:flex space-x-8">
-            {['#about', '#projects', '#experience', '#skills', '#certifications', '#contact'].map((href, index) => (
+            {['#about', '#projects', '#skills', '#experience', '#certifications', '#contact'].map((href, index) => (
               <motion.a
                 key={href}
                 href={href}
@@ -108,7 +108,7 @@ export default function Navigation() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
           >
-            {['#about', '#projects', '#experience', '#skills', '#certifications', '#contact'].map((href) => (
+            {['#about', '#projects', '#skills', '#experience', '#certifications', '#contact'].map((href) => (
               <a
                 key={href}
                 href={href}
