@@ -264,31 +264,7 @@ export default function Hero() {
             }}
           />
         ))}
-        
-        {/* Binary Code Rain */}
-        {Array.from({ length: 8 }).map((_, i) => (
-          <motion.div
-            key={`binary-${i}`}
-            className="absolute text-tron/40 font-mono text-xs"
-            style={{
-              left: `${10 + i * 12}%`,
-              top: `-20px`
-            }}
-            animate={{
-              y: [0, 800],
-              opacity: [0, 0.6, 0.8, 0.4, 0]
-            }}
-            transition={{
-              duration: 8,
-              delay: i * 0.5,
-              repeat: Infinity,
-              ease: "linear",
-              repeatDelay: 2
-            }}
-          >
-            {['01001010', '11010011', '10110101', '01110010'][Math.floor(Math.random() * 4)]}
-          </motion.div>
-        ))}
+
       </div>
 
       <div className="container mx-auto px-6 text-center relative z-10">
