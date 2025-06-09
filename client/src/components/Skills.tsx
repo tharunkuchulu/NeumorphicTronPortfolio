@@ -119,16 +119,16 @@ export default function Skills() {
   const constellationSkills = skillCategories.flatMap((category, categoryIndex) =>
     category.skills.map((skill, skillIndex) => ({
       ...skill,
-      x: 15 + (categoryIndex * 25) + (skillIndex * 8) % 70,
-      y: 20 + (skillIndex * 15) + (categoryIndex * 12) % 60,
-      size: skill.level + 20,
+      x: 10 + (categoryIndex * 15) + (skillIndex * 12) % 80,
+      y: 15 + (skillIndex * 12) + (categoryIndex * 15) % 70,
+      size: 60 + (skill.level * 0.4),
       category: category.title
     }))
   );
 
   // Generate radar chart path
   const generateRadarPath = (customRadius?: number) => {
-    const center = { x: 200, y: 200 };
+    const center = { x: 250, y: 250 };
     const defaultRadius = 150;
     
     return radarSkills.map((skill, index) => {
@@ -379,192 +379,181 @@ export default function Skills() {
         {/* Constellation View */}
         {viewMode === 'constellation' && (
           <motion.div 
-            className="relative w-full mx-auto px-4"
-            style={{ 
-              height: 'clamp(600px, 80vh, 900px)',
-              maxWidth: 'min(100vw - 2rem, 1400px)'
-            }}
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
+            className="relative w-full max-w-6xl mx-auto px-4"
+            style={{ height: '700px' }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             transition={{ duration: 0.8 }}
           >
-            {/* Cyberpunk Grid Background */}
-            <div className="absolute inset-0 opacity-10">
-              <div className="grid grid-cols-12 grid-rows-8 h-full w-full">
-                {Array.from({ length: 96 }).map((_, i) => (
-                  <motion.div
-                    key={i}
-                    className="border border-tron/20"
-                    animate={{ 
-                      opacity: [0, 0.4, 0],
-                      borderColor: [
-                        'rgba(0, 255, 255, 0.1)',
-                        'rgba(0, 255, 255, 0.4)',
-                        'rgba(0, 255, 255, 0.1)'
-                      ]
-                    }}
-                    transition={{ 
-                      duration: 4, 
-                      delay: i * 0.01, 
-                      repeat: Infinity,
-                      ease: "easeInOut"
-                    }}
-                  />
+            {/* Grid Background */}
+            <div className="absolute inset-0 opacity-5">
+              <div className="grid grid-cols-10 grid-rows-6 h-full w-full">
+                {Array.from({ length: 60 }).map((_, i) => (
+                  <div key={i} className="border border-tron/30" />
                 ))}
               </div>
             </div>
 
-            {/* Constellation Skills */}
-            {constellationSkills.map((skill, index) => (
-              <motion.div
-                key={skill.name}
-                className="absolute cursor-pointer group"
-                style={{
-                  left: `${skill.x}%`,
-                  top: `${skill.y}%`,
-                  width: `${skill.size}px`,
-                  height: `${skill.size}px`,
-                }}
-                initial={{ opacity: 0, scale: 0, rotateY: 180 }}
-                animate={controls}
-                transition={{
-                  duration: 1.2,
-                  delay: index * 0.1,
-                  type: "spring",
-                  stiffness: 120
-                }}
-                onMouseEnter={() => {
-                  setHoveredSkill(skill.name);
-                  playHoverSound();
-                }}
-                onMouseLeave={() => setHoveredSkill(null)}
-                onClick={() => {
-                  setSelectedSkill(selectedSkill === skill.name ? null : skill.name);
-                  playClickSound();
-                }}
-                whileHover={{ scale: 1.2, z: 50 }}
-              >
-                {/* Skill Orb */}
-                <motion.div
-                  className="w-full h-full rounded-full relative overflow-hidden"
-                  style={{
-                    background: `radial-gradient(circle at 30% 30%, ${skill.color}40, ${skill.color}80)`,
-                    boxShadow: `0 0 20px ${skill.color}60, inset 0 0 20px ${skill.color}40`,
-                  }}
-                  animate={{
-                    boxShadow: [
-                      `0 0 20px ${skill.color}60, inset 0 0 20px ${skill.color}40`,
-                      `0 0 30px ${skill.color}80, inset 0 0 30px ${skill.color}60`,
-                      `0 0 20px ${skill.color}60, inset 0 0 20px ${skill.color}40`
-                    ]
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
-                >
-                  {/* Skill Icon */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <i 
-                      className={`${skill.icon} text-white text-lg`}
-                      style={{ filter: 'drop-shadow(0 0 5px rgba(255,255,255,0.8))' }}
+            {/* Skills as Constellation Orbs */}
+            {skillCategories.map((category, categoryIndex) =>
+              category.skills.map((skill, skillIndex) => {
+                const totalSkillIndex = skillCategories.slice(0, categoryIndex).reduce((sum, cat) => sum + cat.skills.length, 0) + skillIndex;
+                const xPos = 10 + (totalSkillIndex * 8) % 80;
+                const yPos = 15 + Math.floor(totalSkillIndex / 10) * 20 + (categoryIndex * 5);
+                
+                return (
+                  <motion.div
+                    key={`orb-${skill.name}`}
+                    className="absolute cursor-pointer"
+                    style={{
+                      left: `${xPos}%`,
+                      top: `${Math.min(yPos, 75)}%`,
+                      width: '80px',
+                      height: '80px',
+                    }}
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.6, delay: totalSkillIndex * 0.1 }}
+                    whileHover={{ scale: 1.2 }}
+                    onMouseEnter={() => {
+                      setHoveredSkill(skill.name);
+                      playHoverSound();
+                    }}
+                    onMouseLeave={() => setHoveredSkill(null)}
+                  >
+                    {/* Skill Orb */}
+                    <div
+                      className="w-full h-full rounded-full relative flex items-center justify-center"
+                      style={{
+                        background: `radial-gradient(circle at 30% 30%, ${skill.color}60, ${skill.color}90)`,
+                        boxShadow: `0 0 20px ${skill.color}80`,
+                        border: `2px solid ${skill.color}`,
+                      }}
+                    >
+                      {/* Icon */}
+                      <i 
+                        className={`${skill.icon} text-white text-xl`}
+                        style={{ filter: 'drop-shadow(0 0 5px rgba(0,0,0,0.8))' }}
+                      />
+                      
+                      {/* Level Badge */}
+                      <div className="absolute -top-2 -right-2 bg-tron text-black text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center">
+                        {skill.level}
+                      </div>
+                    </div>
+
+                    {/* Skill Name */}
+                    <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-center">
+                      <div className="text-xs font-semibold text-white whitespace-nowrap">
+                        {skill.name}
+                      </div>
+                    </div>
+                  </motion.div>
+                );
+              })
+            )}
+            
+            {/* Connection Lines */}
+            <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ zIndex: -1 }}>
+              {skillCategories.map((category, categoryIndex) =>
+                category.skills.map((skill, skillIndex) => {
+                  if (skillIndex === 0) return null;
+                  const totalSkillIndex = skillCategories.slice(0, categoryIndex).reduce((sum, cat) => sum + cat.skills.length, 0) + skillIndex;
+                  const prevIndex = totalSkillIndex - 1;
+                  
+                  const x1 = (10 + (prevIndex * 8) % 80) / 100;
+                  const y1 = (15 + Math.floor(prevIndex / 10) * 20 + (categoryIndex * 5)) / 100;
+                  const x2 = (10 + (totalSkillIndex * 8) % 80) / 100;
+                  const y2 = (15 + Math.floor(totalSkillIndex / 10) * 20 + (categoryIndex * 5)) / 100;
+                  
+                  return (
+                    <motion.line
+                      key={`line-${skill.name}`}
+                      x1={`${x1 * 100}%`}
+                      y1={`${Math.min(y1 * 100, 75)}%`}
+                      x2={`${x2 * 100}%`}
+                      y2={`${Math.min(y2 * 100, 75)}%`}
+                      stroke="rgba(0, 255, 255, 0.3)"
+                      strokeWidth="1"
+                      initial={{ pathLength: 0 }}
+                      animate={{ pathLength: 1 }}
+                      transition={{ duration: 1, delay: totalSkillIndex * 0.1 + 0.5 }}
                     />
-                  </div>
-
-                  {/* Skill Level Indicator */}
-                  <div className="absolute bottom-1 right-1 bg-black/60 rounded-full px-1.5 py-0.5 text-xs text-white font-bold">
-                    {skill.level}%
-                  </div>
-                </motion.div>
-
-                {/* Skill Label */}
-                <motion.div
-                  className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-center"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: hoveredSkill === skill.name ? 1 : 0.7 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <div className="text-sm font-semibold text-white whitespace-nowrap">
-                    {skill.name}
-                  </div>
-                  <div className="text-xs text-gray-400">
-                    {skill.category.replace(/[💻🌐🗄️☁️🧠🔧]/g, '').trim()}
-                  </div>
-                </motion.div>
-              </motion.div>
-            ))}
+                  );
+                })
+              )}
+            </svg>
           </motion.div>
         )}
 
         {/* Radar Chart View */}
         {viewMode === 'radar' && (
           <motion.div 
-            className="flex justify-center items-center"
+            className="flex justify-center items-center w-full max-w-4xl mx-auto"
             style={{ height: '700px' }}
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             transition={{ duration: 0.8 }}
           >
             <div className="relative">
-              <svg width="500" height="500" className="drop-shadow-2xl">
-                {/* Radar Grid Circles */}
-                {[...Array(5)].map((_, i) => (
-                  <motion.circle
+              <svg width="600" height="600" className="drop-shadow-2xl">
+                {/* Background Circles */}
+                {[20, 40, 60, 80, 100].map((percentage, i) => (
+                  <circle
                     key={i}
-                    cx="250"
-                    cy="250"
-                    r={(i + 1) * 30}
+                    cx="300"
+                    cy="300"
+                    r={(percentage / 100) * 180}
                     fill="none"
                     stroke="rgba(0, 255, 255, 0.2)"
                     strokeWidth="1"
-                    initial={{ pathLength: 0 }}
-                    animate={{ pathLength: 1 }}
-                    transition={{ duration: 2, delay: i * 0.2 }}
                   />
                 ))}
                 
-                {/* Radar Lines */}
+                {/* Axis Lines */}
                 {radarSkills.map((_, index) => {
                   const angle = (index * 2 * Math.PI) / radarSkills.length - Math.PI / 2;
-                  const x = 250 + 150 * Math.cos(angle);
-                  const y = 250 + 150 * Math.sin(angle);
+                  const x = 300 + 180 * Math.cos(angle);
+                  const y = 300 + 180 * Math.sin(angle);
                   return (
-                    <motion.line
-                      key={index}
-                      x1="250"
-                      y1="250"
+                    <line
+                      key={`axis-${index}`}
+                      x1="300"
+                      y1="300"
                       x2={x}
                       y2={y}
                       stroke="rgba(0, 255, 255, 0.3)"
                       strokeWidth="1"
-                      initial={{ pathLength: 0 }}
-                      animate={{ pathLength: 1 }}
-                      transition={{ duration: 1.5, delay: index * 0.1 }}
                     />
                   );
                 })}
 
-                {/* Skill Data Polygon */}
+                {/* Data Polygon */}
                 <motion.polygon
-                  points={generateRadarPath()}
+                  points={radarSkills.map((skill, index) => {
+                    const angle = (index * 2 * Math.PI) / radarSkills.length - Math.PI / 2;
+                    const radius = (skill.value / 100) * 180;
+                    const x = 300 + radius * Math.cos(angle);
+                    const y = 300 + radius * Math.sin(angle);
+                    return `${x},${y}`;
+                  }).join(' ')}
                   fill="rgba(0, 255, 255, 0.2)"
                   stroke="#00ffff"
                   strokeWidth="3"
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ duration: 2, delay: 1 }}
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 1.5, delay: 0.5 }}
                 />
 
-                {/* Skill Points */}
+                {/* Data Points */}
                 {radarSkills.map((skill, index) => {
                   const angle = (index * 2 * Math.PI) / radarSkills.length - Math.PI / 2;
-                  const radius = (skill.value / skill.max) * 150;
-                  const x = 250 + radius * Math.cos(angle);
-                  const y = 250 + radius * Math.sin(angle);
+                  const radius = (skill.value / 100) * 180;
+                  const x = 300 + radius * Math.cos(angle);
+                  const y = 300 + radius * Math.sin(angle);
                   return (
                     <motion.circle
-                      key={skill.name}
+                      key={`point-${skill.name}`}
                       cx={x}
                       cy={y}
                       r="6"
@@ -573,30 +562,31 @@ export default function Skills() {
                       strokeWidth="2"
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
-                      transition={{ duration: 0.5, delay: 1.5 + index * 0.1 }}
-                      style={{ filter: 'drop-shadow(0 0 5px #00ffff)' }}
+                      transition={{ duration: 0.5, delay: 1 + index * 0.1 }}
+                      style={{ filter: 'drop-shadow(0 0 8px #00ffff)' }}
                     />
                   );
                 })}
 
-                {/* Skill Labels */}
+                {/* Labels */}
                 {radarSkills.map((skill, index) => {
                   const angle = (index * 2 * Math.PI) / radarSkills.length - Math.PI / 2;
-                  const x = 250 + 180 * Math.cos(angle);
-                  const y = 250 + 180 * Math.sin(angle);
+                  const labelRadius = 220;
+                  const x = 300 + labelRadius * Math.cos(angle);
+                  const y = 300 + labelRadius * Math.sin(angle);
                   return (
                     <motion.text
-                      key={skill.name}
+                      key={`label-${skill.name}`}
                       x={x}
                       y={y}
                       textAnchor="middle"
                       dominantBaseline="central"
                       fill="white"
-                      fontSize="14"
+                      fontSize="16"
                       fontWeight="bold"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
-                      transition={{ duration: 0.5, delay: 2 + index * 0.1 }}
+                      transition={{ duration: 0.5, delay: 1.5 + index * 0.1 }}
                       style={{ filter: 'drop-shadow(0 0 3px rgba(0,0,0,0.8))' }}
                     >
                       {skill.name}
@@ -604,29 +594,43 @@ export default function Skills() {
                   );
                 })}
 
-                {/* Skill Values */}
+                {/* Values */}
                 {radarSkills.map((skill, index) => {
                   const angle = (index * 2 * Math.PI) / radarSkills.length - Math.PI / 2;
-                  const x = 250 + 200 * Math.cos(angle);
-                  const y = 250 + 200 * Math.sin(angle);
+                  const valueRadius = 250;
+                  const x = 300 + valueRadius * Math.cos(angle);
+                  const y = 300 + valueRadius * Math.sin(angle);
                   return (
                     <motion.text
-                      key={`${skill.name}-value`}
+                      key={`value-${skill.name}`}
                       x={x}
-                      y={y + 15}
+                      y={y}
                       textAnchor="middle"
                       dominantBaseline="central"
                       fill="#00ffff"
-                      fontSize="12"
+                      fontSize="14"
                       fontWeight="bold"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
-                      transition={{ duration: 0.5, delay: 2.5 + index * 0.1 }}
+                      transition={{ duration: 0.5, delay: 2 + index * 0.1 }}
                     >
                       {skill.value}%
                     </motion.text>
                   );
                 })}
+
+                {/* Percentage Labels */}
+                {[20, 40, 60, 80, 100].map((percentage, i) => (
+                  <text
+                    key={`percentage-${percentage}`}
+                    x="305"
+                    y={300 - (percentage / 100) * 180}
+                    fill="rgba(255, 255, 255, 0.6)"
+                    fontSize="12"
+                  >
+                    {percentage}%
+                  </text>
+                ))}
               </svg>
             </div>
           </motion.div>
