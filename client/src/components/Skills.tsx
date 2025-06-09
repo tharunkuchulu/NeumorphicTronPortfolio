@@ -228,7 +228,7 @@ export default function Skills() {
                   key={category.title}
                   className="bg-dark-card/30 backdrop-blur-sm rounded-xl p-6 border border-tron/20"
                   initial={{ opacity: 0, scale: 0.95 }}
-                  animate={controls}
+                  animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.6, delay: categoryIndex * 0.1 }}
                   whileHover={{ 
                     scale: 1.02,
@@ -251,7 +251,7 @@ export default function Skills() {
                         key={skill.name}
                         className="group cursor-pointer relative"
                         initial={{ opacity: 0, scale: 0 }}
-                        animate={controls}
+                        animate={{ opacity: 1, scale: 1 }}
                         transition={{ 
                           duration: 0.5, 
                           delay: categoryIndex * 0.1 + skillIndex * 0.05,
@@ -270,37 +270,19 @@ export default function Skills() {
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.95 }}
                       >
-                        {/* Circular Progress with External Badge */}
+                        {/* Simplified Circular Progress */}
                         <div className="relative flex flex-col items-center">
-                          <CircularProgress
-                            value={skill.level}
-                            size={75}
-                            strokeWidth={6}
-                            color={skill.color}
-                            icon={skill.icon}
-                            animate={hoveredSkill === skill.name}
-                          />
-                          
-                          {/* External Percentage Badge */}
-                          <motion.div
-                            className="absolute -top-2 -right-2 bg-tron text-black text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center"
-                            initial={{ scale: 0 }}
-                            animate={{ scale: hoveredSkill === skill.name ? 1.2 : 1 }}
-                            transition={{ duration: 0.2 }}
-                          >
-                            {skill.level}
-                          </motion.div>
+                          <div className="w-16 h-16 rounded-full border-4 border-tron/30 flex items-center justify-center relative bg-dark-card">
+                            <i className={`${skill.icon} text-lg text-tron`}></i>
+                            <div className="absolute -top-1 -right-1 bg-tron text-black text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                              {skill.level}
+                            </div>
+                          </div>
                           
                           {/* Skill Name */}
-                          <motion.span 
-                            className="text-xs font-semibold text-white mt-2 text-center group-hover:text-tron transition-colors duration-300"
-                            animate={{ 
-                              scale: hoveredSkill === skill.name ? 1.1 : 1,
-                              color: hoveredSkill === skill.name ? "#00ffff" : "#ffffff"
-                            }}
-                          >
+                          <span className="text-xs font-semibold text-white mt-2 text-center">
                             {skill.name}
-                          </motion.span>
+                          </span>
                         </div>
 
                         {/* Glow effect on hover */}
