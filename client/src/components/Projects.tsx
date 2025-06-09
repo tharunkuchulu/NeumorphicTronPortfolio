@@ -144,11 +144,9 @@ export default function Projects() {
           }}
         >
           <motion.h2 
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-tron via-cyan-300 to-tron bg-clip-text text-transparent px-4 relative z-10"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-tron px-4 relative z-10"
             style={{ 
-              textShadow: '0 0 10px rgba(0, 255, 255, 0.3)',
-              WebkitTextFillColor: 'transparent',
-              WebkitBackgroundClip: 'text'
+              textShadow: '0 0 20px rgba(0, 255, 255, 0.5), 0 0 40px rgba(0, 255, 255, 0.3)'
             }}
           >
             Featured Projects
