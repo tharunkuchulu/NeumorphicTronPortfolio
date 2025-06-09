@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,7 +22,6 @@ export default function Navigation() {
         block: 'start'
       });
     }
-    setIsMobileMenuOpen(false);
   };
 
   return (
@@ -91,36 +89,7 @@ export default function Navigation() {
             ))}
           </div>
           
-          <button 
-            className="md:hidden text-tron"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="Toggle mobile menu"
-          >
-            <i className={`fas ${isMobileMenuOpen ? 'fa-times' : 'fa-bars'} text-xl`}></i>
-          </button>
         </div>
-        
-        {/* Mobile Menu */}
-        {isMobileMenuOpen && (
-          <motion.div 
-            className="md:hidden mt-4 space-y-4"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-          >
-            {['#about', '#projects', '#skills', '#experience', '#certifications', '#contact'].map((href) => (
-              <a
-                key={href}
-                href={href}
-                onClick={(e) => handleNavClick(e, href)}
-                className="block hover:text-tron transition-colors duration-300 capitalize py-3 px-4 rounded-lg hover:bg-tron/10 relative group"
-              >
-                <span className="relative z-10">{href.slice(1)}</span>
-                <div className="absolute bottom-0 left-4 right-4 h-0.5 bg-tron scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
-              </a>
-            ))}
-          </motion.div>
-        )}
       </div>
     </motion.nav>
   );
