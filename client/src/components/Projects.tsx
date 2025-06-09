@@ -1,4 +1,4 @@
-import { motion, useAnimation } from 'framer-motion';
+import { motion, useAnimation, AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import useScrollAnimation from '../hooks/useScrollAnimation';
 
@@ -62,49 +62,25 @@ const projects = [
     github: "https://github.com/tharunkuchulu/Social-Video-Downloader",
     demo: "https://social-video-downloader-1.onrender.com/",
     color: "from-blue-500 to-cyan-500"
-  },
-  {
-    id: 5,
-    title: "E-Commerce Platform",
-    shortDesc: "Online Shopping System",
-    overview: "Full-featured e-commerce platform with payment integration, inventory management, user authentication, and real-time order tracking with admin dashboard for comprehensive store management.",
-    tech: ["Next.js", "Node.js", "PostgreSQL", "Stripe", "Redux", "Tailwind"],
-    projectType: "Full-Stack E-Commerce",
-    expertise: "Expert",
-    status: "In Development", 
-    duration: "6 months",
-    icon: "fas fa-shopping-cart",
-    github: "https://github.com/tharunkuchulu",
-    demo: null,
-    color: "from-indigo-500 to-purple-500"
-  },
-  {
-    id: 6,
-    title: "Real-Time Chat App",
-    shortDesc: "WebSocket Communication",
-    overview: "Scalable real-time messaging platform with WebSocket implementation, file sharing, group chats, and end-to-end encryption for secure communication across multiple devices.",
-    tech: ["React", "Socket.io", "Express", "MongoDB", "WebRTC", "JWT"],
-    projectType: "Real-Time Application",
-    expertise: "Advanced",
-    status: "Planning",
-    duration: "3 months",
-    icon: "fas fa-comments",
-    github: "https://github.com/tharunkuchulu",
-    demo: null,
-    color: "from-emerald-500 to-green-500"
   }
 ];
 
 export default function Projects() {
   const controls = useAnimation();
-  const { ref, inView } = useScrollAnimation();
+  const { ref } = useScrollAnimation();
   const [activeProject, setActiveProject] = useState(0);
 
   useEffect(() => {
-    if (inView) {
-      controls.start("visible");
-    }
-  }, [controls, inView]);
+    controls.start("visible");
+  }, [controls]);
+
+  const nextProject = () => {
+    setActiveProject((prev) => (prev + 1) % projects.length);
+  };
+
+  const prevProject = () => {
+    setActiveProject((prev) => (prev - 1 + projects.length) % projects.length);
+  };
 
   const getExpertiseColor = (expertise: string) => {
     switch (expertise) {
@@ -229,36 +205,41 @@ export default function Projects() {
           </div>
 
           {/* Main Featured Project Card */}
-          <motion.div
-            key={activeProject}
-            className="absolute inset-4 glass-card overflow-hidden"
-            initial={{ opacity: 0, scale: 0.9, rotateY: -15 }}
-            animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-          >
-            <div className="h-full p-8 flex flex-col lg:flex-row gap-8">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={`project-${activeProject}`}
+              className="absolute inset-4 glass-card overflow-hidden"
+              initial={{ opacity: 0, scale: 0.98, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.98, y: -20 }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+            >
+              <div className="h-full p-8 flex flex-col lg:flex-row gap-8">
               {/* Left: Project Icon & Meta */}
               <div className="lg:w-1/3 flex flex-col items-center justify-center relative">
-                {/* Rotating Ring */}
-                <motion.div
-                  className="absolute w-40 h-40 rounded-full border-2 border-tron/20"
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
-                />
-                <motion.div
-                  className="absolute w-32 h-32 rounded-full border border-tron/40"
-                  animate={{ rotate: -360 }}
-                  transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-                />
+                {/* Project Icon Container with Fixed Circles */}
+                <div className="relative flex items-center justify-center mb-6">
+                  {/* Rotating Rings - Positioned around the icon */}
+                  <motion.div
+                    className="absolute w-40 h-40 rounded-full border-2 border-tron/20"
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+                  />
+                  <motion.div
+                    className="absolute w-32 h-32 rounded-full border border-tron/40"
+                    animate={{ rotate: -360 }}
+                    transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                  />
 
-                {/* Project Icon */}
-                <motion.div
-                  className={`w-28 h-28 rounded-full bg-gradient-to-br ${projects[activeProject].color} flex items-center justify-center mb-6 relative z-10 shadow-2xl`}
-                  whileHover={{ scale: 1.15, rotate: 10 }}
-                  transition={{ duration: 0.4 }}
-                >
-                  <i className={`${projects[activeProject].icon} text-4xl text-white`}></i>
-                </motion.div>
+                  {/* Project Icon */}
+                  <motion.div
+                    className={`w-28 h-28 rounded-full bg-gradient-to-br ${projects[activeProject].color} flex items-center justify-center relative z-10 shadow-2xl`}
+                    whileHover={{ scale: 1.15, rotate: 10 }}
+                    transition={{ duration: 0.4 }}
+                  >
+                    <i className={`${projects[activeProject].icon} text-4xl text-white`}></i>
+                  </motion.div>
+                </div>
                 
                 <motion.h3 
                   className="text-3xl font-bold text-white mb-3 text-center"
@@ -351,7 +332,17 @@ export default function Projects() {
                     href={projects[activeProject].github} 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="flex-1 text-center border-2 border-tron px-6 py-3 bg-transparent text-tron font-semibold rounded-xl hover:bg-tron hover:text-black hover:scale-105 transition-all duration-300 transform hover:shadow-lg hover:shadow-tron/30"
+                    className="flex-1 text-center border-2 border-tron px-6 py-3 bg-transparent text-tron font-semibold rounded-xl hover:bg-tron hover:text-black hover:scale-105 transition-all duration-300 transform hover:shadow-2xl hover:shadow-tron/60 hover:border-cyan-300"
+                    style={{ 
+                      transition: 'all 0.3s ease',
+                      boxShadow: 'none'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.boxShadow = '0 0 30px rgba(0, 255, 247, 0.6), 0 0 60px rgba(0, 255, 247, 0.4)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.boxShadow = 'none';
+                    }}
                   >
                     <i className="fab fa-github mr-2"></i>View Code
                   </a>
@@ -361,7 +352,17 @@ export default function Projects() {
                       href={projects[activeProject].demo} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="flex-1 text-center bg-gradient-to-r from-tron to-cyan-400 text-black px-6 py-3 font-semibold rounded-xl hover:from-cyan-400 hover:to-tron hover:scale-105 transition-all duration-300 transform hover:shadow-lg hover:shadow-tron/50"
+                      className="flex-1 text-center bg-gradient-to-r from-tron to-cyan-400 text-black px-6 py-3 font-semibold rounded-xl hover:from-cyan-400 hover:to-tron hover:scale-105 transition-all duration-300 transform hover:shadow-2xl hover:shadow-cyan-400/60"
+                      style={{ 
+                        transition: 'all 0.3s ease',
+                        boxShadow: 'none'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.boxShadow = '0 0 30px rgba(0, 255, 247, 0.8), 0 0 60px rgba(0, 255, 247, 0.5)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.boxShadow = 'none';
+                      }}
                     >
                       <i className="fas fa-external-link-alt mr-2"></i>Live Demo
                     </a>
@@ -373,28 +374,48 @@ export default function Projects() {
                 </motion.div>
               </div>
             </div>
-          </motion.div>
+            </motion.div>
+          </AnimatePresence>
         </div>
 
-        {/* Small Cards Carousel */}
-        <div className="flex justify-center gap-4 overflow-x-auto pb-6">
-          <div className="flex gap-4 px-4">
+        {/* Small Cards Navigation with Arrows */}
+        <div className="relative flex items-center justify-center gap-6 pb-6">
+          {/* Previous Arrow */}
+          <motion.button
+            onClick={prevProject}
+            className="w-12 h-12 rounded-full bg-tron/20 border border-tron/30 flex items-center justify-center text-tron hover:bg-tron hover:text-black transition-all duration-300 hover:shadow-lg hover:shadow-tron/50"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <i className="fas fa-chevron-left text-lg"></i>
+          </motion.button>
+
+          {/* Small Cards Container */}
+          <div className="flex gap-4 overflow-hidden">
             {projects.map((project, index) => (
               <motion.div
                 key={project.id}
-                className={`min-w-[220px] h-28 glass-card cursor-pointer relative overflow-hidden group ${
+                className={`w-[220px] h-28 glass-card cursor-pointer relative overflow-hidden group transition-all duration-500 ${
                   index === activeProject ? 'ring-2 ring-tron shadow-xl shadow-tron/30 scale-105' : 'hover:scale-102'
                 }`}
                 whileHover={{ y: -3 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => setActiveProject(index)}
                 initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
+                animate={{ 
+                  opacity: 1, 
+                  y: 0,
+                  scale: index === activeProject ? 1.05 : 1
+                }}
+                transition={{ 
+                  delay: index * 0.1,
+                  duration: 0.5,
+                  ease: "easeOut"
+                }}
               >
                 <div className={`absolute inset-0 bg-gradient-to-r ${project.color} opacity-10 group-hover:opacity-20 transition-opacity duration-300`}></div>
                 <div className="relative z-10 p-4 h-full flex items-center gap-4">
-                  <div className={`w-14 h-14 rounded-full bg-gradient-to-br ${project.color} flex items-center justify-center flex-shrink-0`}>
+                  <div className={`w-14 h-14 rounded-full bg-gradient-to-br ${project.color} flex items-center justify-center flex-shrink-0 shadow-lg`}>
                     <i className={`${project.icon} text-white text-lg`}></i>
                   </div>
                   <div className="flex-1 min-w-0">
@@ -413,12 +434,22 @@ export default function Projects() {
                   <motion.div
                     className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-tron to-cyan-400"
                     layoutId="activeIndicator"
-                    transition={{ duration: 0.4 }}
+                    transition={{ duration: 0.4, ease: "easeInOut" }}
                   />
                 )}
               </motion.div>
             ))}
           </div>
+
+          {/* Next Arrow */}
+          <motion.button
+            onClick={nextProject}
+            className="w-12 h-12 rounded-full bg-tron/20 border border-tron/30 flex items-center justify-center text-tron hover:bg-tron hover:text-black transition-all duration-300 hover:shadow-lg hover:shadow-tron/50"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <i className="fas fa-chevron-right text-lg"></i>
+          </motion.button>
         </div>
 
         {/* View All Projects Button */}
