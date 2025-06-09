@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import { motion, useAnimation, AnimatePresence } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import useScrollAnimation from '../hooks/useScrollAnimation';
 
 const projects = [
   {
@@ -64,7 +66,13 @@ const projects = [
 ];
 
 export default function Projects() {
+  const controls = useAnimation();
+  const { ref } = useScrollAnimation();
   const [activeProject, setActiveProject] = useState(0);
+
+  useEffect(() => {
+    controls.start("visible");
+  }, [controls]);
 
   const nextProject = () => {
     setActiveProject((prev) => (prev + 1) % projects.length);
@@ -93,131 +101,394 @@ export default function Projects() {
     }
   };
 
-  const currentProject = projects[activeProject];
-
   return (
-    <section id="projects" className="py-20 bg-dark text-white relative">
-      <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="font-orbitron text-4xl md:text-5xl font-bold mb-4 text-tron">
+    <section ref={ref} id="projects" className="min-h-screen py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+      {/* Background Elements */}
+      <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black"></div>
+      
+      {/* Animated Grid Pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="grid grid-cols-12 gap-4 h-full">
+          {Array.from({ length: 144 }).map((_, i) => (
+            <motion.div
+              key={i}
+              className="border border-tron/20"
+              initial={{ opacity: 0 }}
+              animate={{ 
+                opacity: [0, 0.3, 0],
+                scale: [1, 1.1, 1]
+              }}
+              transition={{
+                duration: 3,
+                delay: i * 0.02,
+                repeat: Infinity,
+                repeatType: "reverse"
+              }}
+            />
+          ))}
+        </div>
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto">
+        {/* Section Header */}
+        <motion.div
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: -30 }}
+          animate={controls}
+          variants={{
+            visible: { 
+              opacity: 1, 
+              y: 0,
+              transition: { duration: 0.8 }
+            }
+          }}
+        >
+          <motion.h2 
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-tron px-4 relative z-10"
+            style={{ 
+              textShadow: '0 0 20px rgba(0, 255, 255, 0.5), 0 0 40px rgba(0, 255, 255, 0.3)'
+            }}
+          >
             Featured Projects
-          </h2>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-            Innovative solutions showcasing expertise in full-stack development, AI/ML, and cloud technologies
-          </p>
-        </div>
+          </motion.h2>
+          <motion.div
+            className="w-32 h-1 bg-gradient-to-r from-transparent via-tron to-transparent mx-auto mb-8"
+            initial={{ scaleX: 0 }}
+            animate={controls}
+            variants={{
+              visible: { 
+                scaleX: 1,
+                transition: { duration: 1, delay: 0.5 }
+              }
+            }}
+          />
+          <motion.p 
+            className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed"
+            initial={{ opacity: 0 }}
+            animate={controls}
+            variants={{
+              visible: { 
+                opacity: 1,
+                transition: { duration: 0.8, delay: 0.3 }
+              }
+            }}
+          >
+            Explore my innovative projects showcasing cutting-edge technologies and creative solutions across various domains.
+          </motion.p>
+        </motion.div>
 
-        <div className="max-w-6xl mx-auto">
-          {/* Project Display */}
-          <div className="relative bg-dark-card/50 rounded-xl p-8 border border-gray-800/50 transition-all duration-500">
-            {/* Header */}
-            <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8">
-              <div className="flex items-center mb-4 md:mb-0">
-                <div className={`w-16 h-16 rounded-full bg-gradient-to-r ${currentProject.color} flex items-center justify-center mr-4 transition-all duration-500`}>
-                  <i className={`${currentProject.icon} text-2xl text-white`}></i>
-                </div>
-                <div>
-                  <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">{currentProject.title}</h3>
-                  <p className="text-tron font-medium">{currentProject.shortDesc}</p>
-                </div>
-              </div>
-              
-              <div className="flex gap-3">
-                <span className={`px-3 py-1 rounded-full border text-sm font-medium ${getExpertiseColor(currentProject.expertise)}`}>
-                  {currentProject.expertise}
-                </span>
-                <span className={`px-3 py-1 rounded-full border text-sm font-medium ${getStatusColor(currentProject.status)}`}>
-                  {currentProject.status}
-                </span>
-              </div>
-            </div>
+        {/* Enhanced Big Card Carousel Container */}
+        <div className="relative h-[700px] mb-12 bg-gradient-to-br from-gray-900/50 via-black/30 to-gray-800/50 rounded-3xl border border-tron/20 backdrop-blur-sm overflow-hidden">
+          {/* Floating Particles Background */}
+          <div className="absolute inset-0 overflow-hidden">
+            {Array.from({ length: 15 }).map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute w-2 h-2 bg-tron/30 rounded-full"
+                style={{
+                  left: `${Math.random() * 100}%`,
+                  top: `${Math.random() * 100}%`
+                }}
+                animate={{
+                  y: [0, -30, 0],
+                  opacity: [0.3, 1, 0.3],
+                  scale: [0.5, 1.2, 0.5]
+                }}
+                transition={{
+                  duration: 4 + Math.random() * 2,
+                  repeat: Infinity,
+                  delay: Math.random() * 2
+                }}
+              />
+            ))}
+          </div>
 
-            {/* Content */}
-            <div className="grid md:grid-cols-2 gap-8">
-              <div>
-                <h4 className="text-xl font-semibold mb-4 text-tron">Project Overview</h4>
-                <p className="text-gray-300 leading-relaxed mb-6">{currentProject.overview}</p>
-                
-                <div className="grid grid-cols-2 gap-4 mb-6">
-                  <div>
-                    <span className="text-sm text-gray-400">Type</span>
-                    <p className="text-white font-medium">{currentProject.projectType}</p>
-                  </div>
-                  <div>
-                    <span className="text-sm text-gray-400">Duration</span>
-                    <p className="text-white font-medium">{currentProject.duration}</p>
-                  </div>
-                </div>
-              </div>
+          {/* Main Featured Project Card */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={`project-${activeProject}`}
+              className="absolute inset-4 glass-card overflow-hidden"
+              initial={{ opacity: 0, scale: 0.98, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.98, y: -20 }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+            >
+              <div className="h-full p-8 flex flex-col lg:flex-row gap-8 performance-optimized">
+              {/* Left: Project Icon & Meta */}
+              <div className="lg:w-1/3 flex flex-col items-center justify-center relative">
+                {/* Project Icon Container with Fixed Circles */}
+                <div className="relative flex items-center justify-center mb-6">
+                  {/* Rotating Rings - Positioned around the icon */}
+                  <motion.div
+                    className="absolute w-40 h-40 rounded-full border-2 border-tron/20"
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+                  />
+                  <motion.div
+                    className="absolute w-32 h-32 rounded-full border border-tron/40"
+                    animate={{ rotate: -360 }}
+                    transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                  />
 
-              <div>
-                <h4 className="text-xl font-semibold mb-4 text-tron">Technologies Used</h4>
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {currentProject.tech.map((tech, index) => (
-                    <span
-                      key={index}
-                      className="px-3 py-1 bg-tron/10 border border-tron/30 rounded-full text-sm text-tron font-medium"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-
-                <div className="flex gap-4">
-                  <a
-                    href={currentProject.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-6 py-3 bg-gray-800 hover:bg-gray-700 rounded-lg transition-colors duration-300"
+                  {/* Project Icon */}
+                  <motion.div
+                    className={`w-28 h-28 rounded-full bg-gradient-to-br ${projects[activeProject].color} flex items-center justify-center relative z-10 shadow-2xl`}
+                    whileHover={{ scale: 1.15, rotate: 10 }}
+                    transition={{ duration: 0.4 }}
                   >
-                    <i className="fab fa-github"></i>
-                    <span>View Code</span>
-                  </a>
-                  {currentProject.demo && (
-                    <a
-                      href={currentProject.demo}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-6 py-3 bg-tron/20 hover:bg-tron/30 border border-tron/50 rounded-lg transition-colors duration-300"
-                    >
-                      <i className="fas fa-external-link-alt"></i>
-                      <span>Live Demo</span>
-                    </a>
-                  )}
+                    <i className={`${projects[activeProject].icon} text-4xl text-white`}></i>
+                  </motion.div>
                 </div>
+                
+                <motion.h3 
+                  className="text-3xl font-bold text-white mb-3 text-center"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                >
+                  {projects[activeProject].title}
+                </motion.h3>
+                
+                <motion.div
+                  className={`px-4 py-2 rounded-full border text-sm font-semibold ${getExpertiseColor(projects[activeProject].expertise)}`}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.3 }}
+                >
+                  {projects[activeProject].expertise} Level
+                </motion.div>
               </div>
-            </div>
-          </div>
 
-          {/* Navigation */}
-          <div className="flex justify-center items-center mt-8 gap-4">
-            <button
-              onClick={prevProject}
-              className="w-12 h-12 rounded-full border border-tron/50 hover:border-tron hover:bg-tron/10 transition-all duration-300 flex items-center justify-center"
-            >
-              <i className="fas fa-chevron-left text-tron"></i>
-            </button>
+              {/* Right: Project Details */}
+              <div className="lg:w-2/3 flex flex-col justify-center">
+                <motion.div
+                  className="mb-6"
+                  initial={{ opacity: 0, x: 30 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.4 }}
+                >
+                  <h4 className="text-sm font-semibold text-tron mb-3 tracking-wider">PROJECT OVERVIEW</h4>
+                  <p className="text-gray-300 text-lg leading-relaxed">
+                    {projects[activeProject].overview}
+                  </p>
+                </motion.div>
 
-            <div className="flex gap-2">
-              {projects.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setActiveProject(index)}
-                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                    index === activeProject ? 'bg-tron scale-125' : 'bg-gray-600 hover:bg-gray-500'
-                  }`}
-                />
-              ))}
-            </div>
+                {/* Project Meta Grid */}
+                <motion.div
+                  className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 }}
+                >
+                  <div className="bg-gray-800/50 backdrop-blur-sm p-4 rounded-xl border border-tron/20">
+                    <h5 className="text-xs font-semibold text-tron mb-2 tracking-wider">PROJECT TYPE</h5>
+                    <p className="text-white text-sm">{projects[activeProject].projectType}</p>
+                  </div>
+                  <div className="bg-gray-800/50 backdrop-blur-sm p-4 rounded-xl border border-tron/20">
+                    <h5 className="text-xs font-semibold text-tron mb-2 tracking-wider">STATUS</h5>
+                    <span className={`text-xs px-3 py-1 rounded-full border ${getStatusColor(projects[activeProject].status)}`}>
+                      {projects[activeProject].status}
+                    </span>
+                  </div>
+                  <div className="bg-gray-800/50 backdrop-blur-sm p-4 rounded-xl border border-tron/20">
+                    <h5 className="text-xs font-semibold text-tron mb-2 tracking-wider">DURATION</h5>
+                    <p className="text-white text-sm">{projects[activeProject].duration}</p>
+                  </div>
+                </motion.div>
 
-            <button
-              onClick={nextProject}
-              className="w-12 h-12 rounded-full border border-tron/50 hover:border-tron hover:bg-tron/10 transition-all duration-300 flex items-center justify-center"
-            >
-              <i className="fas fa-chevron-right text-tron"></i>
-            </button>
-          </div>
+                {/* Tech Stack */}
+                <motion.div
+                  className="mb-6"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6 }}
+                >
+                  <h4 className="text-sm font-semibold text-tron mb-3 tracking-wider">TECH STACK</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {projects[activeProject].tech.map((tech, index) => (
+                      <motion.span
+                        key={index}
+                        className="px-3 py-2 bg-tron/20 text-tron text-sm rounded-lg border border-tron/30 hover:bg-tron/30 hover:scale-105 transition-all duration-300"
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.6 + index * 0.05 }}
+                        whileHover={{ y: -2 }}
+                      >
+                        {tech}
+                      </motion.span>
+                    ))}
+                  </div>
+                </motion.div>
+
+                {/* Action Buttons */}
+                <motion.div
+                  className="flex flex-col sm:flex-row gap-3 sm:gap-4"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.7 }}
+                >
+                  <a 
+                    href={projects[activeProject].github} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="flex-1 text-center border-2 border-tron px-4 sm:px-6 py-2 sm:py-3 bg-transparent text-tron font-semibold rounded-xl hover:bg-tron hover:text-black hover:scale-105 transition-all duration-300 transform hover:shadow-2xl hover:shadow-tron/60 hover:border-cyan-300 text-sm sm:text-base"
+                    style={{ 
+                      transition: 'all 0.3s ease',
+                      boxShadow: 'none'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.boxShadow = '0 0 30px rgba(0, 255, 247, 0.6), 0 0 60px rgba(0, 255, 247, 0.4)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.boxShadow = 'none';
+                    }}
+                  >
+                    <i className="fab fa-github mr-2"></i>View Code
+                  </a>
+                  
+                  {projects[activeProject].demo ? (
+                    <a 
+                      href={projects[activeProject].demo} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="flex-1 text-center bg-gradient-to-r from-tron to-cyan-400 text-black px-4 sm:px-6 py-2 sm:py-3 font-semibold rounded-xl hover:from-cyan-300 hover:to-blue-400 hover:scale-110 transition-all duration-300 transform hover:shadow-2xl hover:shadow-cyan-400/80 border border-tron/30 hover:border-cyan-300 text-sm sm:text-base"
+                      style={{ 
+                        transition: 'all 0.3s ease',
+                        boxShadow: '0 0 15px rgba(0, 255, 247, 0.3)',
+                        textShadow: '0 0 10px rgba(0, 0, 0, 0.5)'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.boxShadow = '0 0 40px rgba(0, 255, 247, 1), 0 0 80px rgba(0, 255, 247, 0.7), 0 0 120px rgba(0, 255, 247, 0.4)';
+                        e.currentTarget.style.transform = 'scale(1.1) translateY(-2px)';
+                        e.currentTarget.style.background = 'linear-gradient(45deg, #00ffff, #0099ff)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.boxShadow = '0 0 15px rgba(0, 255, 247, 0.3)';
+                        e.currentTarget.style.transform = 'scale(1) translateY(0px)';
+                        e.currentTarget.style.background = 'linear-gradient(to right, #00ffff, #22d3ee)';
+                      }}
+                    >
+                      <i className="fas fa-external-link-alt mr-2"></i>Live Demo
+                    </a>
+                  ) : (
+                    <div className="flex-1 text-center bg-gray-700 text-gray-400 px-4 sm:px-6 py-2 sm:py-3 font-semibold rounded-xl cursor-not-allowed opacity-60 text-sm sm:text-base">
+                      <i className="fas fa-clock mr-2"></i>Demo Soon
+                    </div>
+                  )}
+                </motion.div>
+              </div>
+              </div>
+            </motion.div>
+          </AnimatePresence>
         </div>
+
+        {/* Small Cards Navigation with Arrows */}
+        <div className="relative flex items-center justify-center gap-6 pb-6">
+          {/* Previous Arrow */}
+          <motion.button
+            onClick={prevProject}
+            className="w-12 h-12 rounded-full bg-tron/20 border border-tron/30 flex items-center justify-center text-tron hover:bg-tron hover:text-black transition-all duration-300 hover:shadow-lg hover:shadow-tron/50"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <i className="fas fa-chevron-left text-lg"></i>
+          </motion.button>
+
+          {/* Small Cards Container */}
+          <div className="flex gap-3 sm:gap-4 overflow-x-auto sm:overflow-hidden px-4 sm:px-0 scrollbar-hide">
+            {projects.map((project, index) => (
+              <motion.div
+                key={project.id}
+                className={`w-[180px] sm:w-[220px] h-24 sm:h-28 glass-card cursor-pointer relative overflow-hidden group transition-all duration-500 ${
+                  index === activeProject ? 'ring-2 ring-tron shadow-xl shadow-tron/30 scale-105' : 'hover:scale-102'
+                }`}
+                whileHover={{ y: -3 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => setActiveProject(index)}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ 
+                  opacity: 1, 
+                  y: 0,
+                  scale: index === activeProject ? 1.05 : 1
+                }}
+                transition={{ 
+                  delay: index * 0.1,
+                  duration: 0.5,
+                  ease: "easeOut"
+                }}
+              >
+                <div className={`absolute inset-0 bg-gradient-to-r ${project.color} opacity-10 group-hover:opacity-20 transition-opacity duration-300`}></div>
+                <div className="relative z-10 p-3 sm:p-4 h-full flex items-center gap-3 sm:gap-4">
+                  <div className={`w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br ${project.color} flex items-center justify-center flex-shrink-0 shadow-lg`}>
+                    <i className={`${project.icon} text-white text-sm sm:text-lg`}></i>
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h4 className="font-semibold text-white text-xs sm:text-sm truncate group-hover:text-tron transition-colors duration-300">
+                      {project.title}
+                    </h4>
+                    <p className="text-gray-400 text-xs truncate hidden sm:block">{project.shortDesc}</p>
+                    <div className={`text-xs px-2 py-0.5 sm:py-1 rounded-full border mt-1 inline-block ${getExpertiseColor(project.expertise)}`}>
+                      {project.expertise}
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Active Indicator */}
+                {index === activeProject && (
+                  <motion.div
+                    className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-tron to-cyan-400"
+                    layoutId="activeIndicator"
+                    transition={{ duration: 0.4, ease: "easeInOut" }}
+                  />
+                )}
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Next Arrow */}
+          <motion.button
+            onClick={nextProject}
+            className="w-12 h-12 rounded-full bg-tron/20 border border-tron/30 flex items-center justify-center text-tron hover:bg-tron hover:text-black transition-all duration-300 hover:shadow-lg hover:shadow-tron/50"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <i className="fas fa-chevron-right text-lg"></i>
+          </motion.button>
+        </div>
+
+        {/* View All Projects Button */}
+        <motion.div
+          className="text-center mt-12"
+          initial={{ opacity: 0, y: 30 }}
+          animate={controls}
+          variants={{
+            visible: { 
+              opacity: 1, 
+              y: 0,
+              transition: { duration: 0.8, delay: 1 }
+            }
+          }}
+        >
+          <motion.a
+            href="https://github.com/tharunkuchulu"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-tron to-cyan-400 text-black font-bold rounded-full hover:from-cyan-400 hover:to-tron transition-all duration-300 shadow-xl hover:shadow-tron/50 transform hover:scale-105 border-2 border-tron/50 hover:border-cyan-300 text-sm sm:text-base"
+            style={{
+              background: 'linear-gradient(45deg, #00ffff, #22d3ee)',
+              boxShadow: '0 0 20px rgba(0, 255, 255, 0.6), 0 4px 15px rgba(0, 0, 0, 0.3)',
+              textShadow: '0 1px 2px rgba(0, 0, 0, 0.8)'
+            }}
+            whileHover={{ 
+              boxShadow: "0 20px 40px rgba(0, 255, 247, 0.4)"
+            }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <i className="fab fa-github mr-2 sm:mr-3"></i>
+            <span className="hidden sm:inline">View All Projects on GitHub</span>
+            <span className="sm:hidden">GitHub Projects</span>
+          </motion.a>
+        </motion.div>
       </div>
     </section>
   );
