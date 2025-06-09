@@ -28,8 +28,8 @@ class AnalyticsManager {
     this.events.push(event);
     
     // Send to Google Analytics if available
-    if (typeof gtag !== 'undefined') {
-      gtag('event', event.action, {
+    if (typeof window !== 'undefined' && 'gtag' in window) {
+      (window as any).gtag('event', event.action, {
         event_category: event.category,
         event_label: event.label,
         value: event.value,
