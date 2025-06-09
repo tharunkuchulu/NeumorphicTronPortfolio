@@ -144,7 +144,7 @@ export default function Projects() {
           }}
         >
           <motion.h2 
-            className="text-6xl font-bold mb-6 bg-gradient-to-r from-tron via-cyan-300 to-tron bg-clip-text text-transparent"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-tron via-cyan-300 to-tron bg-clip-text text-transparent px-4"
             whileHover={{ 
               scale: 1.05,
               textShadow: "0 0 20px rgba(0, 255, 247, 0.5)"
@@ -323,7 +323,7 @@ export default function Projects() {
 
                 {/* Action Buttons */}
                 <motion.div
-                  className="flex gap-4"
+                  className="flex flex-col sm:flex-row gap-3 sm:gap-4"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.7 }}
@@ -332,7 +332,7 @@ export default function Projects() {
                     href={projects[activeProject].github} 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="flex-1 text-center border-2 border-tron px-6 py-3 bg-transparent text-tron font-semibold rounded-xl hover:bg-tron hover:text-black hover:scale-105 transition-all duration-300 transform hover:shadow-2xl hover:shadow-tron/60 hover:border-cyan-300"
+                    className="flex-1 text-center border-2 border-tron px-4 sm:px-6 py-2 sm:py-3 bg-transparent text-tron font-semibold rounded-xl hover:bg-tron hover:text-black hover:scale-105 transition-all duration-300 transform hover:shadow-2xl hover:shadow-tron/60 hover:border-cyan-300 text-sm sm:text-base"
                     style={{ 
                       transition: 'all 0.3s ease',
                       boxShadow: 'none'
@@ -352,7 +352,7 @@ export default function Projects() {
                       href={projects[activeProject].demo} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="flex-1 text-center bg-gradient-to-r from-tron to-cyan-400 text-black px-6 py-3 font-semibold rounded-xl hover:from-cyan-300 hover:to-blue-400 hover:scale-110 transition-all duration-300 transform hover:shadow-2xl hover:shadow-cyan-400/80 border border-tron/30 hover:border-cyan-300"
+                      className="flex-1 text-center bg-gradient-to-r from-tron to-cyan-400 text-black px-4 sm:px-6 py-2 sm:py-3 font-semibold rounded-xl hover:from-cyan-300 hover:to-blue-400 hover:scale-110 transition-all duration-300 transform hover:shadow-2xl hover:shadow-cyan-400/80 border border-tron/30 hover:border-cyan-300 text-sm sm:text-base"
                       style={{ 
                         transition: 'all 0.3s ease',
                         boxShadow: '0 0 15px rgba(0, 255, 247, 0.3)',
@@ -372,7 +372,7 @@ export default function Projects() {
                       <i className="fas fa-external-link-alt mr-2"></i>Live Demo
                     </a>
                   ) : (
-                    <div className="flex-1 text-center bg-gray-700 text-gray-400 px-6 py-3 font-semibold rounded-xl cursor-not-allowed opacity-60">
+                    <div className="flex-1 text-center bg-gray-700 text-gray-400 px-4 sm:px-6 py-2 sm:py-3 font-semibold rounded-xl cursor-not-allowed opacity-60 text-sm sm:text-base">
                       <i className="fas fa-clock mr-2"></i>Demo Soon
                     </div>
                   )}
@@ -400,7 +400,7 @@ export default function Projects() {
             {projects.map((project, index) => (
               <motion.div
                 key={project.id}
-                className={`w-[220px] h-28 glass-card cursor-pointer relative overflow-hidden group transition-all duration-500 ${
+                className={`w-[180px] sm:w-[220px] h-24 sm:h-28 glass-card cursor-pointer relative overflow-hidden group transition-all duration-500 ${
                   index === activeProject ? 'ring-2 ring-tron shadow-xl shadow-tron/30 scale-105' : 'hover:scale-102'
                 }`}
                 whileHover={{ y: -3 }}
@@ -419,16 +419,16 @@ export default function Projects() {
                 }}
               >
                 <div className={`absolute inset-0 bg-gradient-to-r ${project.color} opacity-10 group-hover:opacity-20 transition-opacity duration-300`}></div>
-                <div className="relative z-10 p-4 h-full flex items-center gap-4">
-                  <div className={`w-14 h-14 rounded-full bg-gradient-to-br ${project.color} flex items-center justify-center flex-shrink-0 shadow-lg`}>
-                    <i className={`${project.icon} text-white text-lg`}></i>
+                <div className="relative z-10 p-3 sm:p-4 h-full flex items-center gap-3 sm:gap-4">
+                  <div className={`w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br ${project.color} flex items-center justify-center flex-shrink-0 shadow-lg`}>
+                    <i className={`${project.icon} text-white text-sm sm:text-lg`}></i>
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h4 className="font-semibold text-white text-sm truncate group-hover:text-tron transition-colors duration-300">
+                    <h4 className="font-semibold text-white text-xs sm:text-sm truncate group-hover:text-tron transition-colors duration-300">
                       {project.title}
                     </h4>
-                    <p className="text-gray-400 text-xs truncate">{project.shortDesc}</p>
-                    <div className={`text-xs px-2 py-1 rounded-full border mt-1 inline-block ${getExpertiseColor(project.expertise)}`}>
+                    <p className="text-gray-400 text-xs truncate hidden sm:block">{project.shortDesc}</p>
+                    <div className={`text-xs px-2 py-0.5 sm:py-1 rounded-full border mt-1 inline-block ${getExpertiseColor(project.expertise)}`}>
                       {project.expertise}
                     </div>
                   </div>
@@ -474,14 +474,20 @@ export default function Projects() {
             href="https://github.com/tharunkuchulu"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block px-8 py-4 bg-gradient-to-r from-tron to-cyan-400 text-black font-bold rounded-full hover:from-cyan-400 hover:to-tron transition-all duration-300 shadow-lg hover:shadow-tron/50 transform hover:scale-105"
+            className="inline-block px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-tron to-cyan-400 text-black font-bold rounded-full hover:from-cyan-400 hover:to-tron transition-all duration-300 shadow-xl hover:shadow-tron/50 transform hover:scale-105 border-2 border-tron/50 hover:border-cyan-300 text-sm sm:text-base"
+            style={{
+              background: 'linear-gradient(45deg, #00ffff, #22d3ee)',
+              boxShadow: '0 0 20px rgba(0, 255, 255, 0.6), 0 4px 15px rgba(0, 0, 0, 0.3)',
+              textShadow: '0 1px 2px rgba(0, 0, 0, 0.8)'
+            }}
             whileHover={{ 
               boxShadow: "0 20px 40px rgba(0, 255, 247, 0.4)"
             }}
             whileTap={{ scale: 0.95 }}
           >
-            <i className="fab fa-github mr-3"></i>
-            View All Projects on GitHub
+            <i className="fab fa-github mr-2 sm:mr-3"></i>
+            <span className="hidden sm:inline">View All Projects on GitHub</span>
+            <span className="sm:hidden">GitHub Projects</span>
           </motion.a>
         </motion.div>
       </div>
