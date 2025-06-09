@@ -91,25 +91,21 @@ export default function Navigation() {
             ))}
           </div>
           
-          {/* Mobile Menu Button */}
+          {/* Mobile Menu Button - Always Visible */}
           <button 
-            className="md:hidden text-tron"
+            className="md:hidden text-tron fixed bottom-5 right-5 z-[9999] w-14 h-14 rounded-full flex items-center justify-center shadow-lg"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             style={{ 
-              position: 'fixed',
-              bottom: '20px',
-              right: '20px',
-              zIndex: 1000,
-              width: '56px',
-              height: '56px',
-              borderRadius: '50%',
-              background: 'linear-gradient(to right, #00ffff, #3b82f6)',
-              border: 'none',
-              boxShadow: '0 4px 16px rgba(0, 255, 255, 0.3)'
+              background: isMobileMenuOpen 
+                ? 'linear-gradient(135deg, #ff0040, #ff6b6b)' 
+                : 'linear-gradient(135deg, #00ffff, #0099ff)',
+              border: '2px solid rgba(255, 255, 255, 0.2)',
+              boxShadow: '0 8px 32px rgba(0, 255, 255, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1)',
+              backdropFilter: 'blur(10px)'
             }}
             aria-label="Toggle mobile menu"
           >
-            <i className={`fas ${isMobileMenuOpen ? 'fa-times' : 'fa-bars'} text-xl text-black`}></i>
+            <i className={`fas ${isMobileMenuOpen ? 'fa-times' : 'fa-bars'} text-xl text-white transition-all duration-300`}></i>
           </button>
         </div>
 

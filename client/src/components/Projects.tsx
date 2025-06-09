@@ -69,6 +69,8 @@ export default function Projects() {
   const controls = useAnimation();
   const { ref } = useScrollAnimation();
   const [activeProject, setActiveProject] = useState(0);
+  const [touchStart, setTouchStart] = useState(0);
+  const [touchEnd, setTouchEnd] = useState(0);
 
   useEffect(() => {
     controls.start("visible");
@@ -80,6 +82,30 @@ export default function Projects() {
 
   const prevProject = () => {
     setActiveProject((prev) => (prev - 1 + projects.length) % projects.length);
+  };
+
+  // Touch handlers for swipe gestures
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(0);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > 50;
+    const isRightSwipe = distance < -50;
+
+    if (isLeftSwipe) {
+      nextProject();
+    } else if (isRightSwipe) {
+      prevProject();
+    }
   };
 
   const getExpertiseColor = (expertise: string) => {
@@ -178,7 +204,12 @@ export default function Projects() {
         </motion.div>
 
         {/* Enhanced Big Card Carousel Container */}
-        <div className="relative h-[700px] mb-12 bg-gradient-to-br from-gray-900/50 via-black/30 to-gray-800/50 rounded-3xl border border-tron/20 backdrop-blur-sm overflow-hidden">
+        <div 
+          className="relative h-[700px] mb-12 bg-gradient-to-br from-gray-900/50 via-black/30 to-gray-800/50 rounded-3xl border border-tron/20 backdrop-blur-sm overflow-hidden"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
           {/* Floating Particles Background */}
           <div className="absolute inset-0 overflow-hidden">
             {Array.from({ length: 15 }).map((_, i) => (
@@ -382,20 +413,28 @@ export default function Projects() {
           </AnimatePresence>
         </div>
 
+        {/* Mobile Swipe Indicator */}
+        <div className="block md:hidden text-center mb-4">
+          <p className="text-xs text-gray-400">
+            <i className="fas fa-hand-pointer mr-2 text-tron"></i>
+            Swipe left/right on the project card above or use arrows below
+          </p>
+        </div>
+
         {/* Small Cards Navigation with Arrows */}
-        <div className="relative flex items-center justify-center gap-6 pb-6">
-          {/* Previous Arrow */}
+        <div className="relative flex items-center justify-center gap-4 pb-6 px-2 mx-auto max-w-full overflow-hidden">
+          {/* Previous Arrow - Mobile Optimized */}
           <motion.button
             onClick={prevProject}
-            className="w-12 h-12 rounded-full bg-tron/20 border border-tron/30 flex items-center justify-center text-tron hover:bg-tron hover:text-black transition-all duration-300 hover:shadow-lg hover:shadow-tron/50"
+            className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-tron/20 border border-tron/30 flex items-center justify-center text-tron hover:bg-tron hover:text-black transition-all duration-300 hover:shadow-lg hover:shadow-tron/50 flex-shrink-0"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
           >
-            <i className="fas fa-chevron-left text-lg"></i>
+            <i className="fas fa-chevron-left text-sm sm:text-lg"></i>
           </motion.button>
 
           {/* Small Cards Container */}
-          <div className="flex gap-3 sm:gap-4 overflow-x-auto sm:overflow-hidden px-4 sm:px-0 scrollbar-hide">
+          <div className="flex gap-3 sm:gap-4 overflow-x-auto sm:overflow-hidden scrollbar-hide flex-1 min-w-0">
             {projects.map((project, index) => (
               <motion.div
                 key={project.id}
@@ -445,14 +484,14 @@ export default function Projects() {
             ))}
           </div>
 
-          {/* Next Arrow */}
+          {/* Next Arrow - Mobile Optimized */}
           <motion.button
             onClick={nextProject}
-            className="w-12 h-12 rounded-full bg-tron/20 border border-tron/30 flex items-center justify-center text-tron hover:bg-tron hover:text-black transition-all duration-300 hover:shadow-lg hover:shadow-tron/50"
+            className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-tron/20 border border-tron/30 flex items-center justify-center text-tron hover:bg-tron hover:text-black transition-all duration-300 hover:shadow-lg hover:shadow-tron/50 flex-shrink-0"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
           >
-            <i className="fas fa-chevron-right text-lg"></i>
+            <i className="fas fa-chevron-right text-sm sm:text-lg"></i>
           </motion.button>
         </div>
 
