@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
 import { motion } from "framer-motion";
 
 interface Particle {
@@ -10,41 +10,15 @@ interface Particle {
 }
 
 export default function FloatingParticles() {
-  const [particles, setParticles] = useState<Particle[]>([]);
-
-  useEffect(() => {
-    const createParticle = (): Particle => ({
-      id: Math.random(),
+  // Use static particles to prevent memory leaks and improve performance
+  const particles = useMemo<Particle[]>(() => {
+    return Array.from({ length: 6 }, (_, i) => ({
+      id: i,
       x: Math.random() * 100,
       y: Math.random() * 100,
-      delay: Math.random() * 4,
-      duration: 4 + Math.random() * 4
-    });
-
-    // Create initial particles
-    const initialParticles = Array.from({ length: 8 }, createParticle);
-    setParticles(initialParticles);
-
-    // Add new particles periodically
-    const interval = setInterval(() => {
-      setParticles(prev => {
-        const newParticles = [...prev];
-        if (newParticles.length < 12) {
-          newParticles.push(createParticle());
-        }
-        return newParticles;
-      });
-    }, 3000);
-
-    // Clean up old particles
-    const cleanupInterval = setInterval(() => {
-      setParticles(prev => prev.slice(-10));
-    }, 8000);
-
-    return () => {
-      clearInterval(interval);
-      clearInterval(cleanupInterval);
-    };
+      delay: i * 0.8,
+      duration: 6 + (i % 3)
+    }));
   }, []);
 
   return (
