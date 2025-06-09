@@ -53,22 +53,39 @@ export default function Navigation() {
                 key={href}
                 href={href}
                 onClick={(e) => handleNavClick(e, href)}
-                className="relative py-2 px-1 hover:text-tron transition-all duration-300 capitalize group"
+                className="relative py-2 px-4 hover:text-tron transition-all duration-300 capitalize group overflow-hidden"
                 whileHover={{ scale: 1.05 }}
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
               >
                 <span className="relative z-10">{href.slice(1)}</span>
+                
+                {/* Glowing underline effect */}
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-tron/20 to-cyan-500/20 rounded-md opacity-0 group-hover:opacity-100"
-                  initial={false}
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ duration: 0.2 }}
+                  className="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-tron via-cyan-400 to-tron origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out"
+                  style={{ 
+                    width: '100%',
+                    boxShadow: '0 0 8px rgba(0, 255, 255, 0.6), 0 0 16px rgba(0, 255, 255, 0.4)'
+                  }}
                 />
+                
+                {/* Glow effect on hover */}
                 <motion.div
-                  className="absolute bottom-0 left-0 h-0.5 bg-tron origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300"
+                  className="absolute bottom-0 left-0 h-0.5 bg-tron opacity-0 group-hover:opacity-100 blur-sm transition-opacity duration-500"
                   style={{ width: '100%' }}
+                />
+                
+                {/* Shimmer effect */}
+                <motion.div
+                  className="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-100"
+                  style={{ width: '100%' }}
+                  animate={{ x: ['-100%', '200%'] }}
+                  transition={{ 
+                    duration: 1.5, 
+                    delay: 0.2,
+                    ease: "easeInOut"
+                  }}
                 />
               </motion.a>
             ))}
@@ -96,9 +113,10 @@ export default function Navigation() {
                 key={href}
                 href={href}
                 onClick={(e) => handleNavClick(e, href)}
-                className="block hover:text-tron transition-colors duration-300 capitalize py-2"
+                className="block hover:text-tron transition-colors duration-300 capitalize py-3 px-4 rounded-lg hover:bg-tron/10 relative group"
               >
-                {href.slice(1)}
+                <span className="relative z-10">{href.slice(1)}</span>
+                <div className="absolute bottom-0 left-4 right-4 h-0.5 bg-tron scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
               </a>
             ))}
           </motion.div>
