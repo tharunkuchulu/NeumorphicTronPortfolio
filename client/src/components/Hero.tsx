@@ -48,7 +48,7 @@ export default function Hero() {
   };
 
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden">
+    <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden">
       {/* Floating 3D Elements */}
       <motion.div 
         className="absolute top-1/4 left-1/4 w-20 h-20 border-2 border-tron rounded-full opacity-20"

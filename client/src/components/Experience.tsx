@@ -4,24 +4,6 @@ import useScrollAnimation from "@/hooks/useScrollAnimation";
 export default function Experience() {
   const { ref, controls } = useScrollAnimation();
 
-  const certifications = [
-    {
-      title: "Full Stack Development",
-      subtitle: "Python - Codeacad",
-      icon: "fas fa-certificate"
-    },
-    {
-      title: "Python Programming",
-      subtitle: "HackerRank",
-      icon: "fab fa-python"
-    },
-    {
-      title: "AI Tools & Prompt Engineering",
-      subtitle: "be10X",
-      icon: "fas fa-robot"
-    }
-  ];
-
   return (
     <section id="experience" className="py-20">
       <div className="container mx-auto px-6" ref={ref}>
@@ -81,42 +63,6 @@ export default function Experience() {
               </motion.div>
             </div>
           </motion.div>
-
-          {/* Certifications */}
-          <div className="mt-12">
-            <motion.h3 
-              className="font-orbitron text-2xl font-bold text-center mb-8 text-tron"
-              initial={{ opacity: 0, y: 20 }}
-              animate={controls}
-              transition={{ duration: 0.8, delay: 1 }}
-            >
-              Certifications
-            </motion.h3>
-            <div className="grid md:grid-cols-3 gap-6">
-              {certifications.map((cert, index) => (
-                <motion.div 
-                  key={cert.title}
-                  className="glass-card p-6 rounded-2xl text-center"
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={controls}
-                  transition={{ duration: 0.6, delay: 1.2 + index * 0.2 }}
-                  whileHover={{ 
-                    scale: 1.05,
-                    rotateY: 5,
-                    rotateX: 5
-                  }}
-                >
-                  <motion.i 
-                    className={`${cert.icon} text-tron text-3xl mb-4`}
-                    whileHover={{ scale: 1.2, rotate: 360 }}
-                    transition={{ duration: 0.5 }}
-                  ></motion.i>
-                  <h4 className="font-semibold text-white mb-2">{cert.title}</h4>
-                  <p className="text-gray-400 text-sm">{cert.subtitle}</p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
         </div>
       </div>
     </section>
