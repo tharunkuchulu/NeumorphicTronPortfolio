@@ -114,13 +114,7 @@ export default function Navigation() {
             onClick={() => setIsMobileMenuOpen(false)}
           >
             <motion.div 
-              className="fixed right-0 top-0 h-full w-80 glass-card border-l-2 border-tron p-6 shadow-2xl"
-              style={{
-                background: 'rgba(0, 0, 0, 0.95)',
-                backdropFilter: 'blur(20px)',
-                WebkitBackdropFilter: 'blur(20px)',
-                boxShadow: '0 8px 32px rgba(0, 255, 255, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.1)'
-              }}
+              className="fixed right-0 top-0 h-full w-80 bg-black border-l-2 border-tron p-6 shadow-2xl"
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
