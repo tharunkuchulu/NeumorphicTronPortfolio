@@ -91,91 +91,304 @@ export default function Projects() {
           Featured Projects
         </motion.h2>
         
-        {/* 3D Carousel */}
+        {/* Enhanced 3D Holographic Carousel */}
         <motion.div 
           className="mb-20"
           initial={{ opacity: 0, y: 50 }}
           animate={controls}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <div className="relative h-96 overflow-hidden">
+          <div className="relative h-[500px] overflow-hidden">
+            {/* Holographic Grid Background */}
+            <div className="absolute inset-0 opacity-20">
+              <div className="grid grid-cols-12 grid-rows-8 h-full w-full">
+                {Array.from({ length: 96 }).map((_, i) => (
+                  <motion.div
+                    key={i}
+                    className="border border-tron/10"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: [0, 0.5, 0] }}
+                    transition={{ 
+                      duration: 4, 
+                      delay: i * 0.05, 
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Floating Particle Field */}
+            {Array.from({ length: 20 }).map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute w-1 h-1 bg-tron rounded-full"
+                style={{
+                  left: `${Math.random() * 100}%`,
+                  top: `${Math.random() * 100}%`
+                }}
+                animate={{
+                  y: [0, -50, 0],
+                  opacity: [0.3, 1, 0.3],
+                  scale: [0.5, 1.5, 0.5]
+                }}
+                transition={{
+                  duration: 3 + Math.random() * 2,
+                  repeat: Infinity,
+                  delay: Math.random() * 2
+                }}
+              />
+            ))}
+
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="relative w-80 h-80" style={{ perspective: '1000px' }}>
+              <div className="relative w-96 h-96" style={{ perspective: '1200px' }}>
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={currentSlide}
                     className="absolute inset-0"
-                    initial={{ rotateY: 90, opacity: 0 }}
-                    animate={{ rotateY: 0, opacity: 1 }}
-                    exit={{ rotateY: -90, opacity: 0 }}
-                    transition={{ duration: 0.6, ease: "easeInOut" }}
+                    initial={{ 
+                      rotateY: 90, 
+                      opacity: 0, 
+                      scale: 0.8,
+                      z: -200
+                    }}
+                    animate={{ 
+                      rotateY: 0, 
+                      opacity: 1, 
+                      scale: 1,
+                      z: 0
+                    }}
+                    exit={{ 
+                      rotateY: -90, 
+                      opacity: 0, 
+                      scale: 0.8,
+                      z: -200
+                    }}
+                    transition={{ 
+                      duration: 0.8, 
+                      ease: "easeInOut",
+                      type: "spring",
+                      stiffness: 100
+                    }}
                     style={{ transformStyle: 'preserve-3d' }}
                   >
-                    <div className="glass-card p-8 rounded-3xl h-full flex flex-col justify-center items-center text-center relative overflow-hidden border-2 border-tron/30">
-                      {/* Background gradient */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-tron/10 via-transparent to-cyan-500/10"></div>
-                      
-                      {/* Floating elements */}
-                      <motion.div
-                        className="absolute top-4 right-4 text-tron/30"
-                        animate={{ rotate: 360 }}
-                        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                      >
-                        <i className="fas fa-code text-lg"></i>
-                      </motion.div>
-                      
-                      <motion.div
-                        className="absolute bottom-4 left-4 text-tron/30"
-                        animate={{ scale: [1, 1.2, 1] }}
-                        transition={{ duration: 2, repeat: Infinity }}
-                      >
-                        <i className="fas fa-star text-sm"></i>
-                      </motion.div>
-
-                      <div className="relative z-10">
+                    <motion.div 
+                      className="relative w-full h-full"
+                      animate={{
+                        rotateY: [0, 5, -5, 0],
+                        rotateX: [0, 2, -2, 0]
+                      }}
+                      transition={{
+                        duration: 6,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                      }}
+                      style={{ transformStyle: 'preserve-3d' }}
+                    >
+                      {/* Main Holographic Card */}
+                      <div className="glass-card p-8 rounded-3xl h-full flex flex-col justify-center items-center text-center relative overflow-hidden border-2 border-tron/50 backdrop-blur-lg">
+                        {/* Holographic Shimmer Effect */}
                         <motion.div
-                          className="mb-6"
-                          whileHover={{ scale: 1.1, rotate: 10 }}
-                          transition={{ duration: 0.3 }}
-                        >
-                          <i className={`${carouselProjects[currentSlide].icon} text-tron text-6xl`}></i>
-                        </motion.div>
+                          className="absolute inset-0 bg-gradient-to-r from-transparent via-tron/20 to-transparent"
+                          animate={{ x: ['-100%', '200%'] }}
+                          transition={{
+                            duration: 3,
+                            repeat: Infinity,
+                            ease: "easeInOut"
+                          }}
+                          style={{ transform: 'skewX(-20deg)' }}
+                        />
+
+                        {/* Dynamic Background Gradient */}
+                        <motion.div 
+                          className="absolute inset-0 opacity-30"
+                          animate={{
+                            background: [
+                              'radial-gradient(circle at 30% 40%, rgba(0, 255, 255, 0.3) 0%, transparent 50%)',
+                              'radial-gradient(circle at 70% 60%, rgba(0, 255, 255, 0.3) 0%, transparent 50%)',
+                              'radial-gradient(circle at 30% 40%, rgba(0, 255, 255, 0.3) 0%, transparent 50%)'
+                            ]
+                          }}
+                          transition={{ duration: 4, repeat: Infinity }}
+                        />
                         
-                        <h3 className="font-orbitron text-2xl font-bold text-white mb-2">
-                          {carouselProjects[currentSlide].title}
-                        </h3>
-                        
-                        <p className="text-tron text-lg mb-4">
-                          {carouselProjects[currentSlide].subtitle}
-                        </p>
-                        
-                        <div className="flex justify-center gap-4 text-sm text-gray-400">
-                          <span className="bg-tron/20 px-3 py-1 rounded-full">
-                            {carouselProjects[currentSlide].category}
-                          </span>
-                          <span className="bg-tron/20 px-3 py-1 rounded-full">
-                            {carouselProjects[currentSlide].year}
-                          </span>
+                        {/* Orbiting Elements */}
+                        {Array.from({ length: 6 }).map((_, i) => (
+                          <motion.div
+                            key={i}
+                            className="absolute w-2 h-2 bg-tron rounded-full"
+                            style={{
+                              left: '50%',
+                              top: '50%',
+                              transformOrigin: `${80 + i * 20}px 0px`
+                            }}
+                            animate={{ rotate: 360 }}
+                            transition={{
+                              duration: 8 + i * 2,
+                              repeat: Infinity,
+                              ease: "linear"
+                            }}
+                          />
+                        ))}
+
+                        <div className="relative z-10">
+                          {/* Enhanced Icon with Particle Effects */}
+                          <motion.div
+                            className="mb-8 relative"
+                            whileHover={{ 
+                              scale: 1.2, 
+                              rotateY: 180,
+                              z: 50
+                            }}
+                            transition={{ duration: 0.6 }}
+                          >
+                            {/* Icon Glow Ring */}
+                            <motion.div
+                              className="absolute inset-0 rounded-full border-2 border-tron"
+                              animate={{
+                                scale: [1, 1.2, 1],
+                                opacity: [0.5, 1, 0.5]
+                              }}
+                              transition={{ duration: 2, repeat: Infinity }}
+                              style={{ padding: '20px' }}
+                            />
+                            
+                            <motion.i
+                              className={`${carouselProjects[currentSlide].icon} text-tron text-7xl relative z-10`}
+                              animate={{ 
+                                rotateZ: [0, 360],
+                                filter: [
+                                  'drop-shadow(0 0 10px rgba(0, 255, 255, 0.5))',
+                                  'drop-shadow(0 0 20px rgba(0, 255, 255, 0.8))',
+                                  'drop-shadow(0 0 10px rgba(0, 255, 255, 0.5))'
+                                ]
+                              }}
+                              transition={{ 
+                                rotateZ: { duration: 8, repeat: Infinity, ease: "linear" },
+                                filter: { duration: 2, repeat: Infinity }
+                              }}
+                            />
+                          </motion.div>
+                          
+                          {/* Enhanced Text with Glitch Effect */}
+                          <motion.h3 
+                            className="font-orbitron text-3xl font-bold text-white mb-3"
+                            animate={{
+                              textShadow: [
+                                '0 0 10px rgba(0, 255, 255, 0.5)',
+                                '0 0 20px rgba(0, 255, 255, 0.8)',
+                                '0 0 10px rgba(0, 255, 255, 0.5)'
+                              ]
+                            }}
+                            transition={{ duration: 2, repeat: Infinity }}
+                          >
+                            {carouselProjects[currentSlide].title}
+                          </motion.h3>
+                          
+                          <motion.p 
+                            className="text-tron text-xl mb-6"
+                            initial={{ opacity: 0.7 }}
+                            animate={{ opacity: [0.7, 1, 0.7] }}
+                            transition={{ duration: 3, repeat: Infinity }}
+                          >
+                            {carouselProjects[currentSlide].subtitle}
+                          </motion.p>
+                          
+                          {/* Enhanced Category Tags */}
+                          <div className="flex justify-center gap-4 text-sm">
+                            <motion.span 
+                              className="bg-tron/30 border border-tron px-4 py-2 rounded-full backdrop-blur-sm"
+                              whileHover={{ 
+                                scale: 1.05,
+                                boxShadow: '0 0 20px rgba(0, 255, 255, 0.5)'
+                              }}
+                            >
+                              {carouselProjects[currentSlide].category}
+                            </motion.span>
+                            <motion.span 
+                              className="bg-tron/30 border border-tron px-4 py-2 rounded-full backdrop-blur-sm"
+                              whileHover={{ 
+                                scale: 1.05,
+                                boxShadow: '0 0 20px rgba(0, 255, 255, 0.5)'
+                              }}
+                            >
+                              {carouselProjects[currentSlide].year}
+                            </motion.span>
+                          </div>
+                        </div>
+
+                        {/* Holographic Edge Lines */}
+                        <div className="absolute inset-2 border border-tron/30 rounded-2xl pointer-events-none">
+                          <motion.div
+                            className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-tron"
+                            animate={{ opacity: [0.5, 1, 0.5] }}
+                            transition={{ duration: 2, repeat: Infinity }}
+                          />
+                          <motion.div
+                            className="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-tron"
+                            animate={{ opacity: [0.5, 1, 0.5] }}
+                            transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
+                          />
+                          <motion.div
+                            className="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-tron"
+                            animate={{ opacity: [0.5, 1, 0.5] }}
+                            transition={{ duration: 2, repeat: Infinity, delay: 1 }}
+                          />
+                          <motion.div
+                            className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-tron"
+                            animate={{ opacity: [0.5, 1, 0.5] }}
+                            transition={{ duration: 2, repeat: Infinity, delay: 1.5 }}
+                          />
                         </div>
                       </div>
-                    </div>
+                    </motion.div>
                   </motion.div>
                 </AnimatePresence>
               </div>
             </div>
             
-            {/* Carousel indicators */}
-            <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2">
+            {/* Enhanced Carousel Indicators */}
+            <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-4">
               {carouselProjects.map((_, index) => (
-                <button
+                <motion.button
                   key={index}
                   onClick={() => setCurrentSlide(index)}
-                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                  className={`relative w-4 h-4 rounded-full transition-all duration-300 ${
                     index === currentSlide ? 'bg-tron' : 'bg-gray-600'
                   }`}
-                />
+                  whileHover={{ scale: 1.2 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  {index === currentSlide && (
+                    <motion.div
+                      className="absolute inset-0 rounded-full border-2 border-tron"
+                      animate={{ scale: [1, 1.5, 1], opacity: [1, 0, 1] }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                    />
+                  )}
+                </motion.button>
               ))}
             </div>
+
+            {/* Navigation Arrows */}
+            <motion.button
+              className="absolute left-8 top-1/2 transform -translate-y-1/2 glass-card p-3 rounded-full border border-tron/30 hover:border-tron transition-all duration-300"
+              onClick={() => setCurrentSlide((prev) => (prev - 1 + carouselProjects.length) % carouselProjects.length)}
+              whileHover={{ scale: 1.1, x: -5 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <i className="fas fa-chevron-left text-tron"></i>
+            </motion.button>
+
+            <motion.button
+              className="absolute right-8 top-1/2 transform -translate-y-1/2 glass-card p-3 rounded-full border border-tron/30 hover:border-tron transition-all duration-300"
+              onClick={() => setCurrentSlide((prev) => (prev + 1) % carouselProjects.length)}
+              whileHover={{ scale: 1.1, x: 5 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <i className="fas fa-chevron-right text-tron"></i>
+            </motion.button>
           </div>
         </motion.div>
 
