@@ -79,65 +79,75 @@ export default function Hero() {
   return (
     <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden">
       {/* Circuit Board Background Pattern */}
-      <div className="absolute inset-0 opacity-15">
+      <div className="absolute inset-0 opacity-30 circuit-board">
         {/* Horizontal Circuit Lines */}
-        {Array.from({ length: 12 }).map((_, i) => (
+        {Array.from({ length: 8 }).map((_, i) => (
           <motion.div
             key={`h-${i}`}
-            className="absolute w-full h-px bg-tron"
-            style={{ top: `${(i + 1) * 8.33}%` }}
+            className="absolute w-full h-0.5 bg-gradient-to-r from-transparent via-tron to-transparent"
+            style={{ top: `${(i + 1) * 12}%` }}
             initial={{ scaleX: 0, opacity: 0 }}
             animate={{ 
               scaleX: [0, 1, 0.8, 1],
+              opacity: [0, 0.8, 0.4, 0.8]
+            }}
+            transition={{
+              duration: 3,
+              delay: i * 0.2,
+              repeat: Infinity,
+              repeatType: "reverse",
+              ease: "easeInOut"
+            }}
+          />
+        ))}
+        
+        {/* Vertical Circuit Lines */}
+        {Array.from({ length: 6 }).map((_, i) => (
+          <motion.div
+            key={`v-${i}`}
+            className="absolute h-full w-0.5 bg-gradient-to-b from-transparent via-tron to-transparent"
+            style={{ left: `${(i + 1) * 16}%` }}
+            initial={{ scaleY: 0, opacity: 0 }}
+            animate={{ 
+              scaleY: [0, 1, 0.7, 1],
               opacity: [0, 0.6, 0.3, 0.6]
             }}
             transition={{
               duration: 4,
               delay: i * 0.3,
               repeat: Infinity,
-              repeatType: "reverse"
-            }}
-          />
-        ))}
-        
-        {/* Vertical Circuit Lines */}
-        {Array.from({ length: 8 }).map((_, i) => (
-          <motion.div
-            key={`v-${i}`}
-            className="absolute h-full w-px bg-tron"
-            style={{ left: `${(i + 1) * 12.5}%` }}
-            initial={{ scaleY: 0, opacity: 0 }}
-            animate={{ 
-              scaleY: [0, 1, 0.7, 1],
-              opacity: [0, 0.4, 0.2, 0.4]
-            }}
-            transition={{
-              duration: 5,
-              delay: i * 0.4,
-              repeat: Infinity,
-              repeatType: "reverse"
+              repeatType: "reverse",
+              ease: "easeInOut"
             }}
           />
         ))}
 
         {/* Circuit Nodes */}
-        {Array.from({ length: 15 }).map((_, i) => (
+        {Array.from({ length: 12 }).map((_, i) => (
           <motion.div
             key={`node-${i}`}
-            className="absolute w-2 h-2 bg-tron rounded-full"
+            className="absolute w-3 h-3 rounded-full"
             style={{
-              left: `${10 + (i % 5) * 20}%`,
-              top: `${20 + Math.floor(i / 5) * 20}%`
+              left: `${15 + (i % 4) * 20}%`,
+              top: `${25 + Math.floor(i / 4) * 25}%`,
+              background: 'radial-gradient(circle, #00ffff 0%, #00ffff80 50%, transparent 70%)',
+              boxShadow: '0 0 10px rgba(0, 255, 255, 0.8)'
             }}
             animate={{
-              scale: [0.5, 1.2, 0.8, 1],
-              opacity: [0.3, 1, 0.5, 0.8]
+              scale: [0.8, 1.4, 1],
+              opacity: [0.6, 1, 0.6],
+              boxShadow: [
+                '0 0 10px rgba(0, 255, 255, 0.8)',
+                '0 0 20px rgba(0, 255, 255, 1)',
+                '0 0 10px rgba(0, 255, 255, 0.8)'
+              ]
             }}
             transition={{
-              duration: 3,
-              delay: i * 0.2,
+              duration: 2,
+              delay: i * 0.15,
               repeat: Infinity,
-              repeatType: "reverse"
+              repeatType: "reverse",
+              ease: "easeInOut"
             }}
           />
         ))}
@@ -225,29 +235,59 @@ export default function Hero() {
         <div className="w-10 h-10 border border-tron/40 transform rotate-45 clip-path-hexagon"></div>
       </motion.div>
       
-      {/* Floating Data Particles */}
+      {/* Enhanced Floating Data Particles */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {Array.from({ length: 25 }).map((_, i) => (
+        {Array.from({ length: 20 }).map((_, i) => (
           <motion.div
             key={`particle-${i}`}
-            className="absolute w-1 h-1 bg-tron/60 rounded-full"
+            className="absolute rounded-full"
             style={{
               left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`
+              top: `100%`,
+              width: `${2 + Math.random() * 3}px`,
+              height: `${2 + Math.random() * 3}px`,
+              background: `radial-gradient(circle, #00ffff ${Math.random() * 50 + 50}%, transparent 70%)`,
+              boxShadow: `0 0 ${5 + Math.random() * 10}px rgba(0, 255, 255, 0.8)`
             }}
             animate={{
-              y: [0, -100, -200],
-              x: [0, Math.random() * 50 - 25],
-              opacity: [0, 1, 0],
-              scale: [0.5, 1, 0.3]
+              y: [0, -800],
+              x: [0, (Math.random() - 0.5) * 200],
+              opacity: [0, 0.8, 1, 0.6, 0],
+              scale: [0.3, 1, 1.2, 0.8, 0.2]
             }}
             transition={{
-              duration: 8 + Math.random() * 4,
-              delay: Math.random() * 5,
+              duration: 6 + Math.random() * 4,
+              delay: i * 0.3,
               repeat: Infinity,
-              ease: "easeOut"
+              ease: "easeOut",
+              repeatDelay: Math.random() * 3
             }}
           />
+        ))}
+        
+        {/* Binary Code Rain */}
+        {Array.from({ length: 8 }).map((_, i) => (
+          <motion.div
+            key={`binary-${i}`}
+            className="absolute text-tron/40 font-mono text-xs"
+            style={{
+              left: `${10 + i * 12}%`,
+              top: `-20px`
+            }}
+            animate={{
+              y: [0, 800],
+              opacity: [0, 0.6, 0.8, 0.4, 0]
+            }}
+            transition={{
+              duration: 8,
+              delay: i * 0.5,
+              repeat: Infinity,
+              ease: "linear",
+              repeatDelay: 2
+            }}
+          >
+            {['01001010', '11010011', '10110101', '01110010'][Math.floor(Math.random() * 4)]}
+          </motion.div>
         ))}
       </div>
 

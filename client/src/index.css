@@ -96,6 +96,39 @@
     opacity: 1 !important;
     filter: brightness(1) !important;
   }
+
+  /* Hardware acceleration for smooth animations */
+  [data-framer-component-type],
+  .hero-animation,
+  .circuit-line,
+  .floating-shape {
+    will-change: transform, opacity;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+
+  /* Optimized circuit board animations */
+  .circuit-board {
+    contain: layout style paint;
+  }
+
+  .circuit-line {
+    will-change: transform, opacity;
+    contain: strict;
+  }
+
+  /* Particle system optimization */
+  .particle-system {
+    contain: layout style paint;
+    transform: translateZ(0);
+  }
+
+  .floating-particle {
+    will-change: transform, opacity;
+    contain: layout;
+    pointer-events: none;
+  }
   
   .neon-border {
     border: 2px solid hsl(var(--tron));
