@@ -107,14 +107,20 @@ export default function Navigation() {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div 
-            className="fixed inset-0 bg-black/90 backdrop-blur-sm z-40 md:hidden"
+            className="fixed inset-0 z-40 md:hidden"
+            style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setIsMobileMenuOpen(false)}
           >
             <motion.div 
-              className="fixed right-0 top-0 h-full w-80 bg-black border-l-2 border-tron p-6 shadow-2xl"
+              className="fixed right-0 top-0 h-full w-80 border-l-2 border-tron p-6 shadow-2xl"
+              style={{
+                backgroundColor: '#000000',
+                background: '#000000',
+                opacity: 1
+              }}
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
