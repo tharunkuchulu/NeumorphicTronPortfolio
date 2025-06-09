@@ -9,10 +9,13 @@ import Certifications from "@/components/Certifications";
 import SoftSkills from "@/components/SoftSkills";
 import Contact from "@/components/Contact";
 import FloatingParticles from "@/components/FloatingParticles";
+import FloatingActionButton from "@/components/FloatingActionButton";
+import ScrollProgress from "@/components/ScrollProgress";
 
 export default function Portfolio() {
   return (
     <div className="min-h-screen bg-dark-bg text-white relative">
+      <ScrollProgress />
       <FloatingParticles />
       <Navigation />
       <Hero />
@@ -24,6 +27,9 @@ export default function Portfolio() {
       <Certifications />
       <SoftSkills />
       <Contact />
+      
+      {/* Floating Action Button */}
+      <FloatingActionButton />
       
       {/* Footer */}
       <footer className="py-8 border-t border-gray-800">
