@@ -1,492 +1,453 @@
-import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect } from "react";
-import useScrollAnimation from "@/hooks/useScrollAnimation";
+import { motion, useAnimation } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import useScrollAnimation from '../hooks/useScrollAnimation';
+
+const projects = [
+  {
+    id: 1,
+    title: "MovieFlix",
+    shortDesc: "Movie Rating Platform",
+    overview: "Comprehensive movie discovery platform with user ratings, reviews, and personalized recommendations. Features real-time data from TMDB API with Redux state management and advanced filtering capabilities.",
+    tech: ["React.js", "Redux", "TMDB API", "CSS3", "JavaScript", "Node.js"],
+    projectType: "Full-Stack Web Application",
+    expertise: "Advanced",
+    status: "Completed",
+    duration: "3 months",
+    icon: "fas fa-film",
+    github: "https://github.com/tharunkuchulu/MovieFlix",
+    demo: null,
+    color: "from-purple-500 to-pink-500"
+  },
+  {
+    id: 2,
+    title: "AWS S3 Bucket Management",
+    shortDesc: "Cloud Infrastructure",
+    overview: "Automated cloud infrastructure deployment using boto3. Streamlined S3 bucket creation, configuration, and management with enhanced security protocols and monitoring capabilities.",
+    tech: ["Python", "AWS SDK", "boto3", "S3", "CloudFormation", "IAM"],
+    projectType: "Cloud Infrastructure Tool",
+    expertise: "Expert",
+    status: "Completed",
+    duration: "2 months",
+    icon: "fab fa-aws",
+    github: "https://github.com/tharunkuchulu/AWS-S3-Bucket-creation",
+    demo: null,
+    color: "from-orange-500 to-red-500"
+  },
+  {
+    id: 3,
+    title: "Advanced ATS Scanner",
+    shortDesc: "AI Resume Analyzer",
+    overview: "Intelligent resume screening system powered by AI. Uses RAG technology for precise job-resume matching with detailed compatibility analysis and automated scoring algorithms.",
+    tech: ["FastAPI", "OpenAI", "Pinecone", "Python", "RAG", "NLP"],
+    projectType: "AI/ML Application",
+    expertise: "Expert",
+    status: "In Development",
+    duration: "4 months",
+    icon: "fas fa-robot",
+    github: "https://github.com/tharunkuchulu/Advanced-ATS-Scanner",
+    demo: null,
+    color: "from-green-500 to-teal-500"
+  },
+  {
+    id: 4,
+    title: "Social Video Downloader",
+    shortDesc: "Bulk Media Processor",
+    overview: "Bulk video processing application for Instagram, YouTube, and Twitter. Excel-based batch processing with secure cookie authentication and yt-dlp integration for seamless downloads.",
+    tech: ["React.js", "FastAPI", "yt-dlp", "Pandas", "Excel", "Python"],
+    projectType: "Full-Stack Tool",
+    expertise: "Advanced",
+    status: "Completed",
+    duration: "2 months",
+    icon: "fas fa-download",
+    github: "https://github.com/tharunkuchulu/Social-Video-Downloader",
+    demo: "https://social-video-downloader-1.onrender.com/",
+    color: "from-blue-500 to-cyan-500"
+  },
+  {
+    id: 5,
+    title: "E-Commerce Platform",
+    shortDesc: "Online Shopping System",
+    overview: "Full-featured e-commerce platform with payment integration, inventory management, user authentication, and real-time order tracking with admin dashboard for comprehensive store management.",
+    tech: ["Next.js", "Node.js", "PostgreSQL", "Stripe", "Redux", "Tailwind"],
+    projectType: "Full-Stack E-Commerce",
+    expertise: "Expert",
+    status: "In Development", 
+    duration: "6 months",
+    icon: "fas fa-shopping-cart",
+    github: "https://github.com/tharunkuchulu",
+    demo: null,
+    color: "from-indigo-500 to-purple-500"
+  },
+  {
+    id: 6,
+    title: "Real-Time Chat App",
+    shortDesc: "WebSocket Communication",
+    overview: "Scalable real-time messaging platform with WebSocket implementation, file sharing, group chats, and end-to-end encryption for secure communication across multiple devices.",
+    tech: ["React", "Socket.io", "Express", "MongoDB", "WebRTC", "JWT"],
+    projectType: "Real-Time Application",
+    expertise: "Advanced",
+    status: "Planning",
+    duration: "3 months",
+    icon: "fas fa-comments",
+    github: "https://github.com/tharunkuchulu",
+    demo: null,
+    color: "from-emerald-500 to-green-500"
+  }
+];
 
 export default function Projects() {
-  const { ref, controls } = useScrollAnimation();
-  const [currentSlide, setCurrentSlide] = useState(0);
-
-  const carouselProjects = [
-    {
-      title: "MovieFlix",
-      subtitle: "Movie Rating Platform",
-      icon: "fas fa-film",
-      category: "Full-Stack Web App",
-      year: "2024"
-    },
-    {
-      title: "Cloud Automation",
-      subtitle: "AWS Resource Manager",
-      icon: "fab fa-aws",
-      category: "Cloud Infrastructure",
-      year: "2024"
-    },
-    {
-      title: "ATS Scanner",
-      subtitle: "AI Resume Analyzer",
-      icon: "fas fa-robot",
-      category: "AI/ML Application",
-      year: "2024"
-    },
-    {
-      title: "Social Video Downloader",
-      subtitle: "Bulk Media Processor",
-      icon: "fas fa-download",
-      category: "Full-Stack Tool",
-      year: "2024"
-    }
-  ];
-
-  const projectTiles = [
-    {
-      title: "MovieFlix - Movie Rating App",
-      description: "Comprehensive movie discovery platform with user ratings, reviews, and personalized recommendations. Features real-time data from TMDB API with Redux state management.",
-      icon: "fas fa-film",
-      technologies: ["React.js", "Redux", "TMDB API", "CSS3"],
-      github: "https://github.com/tharunkuchulu/MovieFlix",
-      demo: null
-    },
-    {
-      title: "AWS S3 Bucket Management",
-      description: "Automated cloud infrastructure deployment using boto3. Streamlined S3 bucket creation, configuration, and management with enhanced security protocols.",
-      icon: "fab fa-aws",
-      technologies: ["Python", "AWS SDK", "boto3", "S3"],
-      github: "https://github.com/tharunkuchulu/AWS-S3-Bucket-creation",
-      demo: null
-    },
-    {
-      title: "Advanced ATS Scanner",
-      description: "Intelligent resume screening system powered by AI. Uses RAG technology for precise job-resume matching with detailed compatibility analysis.",
-      icon: "fas fa-robot",
-      technologies: ["FastAPI", "OpenAI", "Pinecone", "Python"],
-      github: "https://github.com/tharunkuchulu/Advanced-ATS-Scanner",
-      demo: null
-    },
-    {
-      title: "Social Video Downloader",
-      description: "Bulk video processing application for Instagram, YouTube, and Twitter. Excel-based batch processing with secure cookie authentication and yt-dlp integration.",
-      icon: "fas fa-download",
-      technologies: ["React.js", "FastAPI", "yt-dlp", "Pandas"],
-      github: "https://github.com/tharunkuchulu/Social-Video-Downloader",
-      demo: "https://social-video-downloader-1.onrender.com/"
-    }
-  ];
+  const controls = useAnimation();
+  const { ref, inView } = useScrollAnimation();
+  const [activeProject, setActiveProject] = useState(0);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % carouselProjects.length);
-    }, 4000);
-    return () => clearInterval(interval);
-  }, [carouselProjects.length]);
+    if (inView) {
+      controls.start("visible");
+    }
+  }, [controls, inView]);
+
+  const getExpertiseColor = (expertise: string) => {
+    switch (expertise) {
+      case 'Beginner': return 'text-green-400 border-green-400 bg-green-400/10';
+      case 'Intermediate': return 'text-yellow-400 border-yellow-400 bg-yellow-400/10';
+      case 'Advanced': return 'text-orange-400 border-orange-400 bg-orange-400/10';
+      case 'Expert': return 'text-red-400 border-red-400 bg-red-400/10';
+      default: return 'text-gray-400 border-gray-400 bg-gray-400/10';
+    }
+  };
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'Completed': return 'text-green-400 bg-green-400/20 border-green-400/30';
+      case 'In Development': return 'text-yellow-400 bg-yellow-400/20 border-yellow-400/30';
+      case 'Planning': return 'text-blue-400 bg-blue-400/20 border-blue-400/30';
+      default: return 'text-gray-400 bg-gray-400/20 border-gray-400/30';
+    }
+  };
 
   return (
-    <section id="projects" className="py-20">
-      <div className="container mx-auto px-6" ref={ref}>
-        <motion.h2 
-          className="font-orbitron text-4xl font-bold text-center mb-16 text-tron"
-          initial={{ opacity: 0, y: 30 }}
-          animate={controls}
-          transition={{ duration: 0.8 }}
-        >
-          Featured Projects
-        </motion.h2>
-        
-        {/* Enhanced 3D Holographic Carousel */}
-        <motion.div 
-          className="mb-20"
-          initial={{ opacity: 0, y: 50 }}
-          animate={controls}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        >
-          <div className="relative h-[500px] overflow-hidden">
-            {/* Holographic Grid Background */}
-            <div className="absolute inset-0 opacity-20">
-              <div className="grid grid-cols-12 grid-rows-8 h-full w-full">
-                {Array.from({ length: 96 }).map((_, i) => (
-                  <motion.div
-                    key={i}
-                    className="border border-tron/10"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: [0, 0.5, 0] }}
-                    transition={{ 
-                      duration: 4, 
-                      delay: i * 0.05, 
-                      repeat: Infinity,
-                      ease: "easeInOut"
-                    }}
-                  />
-                ))}
-              </div>
-            </div>
+    <section ref={ref} id="projects" className="min-h-screen py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+      {/* Background Elements */}
+      <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black"></div>
+      
+      {/* Animated Grid Pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="grid grid-cols-12 gap-4 h-full">
+          {Array.from({ length: 144 }).map((_, i) => (
+            <motion.div
+              key={i}
+              className="border border-tron/20"
+              initial={{ opacity: 0 }}
+              animate={{ 
+                opacity: [0, 0.3, 0],
+                scale: [1, 1.1, 1]
+              }}
+              transition={{
+                duration: 3,
+                delay: i * 0.02,
+                repeat: Infinity,
+                repeatType: "reverse"
+              }}
+            />
+          ))}
+        </div>
+      </div>
 
-            {/* Floating Particle Field */}
-            {Array.from({ length: 20 }).map((_, i) => (
+      <div className="relative z-10 max-w-7xl mx-auto">
+        {/* Section Header */}
+        <motion.div
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: -30 }}
+          animate={controls}
+          variants={{
+            visible: { 
+              opacity: 1, 
+              y: 0,
+              transition: { duration: 0.8 }
+            }
+          }}
+        >
+          <motion.h2 
+            className="text-6xl font-bold mb-6 bg-gradient-to-r from-tron via-cyan-300 to-tron bg-clip-text text-transparent"
+            whileHover={{ 
+              scale: 1.05,
+              textShadow: "0 0 20px rgba(0, 255, 247, 0.5)"
+            }}
+          >
+            Featured Projects
+          </motion.h2>
+          <motion.div
+            className="w-32 h-1 bg-gradient-to-r from-transparent via-tron to-transparent mx-auto mb-8"
+            initial={{ scaleX: 0 }}
+            animate={controls}
+            variants={{
+              visible: { 
+                scaleX: 1,
+                transition: { duration: 1, delay: 0.5 }
+              }
+            }}
+          />
+          <motion.p 
+            className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed"
+            initial={{ opacity: 0 }}
+            animate={controls}
+            variants={{
+              visible: { 
+                opacity: 1,
+                transition: { duration: 0.8, delay: 0.3 }
+              }
+            }}
+          >
+            Explore my innovative projects showcasing cutting-edge technologies and creative solutions across various domains.
+          </motion.p>
+        </motion.div>
+
+        {/* Enhanced Big Card Carousel Container */}
+        <div className="relative h-[700px] mb-12 bg-gradient-to-br from-gray-900/50 via-black/30 to-gray-800/50 rounded-3xl border border-tron/20 backdrop-blur-sm overflow-hidden">
+          {/* Floating Particles Background */}
+          <div className="absolute inset-0 overflow-hidden">
+            {Array.from({ length: 15 }).map((_, i) => (
               <motion.div
                 key={i}
-                className="absolute w-1 h-1 bg-tron rounded-full"
+                className="absolute w-2 h-2 bg-tron/30 rounded-full"
                 style={{
                   left: `${Math.random() * 100}%`,
                   top: `${Math.random() * 100}%`
                 }}
                 animate={{
-                  y: [0, -50, 0],
+                  y: [0, -30, 0],
                   opacity: [0.3, 1, 0.3],
-                  scale: [0.5, 1.5, 0.5]
+                  scale: [0.5, 1.2, 0.5]
                 }}
                 transition={{
-                  duration: 3 + Math.random() * 2,
+                  duration: 4 + Math.random() * 2,
                   repeat: Infinity,
                   delay: Math.random() * 2
                 }}
               />
             ))}
-
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="relative w-96 h-96" style={{ perspective: '1200px' }}>
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={currentSlide}
-                    className="absolute inset-0"
-                    initial={{ 
-                      rotateY: 90, 
-                      opacity: 0, 
-                      scale: 0.8,
-                      z: -200
-                    }}
-                    animate={{ 
-                      rotateY: 0, 
-                      opacity: 1, 
-                      scale: 1,
-                      z: 0
-                    }}
-                    exit={{ 
-                      rotateY: -90, 
-                      opacity: 0, 
-                      scale: 0.8,
-                      z: -200
-                    }}
-                    transition={{ 
-                      duration: 0.8, 
-                      ease: "easeInOut",
-                      type: "spring",
-                      stiffness: 100
-                    }}
-                    style={{ transformStyle: 'preserve-3d' }}
-                  >
-                    <motion.div 
-                      className="relative w-full h-full"
-                      animate={{
-                        rotateY: [0, 5, -5, 0],
-                        rotateX: [0, 2, -2, 0]
-                      }}
-                      transition={{
-                        duration: 6,
-                        repeat: Infinity,
-                        ease: "easeInOut"
-                      }}
-                      style={{ transformStyle: 'preserve-3d' }}
-                    >
-                      {/* Main Holographic Card */}
-                      <div className="glass-card p-8 rounded-3xl h-full flex flex-col justify-center items-center text-center relative overflow-hidden border-2 border-tron/50 backdrop-blur-lg">
-                        {/* Holographic Shimmer Effect */}
-                        <motion.div
-                          className="absolute inset-0 bg-gradient-to-r from-transparent via-tron/20 to-transparent"
-                          animate={{ x: ['-100%', '200%'] }}
-                          transition={{
-                            duration: 3,
-                            repeat: Infinity,
-                            ease: "easeInOut"
-                          }}
-                          style={{ transform: 'skewX(-20deg)' }}
-                        />
-
-                        {/* Dynamic Background Gradient */}
-                        <motion.div 
-                          className="absolute inset-0 opacity-30"
-                          animate={{
-                            background: [
-                              'radial-gradient(circle at 30% 40%, rgba(0, 255, 255, 0.3) 0%, transparent 50%)',
-                              'radial-gradient(circle at 70% 60%, rgba(0, 255, 255, 0.3) 0%, transparent 50%)',
-                              'radial-gradient(circle at 30% 40%, rgba(0, 255, 255, 0.3) 0%, transparent 50%)'
-                            ]
-                          }}
-                          transition={{ duration: 4, repeat: Infinity }}
-                        />
-                        
-                        {/* Orbiting Elements */}
-                        {Array.from({ length: 6 }).map((_, i) => (
-                          <motion.div
-                            key={i}
-                            className="absolute w-2 h-2 bg-tron rounded-full"
-                            style={{
-                              left: '50%',
-                              top: '50%',
-                              transformOrigin: `${80 + i * 20}px 0px`
-                            }}
-                            animate={{ rotate: 360 }}
-                            transition={{
-                              duration: 8 + i * 2,
-                              repeat: Infinity,
-                              ease: "linear"
-                            }}
-                          />
-                        ))}
-
-                        <div className="relative z-10">
-                          {/* Enhanced Icon with Particle Effects */}
-                          <motion.div
-                            className="mb-8 relative"
-                            whileHover={{ 
-                              scale: 1.2, 
-                              rotateY: 180,
-                              z: 50
-                            }}
-                            transition={{ duration: 0.6 }}
-                          >
-                            {/* Icon Glow Ring */}
-                            <motion.div
-                              className="absolute inset-0 rounded-full border-2 border-tron"
-                              animate={{
-                                scale: [1, 1.2, 1],
-                                opacity: [0.5, 1, 0.5]
-                              }}
-                              transition={{ duration: 2, repeat: Infinity }}
-                              style={{ padding: '20px' }}
-                            />
-                            
-                            <motion.i
-                              className={`${carouselProjects[currentSlide].icon} text-tron text-7xl relative z-10`}
-                              animate={{ 
-                                rotateZ: [0, 360],
-                                filter: [
-                                  'drop-shadow(0 0 10px rgba(0, 255, 255, 0.5))',
-                                  'drop-shadow(0 0 20px rgba(0, 255, 255, 0.8))',
-                                  'drop-shadow(0 0 10px rgba(0, 255, 255, 0.5))'
-                                ]
-                              }}
-                              transition={{ 
-                                rotateZ: { duration: 8, repeat: Infinity, ease: "linear" },
-                                filter: { duration: 2, repeat: Infinity }
-                              }}
-                            />
-                          </motion.div>
-                          
-                          {/* Enhanced Text with Glitch Effect */}
-                          <motion.h3 
-                            className="font-orbitron text-3xl font-bold text-white mb-3"
-                            animate={{
-                              textShadow: [
-                                '0 0 10px rgba(0, 255, 255, 0.5)',
-                                '0 0 20px rgba(0, 255, 255, 0.8)',
-                                '0 0 10px rgba(0, 255, 255, 0.5)'
-                              ]
-                            }}
-                            transition={{ duration: 2, repeat: Infinity }}
-                          >
-                            {carouselProjects[currentSlide].title}
-                          </motion.h3>
-                          
-                          <motion.p 
-                            className="text-tron text-xl mb-6"
-                            initial={{ opacity: 0.7 }}
-                            animate={{ opacity: [0.7, 1, 0.7] }}
-                            transition={{ duration: 3, repeat: Infinity }}
-                          >
-                            {carouselProjects[currentSlide].subtitle}
-                          </motion.p>
-                          
-                          {/* Enhanced Category Tags */}
-                          <div className="flex justify-center gap-4 text-sm">
-                            <motion.span 
-                              className="bg-tron/30 border border-tron px-4 py-2 rounded-full backdrop-blur-sm"
-                              whileHover={{ 
-                                scale: 1.05,
-                                boxShadow: '0 0 20px rgba(0, 255, 255, 0.5)'
-                              }}
-                            >
-                              {carouselProjects[currentSlide].category}
-                            </motion.span>
-                            <motion.span 
-                              className="bg-tron/30 border border-tron px-4 py-2 rounded-full backdrop-blur-sm"
-                              whileHover={{ 
-                                scale: 1.05,
-                                boxShadow: '0 0 20px rgba(0, 255, 255, 0.5)'
-                              }}
-                            >
-                              {carouselProjects[currentSlide].year}
-                            </motion.span>
-                          </div>
-                        </div>
-
-                        {/* Holographic Edge Lines */}
-                        <div className="absolute inset-2 border border-tron/30 rounded-2xl pointer-events-none">
-                          <motion.div
-                            className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-tron"
-                            animate={{ opacity: [0.5, 1, 0.5] }}
-                            transition={{ duration: 2, repeat: Infinity }}
-                          />
-                          <motion.div
-                            className="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-tron"
-                            animate={{ opacity: [0.5, 1, 0.5] }}
-                            transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
-                          />
-                          <motion.div
-                            className="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-tron"
-                            animate={{ opacity: [0.5, 1, 0.5] }}
-                            transition={{ duration: 2, repeat: Infinity, delay: 1 }}
-                          />
-                          <motion.div
-                            className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-tron"
-                            animate={{ opacity: [0.5, 1, 0.5] }}
-                            transition={{ duration: 2, repeat: Infinity, delay: 1.5 }}
-                          />
-                        </div>
-                      </div>
-                    </motion.div>
-                  </motion.div>
-                </AnimatePresence>
-              </div>
-            </div>
-            
-            {/* Enhanced Carousel Indicators */}
-            <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-4">
-              {carouselProjects.map((_, index) => (
-                <motion.button
-                  key={index}
-                  onClick={() => setCurrentSlide(index)}
-                  className={`relative w-4 h-4 rounded-full transition-all duration-300 ${
-                    index === currentSlide ? 'bg-tron' : 'bg-gray-600'
-                  }`}
-                  whileHover={{ scale: 1.2 }}
-                  whileTap={{ scale: 0.9 }}
-                >
-                  {index === currentSlide && (
-                    <motion.div
-                      className="absolute inset-0 rounded-full border-2 border-tron"
-                      animate={{ scale: [1, 1.5, 1], opacity: [1, 0, 1] }}
-                      transition={{ duration: 2, repeat: Infinity }}
-                    />
-                  )}
-                </motion.button>
-              ))}
-            </div>
-
-            {/* Navigation Arrows */}
-            <motion.button
-              className="absolute left-8 top-1/2 transform -translate-y-1/2 glass-card p-3 rounded-full border border-tron/30 hover:border-tron transition-all duration-300"
-              onClick={() => setCurrentSlide((prev) => (prev - 1 + carouselProjects.length) % carouselProjects.length)}
-              whileHover={{ scale: 1.1, x: -5 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              <i className="fas fa-chevron-left text-tron"></i>
-            </motion.button>
-
-            <motion.button
-              className="absolute right-8 top-1/2 transform -translate-y-1/2 glass-card p-3 rounded-full border border-tron/30 hover:border-tron transition-all duration-300"
-              onClick={() => setCurrentSlide((prev) => (prev + 1) % carouselProjects.length)}
-              whileHover={{ scale: 1.1, x: 5 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              <i className="fas fa-chevron-right text-tron"></i>
-            </motion.button>
           </div>
-        </motion.div>
 
-        {/* Project Tiles */}
-        <motion.div 
-          className="mb-8"
-          initial={{ opacity: 0, y: 30 }}
-          animate={controls}
-          transition={{ duration: 0.8, delay: 0.4 }}
-        >
-          <h3 className="font-orbitron text-2xl font-semibold text-center mb-12 text-white">
-            Project Portfolio
-          </h3>
-        </motion.div>
-        
-        <div className="grid md:grid-cols-2 gap-8">
-          {projectTiles.map((project, index) => (
-            <motion.div 
-              key={project.title}
-              className="glass-card p-8 rounded-2xl relative overflow-hidden group border border-tron/20 hover:border-tron/50 transition-all duration-300"
-              initial={{ opacity: 0, y: 50 }}
-              animate={controls}
-              transition={{ duration: 0.8, delay: 0.6 + index * 0.1 }}
-              whileHover={{ scale: 1.02, rotateX: 2, rotateY: 2 }}
-            >
-              {/* Background overlay */}
-              <div className="absolute inset-0 bg-gradient-to-br from-tron/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              
-              <div className="relative z-10">
-                <div className="flex items-start justify-between mb-4">
-                  <motion.div
-                    className="text-tron text-3xl"
-                    whileHover={{ scale: 1.2, rotate: 360 }}
-                    transition={{ duration: 0.5 }}
-                  >
-                    <i className={project.icon}></i>
-                  </motion.div>
-                  <div className="text-right">
-                    <span className="text-xs text-gray-400 bg-tron/10 px-2 py-1 rounded-full">
-                      2024
+          {/* Main Featured Project Card */}
+          <motion.div
+            key={activeProject}
+            className="absolute inset-4 glass-card overflow-hidden"
+            initial={{ opacity: 0, scale: 0.9, rotateY: -15 }}
+            animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+          >
+            <div className="h-full p-8 flex flex-col lg:flex-row gap-8">
+              {/* Left: Project Icon & Meta */}
+              <div className="lg:w-1/3 flex flex-col items-center justify-center relative">
+                {/* Rotating Ring */}
+                <motion.div
+                  className="absolute w-40 h-40 rounded-full border-2 border-tron/20"
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+                />
+                <motion.div
+                  className="absolute w-32 h-32 rounded-full border border-tron/40"
+                  animate={{ rotate: -360 }}
+                  transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                />
+
+                {/* Project Icon */}
+                <motion.div
+                  className={`w-28 h-28 rounded-full bg-gradient-to-br ${projects[activeProject].color} flex items-center justify-center mb-6 relative z-10 shadow-2xl`}
+                  whileHover={{ scale: 1.15, rotate: 10 }}
+                  transition={{ duration: 0.4 }}
+                >
+                  <i className={`${projects[activeProject].icon} text-4xl text-white`}></i>
+                </motion.div>
+                
+                <motion.h3 
+                  className="text-3xl font-bold text-white mb-3 text-center"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                >
+                  {projects[activeProject].title}
+                </motion.h3>
+                
+                <motion.div
+                  className={`px-4 py-2 rounded-full border text-sm font-semibold ${getExpertiseColor(projects[activeProject].expertise)}`}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.3 }}
+                >
+                  {projects[activeProject].expertise} Level
+                </motion.div>
+              </div>
+
+              {/* Right: Project Details */}
+              <div className="lg:w-2/3 flex flex-col justify-center">
+                <motion.div
+                  className="mb-6"
+                  initial={{ opacity: 0, x: 30 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.4 }}
+                >
+                  <h4 className="text-sm font-semibold text-tron mb-3 tracking-wider">PROJECT OVERVIEW</h4>
+                  <p className="text-gray-300 text-lg leading-relaxed">
+                    {projects[activeProject].overview}
+                  </p>
+                </motion.div>
+
+                {/* Project Meta Grid */}
+                <motion.div
+                  className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 }}
+                >
+                  <div className="bg-gray-800/50 backdrop-blur-sm p-4 rounded-xl border border-tron/20">
+                    <h5 className="text-xs font-semibold text-tron mb-2 tracking-wider">PROJECT TYPE</h5>
+                    <p className="text-white text-sm">{projects[activeProject].projectType}</p>
+                  </div>
+                  <div className="bg-gray-800/50 backdrop-blur-sm p-4 rounded-xl border border-tron/20">
+                    <h5 className="text-xs font-semibold text-tron mb-2 tracking-wider">STATUS</h5>
+                    <span className={`text-xs px-3 py-1 rounded-full border ${getStatusColor(projects[activeProject].status)}`}>
+                      {projects[activeProject].status}
                     </span>
                   </div>
-                </div>
-                
-                <h3 className="font-orbitron text-xl font-semibold mb-4 text-white group-hover:text-tron transition-colors duration-300">
-                  {project.title}
-                </h3>
-                
-                <p className="text-gray-300 mb-6 text-sm leading-relaxed">
-                  {project.description}
-                </p>
-                
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {project.technologies.map((tech) => (
-                    <motion.span 
-                      key={tech}
-                      className="bg-tron/20 text-tron px-3 py-1 rounded-full text-xs border border-tron/30"
-                      whileHover={{ scale: 1.05, backgroundColor: "rgba(0, 255, 255, 0.3)" }}
-                    >
-                      {tech}
-                    </motion.span>
-                  ))}
-                </div>
-                
-                <div className="flex gap-3">
+                  <div className="bg-gray-800/50 backdrop-blur-sm p-4 rounded-xl border border-tron/20">
+                    <h5 className="text-xs font-semibold text-tron mb-2 tracking-wider">DURATION</h5>
+                    <p className="text-white text-sm">{projects[activeProject].duration}</p>
+                  </div>
+                </motion.div>
+
+                {/* Tech Stack */}
+                <motion.div
+                  className="mb-6"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6 }}
+                >
+                  <h4 className="text-sm font-semibold text-tron mb-3 tracking-wider">TECH STACK</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {projects[activeProject].tech.map((tech, index) => (
+                      <motion.span
+                        key={index}
+                        className="px-3 py-2 bg-tron/20 text-tron text-sm rounded-lg border border-tron/30 hover:bg-tron/30 hover:scale-105 transition-all duration-300"
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.6 + index * 0.05 }}
+                        whileHover={{ y: -2 }}
+                      >
+                        {tech}
+                      </motion.span>
+                    ))}
+                  </div>
+                </motion.div>
+
+                {/* Action Buttons */}
+                <motion.div
+                  className="flex gap-4"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.7 }}
+                >
                   <a 
-                    href={project.github} 
+                    href={projects[activeProject].github} 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="flex-1 text-center border border-tron px-4 py-2 bg-transparent text-tron text-sm font-semibold rounded-lg hover:bg-tron hover:text-black hover:scale-105 transition-all duration-300 cursor-pointer active:scale-95"
-                    style={{ pointerEvents: 'auto', display: 'block' }}
+                    className="flex-1 text-center border-2 border-tron px-6 py-3 bg-transparent text-tron font-semibold rounded-xl hover:bg-tron hover:text-black hover:scale-105 transition-all duration-300 transform hover:shadow-lg hover:shadow-tron/30"
                   >
                     <i className="fab fa-github mr-2"></i>View Code
                   </a>
                   
-                  {project.demo ? (
+                  {projects[activeProject].demo ? (
                     <a 
-                      href={project.demo} 
+                      href={projects[activeProject].demo} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="flex-1 text-center bg-tron text-black px-4 py-2 text-sm font-semibold rounded-lg hover:bg-cyan-400 hover:scale-105 transition-all duration-300 cursor-pointer active:scale-95"
-                      style={{ pointerEvents: 'auto', display: 'block' }}
+                      className="flex-1 text-center bg-gradient-to-r from-tron to-cyan-400 text-black px-6 py-3 font-semibold rounded-xl hover:from-cyan-400 hover:to-tron hover:scale-105 transition-all duration-300 transform hover:shadow-lg hover:shadow-tron/50"
                     >
                       <i className="fas fa-external-link-alt mr-2"></i>Live Demo
                     </a>
                   ) : (
-                    <div 
-                      className="flex-1 text-center bg-gray-600 text-gray-300 px-4 py-2 text-sm font-semibold rounded-lg cursor-not-allowed hover:bg-gray-500 hover:scale-105 transition-all duration-300"
-                      style={{ pointerEvents: 'auto', display: 'block' }}
-                    >
+                    <div className="flex-1 text-center bg-gray-700 text-gray-400 px-6 py-3 font-semibold rounded-xl cursor-not-allowed">
                       <i className="fas fa-clock mr-2"></i>Demo Soon
                     </div>
                   )}
-                </div>
+                </motion.div>
               </div>
-            </motion.div>
-          ))}
+            </div>
+          </motion.div>
         </div>
+
+        {/* Small Cards Carousel */}
+        <div className="flex justify-center gap-4 overflow-x-auto pb-6">
+          <div className="flex gap-4 px-4">
+            {projects.map((project, index) => (
+              <motion.div
+                key={project.id}
+                className={`min-w-[220px] h-28 glass-card cursor-pointer relative overflow-hidden group ${
+                  index === activeProject ? 'ring-2 ring-tron shadow-xl shadow-tron/30 scale-105' : 'hover:scale-102'
+                }`}
+                whileHover={{ y: -3 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => setActiveProject(index)}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <div className={`absolute inset-0 bg-gradient-to-r ${project.color} opacity-10 group-hover:opacity-20 transition-opacity duration-300`}></div>
+                <div className="relative z-10 p-4 h-full flex items-center gap-4">
+                  <div className={`w-14 h-14 rounded-full bg-gradient-to-br ${project.color} flex items-center justify-center flex-shrink-0`}>
+                    <i className={`${project.icon} text-white text-lg`}></i>
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h4 className="font-semibold text-white text-sm truncate group-hover:text-tron transition-colors duration-300">
+                      {project.title}
+                    </h4>
+                    <p className="text-gray-400 text-xs truncate">{project.shortDesc}</p>
+                    <div className={`text-xs px-2 py-1 rounded-full border mt-1 inline-block ${getExpertiseColor(project.expertise)}`}>
+                      {project.expertise}
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Active Indicator */}
+                {index === activeProject && (
+                  <motion.div
+                    className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-tron to-cyan-400"
+                    layoutId="activeIndicator"
+                    transition={{ duration: 0.4 }}
+                  />
+                )}
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        {/* View All Projects Button */}
+        <motion.div
+          className="text-center mt-12"
+          initial={{ opacity: 0, y: 30 }}
+          animate={controls}
+          variants={{
+            visible: { 
+              opacity: 1, 
+              y: 0,
+              transition: { duration: 0.8, delay: 1 }
+            }
+          }}
+        >
+          <motion.a
+            href="https://github.com/tharunkuchulu"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block px-8 py-4 bg-gradient-to-r from-tron to-cyan-400 text-black font-bold rounded-full hover:from-cyan-400 hover:to-tron transition-all duration-300 shadow-lg hover:shadow-tron/50 transform hover:scale-105"
+            whileHover={{ 
+              boxShadow: "0 20px 40px rgba(0, 255, 247, 0.4)"
+            }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <i className="fab fa-github mr-3"></i>
+            View All Projects on GitHub
+          </motion.a>
+        </motion.div>
       </div>
     </section>
   );
