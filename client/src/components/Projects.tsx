@@ -362,7 +362,7 @@ export default function Projects() {
                     href={projects[activeProject].github} 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="flex-1 text-center border-2 border-tron px-4 py-3 bg-transparent text-tron font-semibold rounded-xl hover:bg-tron hover:text-black hover:scale-105 transition-all duration-300 transform hover:shadow-2xl hover:shadow-tron/60 hover:border-cyan-300 text-sm min-w-0 whitespace-nowrap overflow-hidden"
+                    className="flex-1 text-center border-2 border-tron px-6 py-4 bg-transparent text-tron font-semibold rounded-xl hover:bg-tron hover:text-black hover:scale-105 transition-all duration-300 transform hover:shadow-2xl hover:shadow-tron/60 hover:border-cyan-300 text-base"
                     style={{ 
                       transition: 'all 0.3s ease',
                       boxShadow: 'none'
@@ -382,7 +382,7 @@ export default function Projects() {
                       href={projects[activeProject].demo} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="flex-1 text-center bg-gradient-to-r from-tron to-cyan-400 text-black px-4 py-3 font-semibold rounded-xl hover:from-cyan-300 hover:to-blue-400 hover:scale-110 transition-all duration-300 transform hover:shadow-2xl hover:shadow-cyan-400/80 border border-tron/30 hover:border-cyan-300 text-sm min-w-0 whitespace-nowrap overflow-hidden"
+                      className="flex-1 text-center bg-gradient-to-r from-tron to-cyan-400 text-black px-6 py-4 font-semibold rounded-xl hover:from-cyan-300 hover:to-blue-400 hover:scale-110 transition-all duration-300 transform hover:shadow-2xl hover:shadow-cyan-400/80 border border-tron/30 hover:border-cyan-300 text-base"
                       style={{ 
                         transition: 'all 0.3s ease',
                         boxShadow: '0 0 15px rgba(0, 255, 247, 0.3)',
