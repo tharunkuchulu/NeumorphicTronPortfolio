@@ -90,7 +90,7 @@ export default function Contact() {
         
         <div className="max-w-2xl mx-auto">
           <motion.div 
-            className="glass-card p-8 rounded-2xl"
+            className="glass-card card-hover p-8 rounded-2xl performance-optimized"
             initial={{ opacity: 0, y: 50 }}
             animate={controls}
             transition={{ duration: 0.8, delay: 0.2 }}

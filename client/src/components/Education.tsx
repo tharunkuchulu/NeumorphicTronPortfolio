@@ -21,7 +21,7 @@ export default function Education() {
             initial={{ opacity: 0, y: 50 }}
             animate={controls}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="glass-card p-8 rounded-2xl"
+            className="glass-card card-hover p-8 rounded-2xl performance-optimized"
           >
             <div className="flex flex-col md:flex-row md:items-center md:justify-between">
               <div className="flex-1">

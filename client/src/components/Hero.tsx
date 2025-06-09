@@ -77,7 +77,7 @@ export default function Hero() {
   };
 
   return (
-    <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20 md:pt-0">
+    <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20 md:pt-0 performance-optimized">
       {/* Optimized Circuit Board Background */}
       <div className="absolute inset-0 opacity-20 circuit-board">
         {/* Static Circuit Lines */}

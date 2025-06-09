@@ -80,7 +80,7 @@ export default function SoftSkills() {
                 style={{ perspective: '1000px' }}
               >
                 <motion.div
-                  className={`glass-card p-8 rounded-2xl text-center relative overflow-hidden border-2 ${skill.borderColor} transition-all duration-500 group-hover:border-opacity-80`}
+                  className={`glass-card card-hover performance-optimized p-8 rounded-2xl text-center relative overflow-hidden border-2 ${skill.borderColor} transition-all duration-500 group-hover:border-opacity-80`}
                   whileHover={{ 
                     rotateX: 5,
                     rotateY: 5,

@@ -66,7 +66,7 @@ export default function Certifications() {
             {certifications.map((cert, index) => (
               <motion.div 
                 key={cert.title}
-                className={`glass-card p-8 rounded-2xl text-center relative overflow-hidden group ${cert.borderColor} border-2`}
+                className={`glass-card card-hover performance-optimized p-8 rounded-2xl text-center relative overflow-hidden group ${cert.borderColor} border-2`}
                 initial={{ opacity: 0, y: 50 }}
                 animate={controls}
                 transition={{ duration: 0.6, delay: 0.2 + index * 0.2 }}
