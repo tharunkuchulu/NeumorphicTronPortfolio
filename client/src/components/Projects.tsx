@@ -205,7 +205,7 @@ export default function Projects() {
 
         {/* Enhanced Big Card Carousel Container */}
         <div 
-          className="relative h-[800px] sm:h-[850px] lg:h-[900px] mb-12 bg-gradient-to-br from-gray-900/50 via-black/30 to-gray-800/50 rounded-3xl border border-tron/20 backdrop-blur-sm overflow-hidden"
+          className="relative h-[650px] sm:h-[550px] md:h-[500px] lg:h-[480px] xl:h-[460px] mb-12 bg-gradient-to-br from-gray-900/50 via-black/30 to-gray-800/50 rounded-3xl border border-tron/20 backdrop-blur-sm overflow-hidden"
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
@@ -244,35 +244,35 @@ export default function Projects() {
               exit={{ opacity: 0, scale: 0.98, y: -20 }}
               transition={{ duration: 0.5, ease: "easeInOut" }}
             >
-              <div className="h-full p-4 sm:p-6 lg:p-8 flex flex-col lg:flex-row gap-6 lg:gap-8 performance-optimized max-w-full overflow-y-auto">
+              <div className="h-full p-3 sm:p-4 md:p-5 lg:p-6 flex flex-col lg:flex-row gap-4 sm:gap-5 lg:gap-6 performance-optimized max-w-full overflow-y-auto">
               {/* Left: Project Icon & Meta */}
               <div className="lg:w-1/3 flex flex-col items-center justify-center relative">
                 {/* Project Icon Container with Fixed Circles */}
                 <div className="relative flex items-center justify-center mb-6">
                   {/* Rotating Rings - Positioned around the icon */}
                   <motion.div
-                    className="absolute w-40 h-40 rounded-full border-2 border-tron/20"
+                    className="absolute w-32 h-32 sm:w-36 sm:h-36 lg:w-32 lg:h-32 rounded-full border-2 border-tron/20"
                     animate={{ rotate: 360 }}
                     transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
                   />
                   <motion.div
-                    className="absolute w-32 h-32 rounded-full border border-tron/40"
+                    className="absolute w-24 h-24 sm:w-28 sm:h-28 lg:w-24 lg:h-24 rounded-full border border-tron/40"
                     animate={{ rotate: -360 }}
                     transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
                   />
 
                   {/* Project Icon */}
                   <motion.div
-                    className={`w-28 h-28 rounded-full bg-gradient-to-br ${projects[activeProject].color} flex items-center justify-center relative z-10 shadow-2xl`}
+                    className={`w-20 h-20 sm:w-24 sm:h-24 lg:w-20 lg:h-20 rounded-full bg-gradient-to-br ${projects[activeProject].color} flex items-center justify-center relative z-10 shadow-2xl`}
                     whileHover={{ scale: 1.15, rotate: 10 }}
                     transition={{ duration: 0.4 }}
                   >
-                    <i className={`${projects[activeProject].icon} text-4xl text-white`}></i>
+                    <i className={`${projects[activeProject].icon} text-2xl sm:text-3xl lg:text-2xl text-white`}></i>
                   </motion.div>
                 </div>
                 
                 <motion.h3 
-                  className="text-3xl font-bold text-white mb-3 text-center"
+                  className="text-2xl sm:text-3xl lg:text-2xl font-bold text-white mb-2 sm:mb-3 text-center"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
@@ -293,37 +293,37 @@ export default function Projects() {
               {/* Right: Project Details */}
               <div className="lg:w-2/3 flex flex-col justify-center min-w-0">
                 <motion.div
-                  className="mb-6"
+                  className="mb-4 sm:mb-6"
                   initial={{ opacity: 0, x: 30 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.4 }}
                 >
-                  <h4 className="text-sm font-semibold text-tron mb-3 tracking-wider">PROJECT OVERVIEW</h4>
-                  <p className="text-gray-300 text-lg leading-relaxed">
+                  <h4 className="text-xs sm:text-sm font-semibold text-tron mb-2 sm:mb-3 tracking-wider">PROJECT OVERVIEW</h4>
+                  <p className="text-gray-300 text-sm sm:text-base lg:text-sm leading-relaxed">
                     {projects[activeProject].overview}
                   </p>
                 </motion.div>
 
                 {/* Project Meta Grid */}
                 <motion.div
-                  className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6"
+                  className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 mb-4 sm:mb-6"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5 }}
                 >
-                  <div className="bg-gray-800/50 backdrop-blur-sm p-4 rounded-xl border border-tron/20">
-                    <h5 className="text-xs font-semibold text-tron mb-2 tracking-wider">PROJECT TYPE</h5>
-                    <p className="text-white text-sm">{projects[activeProject].projectType}</p>
+                  <div className="bg-gray-800/50 backdrop-blur-sm p-3 sm:p-4 rounded-xl border border-tron/20">
+                    <h5 className="text-xs font-semibold text-tron mb-1 sm:mb-2 tracking-wider">PROJECT TYPE</h5>
+                    <p className="text-white text-xs sm:text-sm">{projects[activeProject].projectType}</p>
                   </div>
-                  <div className="bg-gray-800/50 backdrop-blur-sm p-4 rounded-xl border border-tron/20">
-                    <h5 className="text-xs font-semibold text-tron mb-2 tracking-wider">STATUS</h5>
-                    <span className={`text-xs px-3 py-1 rounded-full border ${getStatusColor(projects[activeProject].status)}`}>
+                  <div className="bg-gray-800/50 backdrop-blur-sm p-3 sm:p-4 rounded-xl border border-tron/20">
+                    <h5 className="text-xs font-semibold text-tron mb-1 sm:mb-2 tracking-wider">STATUS</h5>
+                    <span className={`text-xs px-2 sm:px-3 py-1 rounded-full border ${getStatusColor(projects[activeProject].status)}`}>
                       {projects[activeProject].status}
                     </span>
                   </div>
-                  <div className="bg-gray-800/50 backdrop-blur-sm p-4 rounded-xl border border-tron/20">
-                    <h5 className="text-xs font-semibold text-tron mb-2 tracking-wider">DURATION</h5>
-                    <p className="text-white text-sm">{projects[activeProject].duration}</p>
+                  <div className="bg-gray-800/50 backdrop-blur-sm p-3 sm:p-4 rounded-xl border border-tron/20">
+                    <h5 className="text-xs font-semibold text-tron mb-1 sm:mb-2 tracking-wider">DURATION</h5>
+                    <p className="text-white text-xs sm:text-sm">{projects[activeProject].duration}</p>
                   </div>
                 </motion.div>
 
