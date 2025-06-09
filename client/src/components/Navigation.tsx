@@ -94,21 +94,13 @@ export default function Navigation() {
         </div>
       </div>
 
-      {/* Mobile Menu Button - Outside Navigation Container */}
+      {/* Mobile Menu Button - Simple Tron Style */}
       <button 
-        className="md:hidden fixed bottom-5 right-5 z-[9999] w-14 h-14 rounded-full flex items-center justify-center shadow-lg"
+        className="md:hidden fixed bottom-5 right-5 z-[9999] w-12 h-12 bg-black/80 border-2 border-tron rounded-lg flex items-center justify-center backdrop-blur-sm hover:bg-tron/10 transition-all duration-300"
         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        style={{ 
-          background: isMobileMenuOpen 
-            ? 'linear-gradient(135deg, #ff0040, #ff6b6b)' 
-            : 'linear-gradient(135deg, #00ffff, #0099ff)',
-          border: '2px solid rgba(255, 255, 255, 0.2)',
-          boxShadow: '0 8px 32px rgba(0, 255, 255, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1)',
-          backdropFilter: 'blur(10px)'
-        }}
         aria-label="Toggle mobile menu"
       >
-        <i className={`fas ${isMobileMenuOpen ? 'fa-times' : 'fa-bars'} text-xl text-white transition-all duration-300`}></i>
+        <i className={`fas ${isMobileMenuOpen ? 'fa-times' : 'fa-bars'} text-lg text-tron transition-all duration-300`}></i>
       </button>
 
       {/* Mobile Menu Overlay */}
@@ -122,12 +114,7 @@ export default function Navigation() {
             onClick={() => setIsMobileMenuOpen(false)}
           >
             <motion.div 
-              className="fixed right-0 top-0 h-full w-80 bg-black/95 backdrop-blur-xl border-l-2 border-tron p-6 shadow-2xl"
-              style={{
-                background: 'linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(15,15,15,0.98) 50%, rgba(0,0,0,0.95) 100%)',
-                backdropFilter: 'blur(20px)',
-                boxShadow: '0 0 50px rgba(0, 255, 255, 0.3), inset 0 0 50px rgba(0, 255, 255, 0.1)'
-              }}
+              className="fixed right-0 top-0 h-full w-80 bg-black border-l-2 border-tron p-6 shadow-2xl"
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
