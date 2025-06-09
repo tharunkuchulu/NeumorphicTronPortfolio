@@ -4,27 +4,56 @@ import { motion } from "framer-motion";
 export default function Hero() {
   const [displayText, setDisplayText] = useState("");
   const [showCursor, setShowCursor] = useState(true);
-  const fullText = "Python Full Stack Developer";
+  const [currentTitleIndex, setCurrentTitleIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+  
+  const titles = [
+    "Python Full Stack Developer",
+    "AI Enthusiast", 
+    "Problem Solver"
+  ];
 
   useEffect(() => {
-    let i = 0;
-    const typingInterval = setInterval(() => {
-      if (i < fullText.length) {
-        setDisplayText(fullText.substring(0, i + 1));
-        i++;
-      } else {
-        clearInterval(typingInterval);
-      }
-    }, 100);
+    const currentTitle = titles[currentTitleIndex];
+    let timeout: NodeJS.Timeout | undefined;
 
+    if (!isDeleting) {
+      // Typing effect
+      if (displayText.length < currentTitle.length) {
+        timeout = setTimeout(() => {
+          setDisplayText(currentTitle.substring(0, displayText.length + 1));
+        }, 150);
+      } else {
+        // Pause before starting to delete
+        timeout = setTimeout(() => {
+          setIsDeleting(true);
+        }, 2000);
+      }
+    } else {
+      // Deleting effect
+      if (displayText.length > 0) {
+        timeout = setTimeout(() => {
+          setDisplayText(currentTitle.substring(0, displayText.length - 1));
+        }, 100);
+      } else {
+        // Move to next title
+        setIsDeleting(false);
+        setCurrentTitleIndex((prev) => (prev + 1) % titles.length);
+        return; // No timeout to clear
+      }
+    }
+
+    return () => {
+      if (timeout) clearTimeout(timeout);
+    };
+  }, [displayText, isDeleting, currentTitleIndex, titles]);
+
+  useEffect(() => {
     const cursorInterval = setInterval(() => {
       setShowCursor(prev => !prev);
     }, 500);
 
-    return () => {
-      clearInterval(typingInterval);
-      clearInterval(cursorInterval);
-    };
+    return () => clearInterval(cursorInterval);
   }, []);
 
   const handleDownloadResume = () => {
@@ -91,11 +120,29 @@ export default function Hero() {
             Tharun Vankayala
           </motion.h1>
           
-          <div className="text-xl md:text-2xl mb-8 text-gray-300 h-8">
-            <span className="inline-block">
+          <div className="text-xl md:text-2xl mb-8 text-gray-300 h-12 flex items-center justify-center">
+            <motion.span 
+              className="inline-block text-tron font-semibold"
+              animate={{
+                textShadow: [
+                  '0 0 10px rgba(0, 255, 255, 0.5)',
+                  '0 0 20px rgba(0, 255, 255, 0.8)',
+                  '0 0 10px rgba(0, 255, 255, 0.5)'
+                ]
+              }}
+              transition={{ duration: 2, repeat: Infinity }}
+            >
               {displayText}
-              {showCursor && <span className="border-r-2 border-tron ml-1 animate-pulse">|</span>}
-            </span>
+              {showCursor && (
+                <motion.span 
+                  className="border-r-2 border-tron ml-1"
+                  animate={{ opacity: [1, 0, 1] }}
+                  transition={{ duration: 1, repeat: Infinity }}
+                >
+                  |
+                </motion.span>
+              )}
+            </motion.span>
           </div>
           
           <motion.p 
