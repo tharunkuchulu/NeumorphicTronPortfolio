@@ -170,7 +170,7 @@ export default function Contact() {
 
           {/* Contact Info */}
           <motion.div 
-            className="mt-12 grid md:grid-cols-3 gap-6 text-center"
+            className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto"
             initial={{ opacity: 0, y: 30 }}
             animate={controls}
             transition={{ duration: 0.8, delay: 0.6 }}
@@ -178,28 +178,34 @@ export default function Contact() {
             {contactInfo.map((info, index) => (
               <motion.div 
                 key={info.title}
-                className="glass-card p-6 rounded-2xl"
+                className="glass-card p-6 rounded-2xl text-center min-h-[140px] flex flex-col justify-center"
                 initial={{ opacity: 0, y: 30 }}
                 animate={controls}
                 transition={{ duration: 0.6, delay: 0.8 + index * 0.1 }}
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ scale: 1.02, y: -5 }}
               >
-                <motion.i 
-                  className={`${info.icon} text-tron text-2xl mb-4`}
-                  whileHover={{ scale: 1.2, rotate: 360 }}
-                  transition={{ duration: 0.5 }}
-                ></motion.i>
-                <h4 className="font-semibold text-white mb-2">{info.title}</h4>
-                {info.href ? (
-                  <a 
-                    href={info.href} 
-                    className="text-gray-400 text-sm hover:text-tron transition-colors break-words break-all px-2"
-                  >
-                    {info.value}
-                  </a>
-                ) : (
-                  <p className="text-gray-400 text-sm break-words">{info.value}</p>
-                )}
+                <motion.div
+                  className="flex flex-col items-center"
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <motion.i 
+                    className={`${info.icon} text-tron text-2xl mb-4 block`}
+                    whileHover={{ scale: 1.2, rotate: 10 }}
+                    transition={{ duration: 0.3 }}
+                  ></motion.i>
+                  <h4 className="font-semibold text-white mb-2 text-base">{info.title}</h4>
+                  {info.href ? (
+                    <a 
+                      href={info.href} 
+                      className="text-gray-400 text-sm hover:text-tron transition-colors duration-300 text-center leading-relaxed"
+                    >
+                      {info.value}
+                    </a>
+                  ) : (
+                    <p className="text-gray-400 text-sm text-center leading-relaxed">{info.value}</p>
+                  )}
+                </motion.div>
               </motion.div>
             ))}
           </motion.div>

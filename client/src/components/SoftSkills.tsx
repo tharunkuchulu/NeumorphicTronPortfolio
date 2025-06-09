@@ -68,7 +68,7 @@ export default function SoftSkills() {
         </motion.h2>
         
         <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-fr">
             {softSkills.map((skill, index) => (
               <motion.div 
                 key={skill.title}
@@ -80,19 +80,17 @@ export default function SoftSkills() {
                 style={{ perspective: '1000px' }}
               >
                 <motion.div
-                  className={`glass-card card-hover performance-optimized p-8 rounded-2xl text-center relative overflow-hidden border-2 ${skill.borderColor} transition-all duration-500 group-hover:border-opacity-80`}
+                  className={`glass-card card-hover performance-optimized p-6 rounded-2xl text-center relative overflow-hidden border-2 ${skill.borderColor} transition-all duration-300 group-hover:border-opacity-80 min-h-[200px] flex flex-col justify-center`}
                   whileHover={{ 
-                    rotateX: 5,
-                    rotateY: 5,
-                    scale: 1.05,
-                    boxShadow: `0 25px 50px rgba(0, 255, 255, 0.3)`
+                    y: -8,
+                    scale: 1.02,
+                    boxShadow: `0 20px 40px rgba(0, 255, 255, 0.25)`
                   }}
                   transition={{ 
                     type: "spring", 
-                    stiffness: 300, 
-                    damping: 20 
+                    stiffness: 400, 
+                    damping: 25 
                   }}
-                  style={{ transformStyle: 'preserve-3d' }}
                 >
                   {/* Background gradient overlay */}
                   <motion.div 
@@ -110,76 +108,50 @@ export default function SoftSkills() {
 
                   {/* Content */}
                   <div className="relative z-10">
-                    {/* Icon with 3D effect */}
+                    {/* Icon with effect */}
                     <motion.div
-                      className="mb-6 relative"
+                      className="mb-4 relative"
                       whileHover={{ 
-                        scale: 1.3,
-                        rotateY: 360,
-                        z: 50
+                        scale: 1.2,
+                        rotate: 10
                       }}
                       transition={{ 
-                        duration: 0.8,
-                        type: "spring",
-                        stiffness: 200
+                        duration: 0.3
                       }}
-                      style={{ transformStyle: 'preserve-3d' }}
                     >
-                      <motion.div
-                        className="absolute inset-0 bg-tron/20 rounded-full blur-lg opacity-0 group-hover:opacity-100"
-                        animate={{ scale: [1, 1.2, 1] }}
-                        transition={{ duration: 2, repeat: Infinity }}
-                      />
-                      <i className={`${skill.icon} text-tron text-5xl relative z-10`}></i>
+                      <i className={`${skill.icon} text-tron text-4xl`}></i>
                     </motion.div>
                     
-                    {/* Title with depth */}
+                    {/* Title */}
                     <motion.h3 
-                      className="font-orbitron text-xl font-semibold text-white mb-3 group-hover:text-tron transition-colors duration-300"
-                      whileHover={{ scale: 1.05, z: 30 }}
-                      style={{ transformStyle: 'preserve-3d' }}
+                      className="font-orbitron text-lg font-semibold text-white mb-2 group-hover:text-tron transition-colors duration-300"
+                      whileHover={{ scale: 1.05 }}
                     >
                       {skill.title}
                     </motion.h3>
                     
                     {/* Description */}
                     <motion.p 
-                      className="text-gray-400 text-sm group-hover:text-gray-300 transition-colors duration-300"
-                      whileHover={{ scale: 1.02, z: 20 }}
-                      style={{ transformStyle: 'preserve-3d' }}
+                      className="text-gray-400 text-sm group-hover:text-gray-300 transition-colors duration-300 leading-relaxed"
+                      whileHover={{ scale: 1.02 }}
                     >
                       {skill.description}
                     </motion.p>
                   </div>
                   
-                  {/* Floating particles */}
+                  {/* Accent Elements */}
                   <motion.div
-                    className="absolute top-4 right-4 text-tron/20 group-hover:text-tron/60"
+                    className="absolute top-3 right-3 text-tron/30 group-hover:text-tron/70"
                     animate={{ 
                       rotate: 360,
                       scale: [1, 1.1, 1]
                     }}
                     transition={{ 
-                      rotate: { duration: 15, repeat: Infinity, ease: "linear" },
-                      scale: { duration: 3, repeat: Infinity }
+                      rotate: { duration: 10, repeat: Infinity, ease: "linear" },
+                      scale: { duration: 2, repeat: Infinity }
                     }}
                   >
                     <i className="fas fa-star text-xs"></i>
-                  </motion.div>
-                  
-                  <motion.div
-                    className="absolute bottom-4 left-4 text-tron/20 group-hover:text-tron/60"
-                    animate={{ 
-                      y: [-5, 5, -5],
-                      opacity: [0.3, 0.8, 0.3]
-                    }}
-                    transition={{ 
-                      duration: 4, 
-                      repeat: Infinity,
-                      ease: "easeInOut"
-                    }}
-                  >
-                    <i className="fas fa-circle text-xs"></i>
                   </motion.div>
 
                   {/* Reflection effect */}
