@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [hoveredItem, setHoveredItem] = useState<string | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -94,14 +95,37 @@ export default function Navigation() {
         </div>
       </div>
 
-      {/* Mobile Menu Button - Simple Tron Style */}
-      <button 
-        className="md:hidden fixed bottom-2.5 right-5 z-[9999] w-12 h-12 bg-black/80 border-2 border-tron rounded-lg flex items-center justify-center backdrop-blur-sm hover:bg-tron/10 transition-all duration-300 focus:outline-none"
+      {/* Mobile Menu Button - Enhanced with Intelligent Animations */}
+      <motion.button 
+        className="md:hidden fixed bottom-2.5 right-5 z-[9999] w-12 h-12 bg-black/80 border-2 border-tron rounded-lg flex items-center justify-center backdrop-blur-sm focus:outline-none"
         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         aria-label="Toggle mobile menu"
+        whileHover={{
+          scale: 1.1,
+          backgroundColor: 'rgba(0, 255, 255, 0.1)',
+          borderColor: '#00ffff',
+          boxShadow: '0 0 20px rgba(0, 255, 255, 0.3)',
+          transition: { duration: 0.2 }
+        }}
+        whileTap={{
+          scale: 0.95,
+          transition: { duration: 0.1 }
+        }}
+        animate={{
+          rotate: isMobileMenuOpen ? 180 : 0,
+          backgroundColor: isMobileMenuOpen ? 'rgba(0, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.8)',
+          transition: { duration: 0.3, type: "spring", stiffness: 200 }
+        }}
       >
-        <i className={`fas ${isMobileMenuOpen ? 'fa-times' : 'fa-bars'} text-lg text-tron transition-all duration-300`}></i>
-      </button>
+        <motion.i 
+          className={`fas ${isMobileMenuOpen ? 'fa-times' : 'fa-bars'} text-lg text-tron`}
+          animate={{
+            rotate: isMobileMenuOpen ? 90 : 0,
+            scale: isMobileMenuOpen ? 1.1 : 1
+          }}
+          transition={{ duration: 0.3, type: "spring", stiffness: 300 }}
+        />
+      </motion.button>
 
       {/* Mobile Menu Overlay */}
       <AnimatePresence>
@@ -121,23 +145,91 @@ export default function Navigation() {
                 background: '#000000',
                 opacity: 1
               }}
-              initial={{ x: '100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '100%' }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              initial={{ x: '100%', opacity: 0 }}
+              animate={{ 
+                x: 0, 
+                opacity: 1,
+                transition: {
+                  type: "spring",
+                  stiffness: 400,
+                  damping: 40,
+                  mass: 1,
+                  opacity: { duration: 0.3 }
+                }
+              }}
+              exit={{ 
+                x: '100%', 
+                opacity: 0,
+                transition: {
+                  type: "spring",
+                  stiffness: 400,
+                  damping: 40,
+                  opacity: { duration: 0.2 }
+                }
+              }}
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="flex justify-between items-center mb-8">
-                <h3 className="text-tron font-orbitron text-xl font-bold">Navigation</h3>
-                <button 
+              <motion.div 
+                className="flex justify-between items-center mb-8"
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ 
+                  opacity: 1, 
+                  y: 0,
+                  transition: { delay: 0.2, duration: 0.4 }
+                }}
+                exit={{ opacity: 0, y: -20 }}
+              >
+                <motion.h3 
+                  className="text-tron font-orbitron text-xl font-bold"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ 
+                    opacity: 1, 
+                    x: 0,
+                    transition: { delay: 0.3, duration: 0.4 }
+                  }}
+                >
+                  Navigation
+                </motion.h3>
+                <motion.button 
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-gray-400 hover:text-tron"
+                  className="text-gray-400 hover:text-tron transition-colors duration-300"
+                  initial={{ opacity: 0, rotate: -90 }}
+                  animate={{ 
+                    opacity: 1, 
+                    rotate: 0,
+                    transition: { delay: 0.4, duration: 0.3 }
+                  }}
+                  whileHover={{ 
+                    scale: 1.1, 
+                    rotate: 90,
+                    transition: { duration: 0.2 }
+                  }}
+                  whileTap={{ scale: 0.9 }}
                 >
                   <i className="fas fa-times text-xl"></i>
-                </button>
-              </div>
+                </motion.button>
+              </motion.div>
               
-              <div className="space-y-4">
+              <motion.div 
+                className="space-y-4"
+                initial="hidden"
+                animate="visible"
+                exit="hidden"
+                variants={{
+                  visible: {
+                    transition: {
+                      staggerChildren: 0.1,
+                      delayChildren: 0.5
+                    }
+                  },
+                  hidden: {
+                    transition: {
+                      staggerChildren: 0.05,
+                      staggerDirection: -1
+                    }
+                  }
+                }}
+              >
                 {[
                   { href: '#hero', label: 'Home', icon: 'fas fa-home' },
                   { href: '#about', label: 'About', icon: 'fas fa-user' },
@@ -147,18 +239,74 @@ export default function Navigation() {
                   { href: '#education', label: 'Education', icon: 'fas fa-graduation-cap' },
                   { href: '#certifications', label: 'Certifications', icon: 'fas fa-certificate' },
                   { href: '#contact', label: 'Contact', icon: 'fas fa-envelope' }
-                ].map((item) => (
-                  <a
+                ].map((item, index) => (
+                  <motion.a
                     key={item.href}
                     href={item.href}
                     onClick={(e) => handleNavClick(e, item.href)}
-                    className="flex items-center gap-4 py-3 px-4 rounded-lg hover:bg-tron/10 hover:text-tron transition-all duration-300 group"
+                    className="flex items-center gap-4 py-3 px-4 rounded-lg transition-all duration-300 group relative overflow-hidden"
+                    onMouseEnter={() => setHoveredItem(item.href)}
+                    onMouseLeave={() => setHoveredItem(null)}
+                    variants={{
+                      visible: {
+                        opacity: 1,
+                        x: 0,
+                        transition: {
+                          type: "spring",
+                          stiffness: 400,
+                          damping: 25,
+                          mass: 0.8
+                        }
+                      },
+                      hidden: {
+                        opacity: 0,
+                        x: -50
+                      }
+                    }}
+                    whileHover={{
+                      scale: 1.02,
+                      x: 8,
+                      transition: { duration: 0.2 }
+                    }}
+                    whileTap={{
+                      scale: 0.98,
+                      transition: { duration: 0.1 }
+                    }}
+                    style={{
+                      backgroundColor: hoveredItem === item.href ? 'rgba(0, 255, 255, 0.1)' : 'transparent',
+                      borderLeft: hoveredItem === item.href ? '3px solid #00ffff' : '3px solid transparent'
+                    }}
                   >
-                    <i className={`${item.icon} text-tron group-hover:scale-110 transition-transform`}></i>
-                    <span className="text-white group-hover:text-tron font-medium">{item.label}</span>
-                  </a>
+                    <motion.i 
+                      className={`${item.icon} text-tron`}
+                      animate={{
+                        scale: hoveredItem === item.href ? 1.15 : 1,
+                        rotate: hoveredItem === item.href ? 10 : 0
+                      }}
+                      transition={{ duration: 0.3, type: "spring", stiffness: 300 }}
+                    />
+                    <motion.span 
+                      className="text-white font-medium"
+                      animate={{
+                        color: hoveredItem === item.href ? '#00ffff' : '#ffffff',
+                        x: hoveredItem === item.href ? 4 : 0
+                      }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      {item.label}
+                    </motion.span>
+                    
+                    {/* Subtle glow effect on hover */}
+                    <motion.div
+                      className="absolute inset-0 bg-gradient-to-r from-tron/20 to-cyan-500/20 opacity-0"
+                      animate={{
+                        opacity: hoveredItem === item.href ? 1 : 0
+                      }}
+                      transition={{ duration: 0.3 }}
+                    />
+                  </motion.a>
                 ))}
-              </div>
+              </motion.div>
             </motion.div>
           </motion.div>
         )}
