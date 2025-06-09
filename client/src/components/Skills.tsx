@@ -51,74 +51,72 @@ export default function Skills() {
     oscillator.stop(audioContext.currentTime + 0.15);
   };
 
-  // Technical Skills Data with compact layout
+  // Technical Skills Data - Only technologies from your resume
   const skillCategories = [
     {
-      title: "Programming Languages",
+      title: "Languages & Frameworks",
       skills: [
         { name: "Python", level: 92, icon: "fab fa-python", color: "#3776ab" },
         { name: "JavaScript", level: 88, icon: "fab fa-js-square", color: "#f7df1e" },
-        { name: "TypeScript", level: 85, icon: "fab fa-js-square", color: "#3178c6" },
-        { name: "Java", level: 80, icon: "fab fa-java", color: "#ed8b00" },
-        { name: "C++", level: 75, icon: "fas fa-code", color: "#00599c" }
+        { name: "FastAPI", level: 90, icon: "fas fa-bolt", color: "#009688" },
+        { name: "React.js", level: 88, icon: "fab fa-react", color: "#61dafb" },
+        { name: "Redux", level: 85, icon: "fas fa-layer-group", color: "#764abc" }
       ]
     },
     {
-      title: "Frontend & Backend",
+      title: "Frontend & UI/UX",
       skills: [
-        { name: "React.js", level: 90, icon: "fab fa-react", color: "#61dafb" },
-        { name: "FastAPI", level: 88, icon: "fas fa-bolt", color: "#009688" },
-        { name: "Node.js", level: 85, icon: "fab fa-node-js", color: "#339933" },
-        { name: "Express.js", level: 82, icon: "fas fa-server", color: "#68D391" },
-        { name: "Next.js", level: 80, icon: "fas fa-forward", color: "#ffffff" }
+        { name: "HTML", level: 90, icon: "fab fa-html5", color: "#e34f26" },
+        { name: "CSS", level: 88, icon: "fab fa-css3-alt", color: "#1572b6" },
+        { name: "Figma", level: 75, icon: "fab fa-figma", color: "#F24E1E" }
       ]
     },
     {
       title: "Databases",
       skills: [
-        { name: "MongoDB", level: 88, icon: "fas fa-leaf", color: "#47A248" },
-        { name: "PostgreSQL", level: 85, icon: "fas fa-database", color: "#336791" },
-        { name: "MySQL", level: 83, icon: "fas fa-database", color: "#4479A1" },
-        { name: "Redis", level: 80, icon: "fas fa-cube", color: "#DC382D" }
+        { name: "MySQL", level: 85, icon: "fas fa-database", color: "#4479A1" },
+        { name: "MongoDB", level: 82, icon: "fas fa-leaf", color: "#47A248" }
       ]
     },
     {
       title: "Cloud & DevOps",
       skills: [
-        { name: "AWS", level: 85, icon: "fab fa-aws", color: "#FF9900" },
-        { name: "Docker", level: 82, icon: "fab fa-docker", color: "#2496ED" },
-        { name: "GitHub Actions", level: 80, icon: "fab fa-github", color: "#00D4AA" },
-        { name: "Linux", level: 78, icon: "fab fa-linux", color: "#FCC624" }
+        { name: "AWS EC2", level: 85, icon: "fab fa-aws", color: "#FF9900" },
+        { name: "AWS S3", level: 88, icon: "fas fa-cloud", color: "#FF9900" },
+        { name: "Docker", level: 80, icon: "fab fa-docker", color: "#2496ED" },
+        { name: "GitHub Actions", level: 82, icon: "fab fa-github", color: "#00D4AA" },
+        { name: "Git", level: 90, icon: "fab fa-git-alt", color: "#F05032" }
       ]
     },
     {
-      title: "AI & ML",
+      title: "AI & APIs",
       skills: [
-        { name: "OpenAI API", level: 90, icon: "fas fa-robot", color: "#412991" },
+        { name: "OpenAI", level: 88, icon: "fas fa-robot", color: "#412991" },
         { name: "LangChain", level: 85, icon: "fas fa-link", color: "#00ffff" },
         { name: "Pinecone", level: 82, icon: "fas fa-tree", color: "#00D4AA" },
-        { name: "Pandas", level: 88, icon: "fas fa-chart-bar", color: "#E91E63" }
+        { name: "REST APIs", level: 90, icon: "fas fa-exchange-alt", color: "#61dafb" },
+        { name: "RAG", level: 85, icon: "fas fa-brain", color: "#E91E63" }
       ]
     },
     {
-      title: "Tools & Others",
+      title: "Development Tools",
       skills: [
-        { name: "Git", level: 90, icon: "fab fa-git-alt", color: "#F05032" },
-        { name: "Postman", level: 85, icon: "fas fa-paper-plane", color: "#FF6C37" },
-        { name: "VS Code", level: 88, icon: "fas fa-code", color: "#007ACC" },
-        { name: "Figma", level: 75, icon: "fab fa-figma", color: "#F24E1E" }
+        { name: "Data Structures", level: 88, icon: "fas fa-project-diagram", color: "#ffd700" },
+        { name: "Algorithms", level: 85, icon: "fas fa-code-branch", color: "#32cd32" },
+        { name: "OOP", level: 90, icon: "fas fa-cube", color: "#ff6347" },
+        { name: "Pytest", level: 82, icon: "fas fa-vial", color: "#0052cc" }
       ]
     }
   ];
 
-  // Radar Skills for chart view
+  // Radar Skills for chart view based on your actual experience
   const radarSkills = [
+    { name: "Python/FastAPI", value: 91, color: "#3776ab" },
     { name: "Frontend", value: 88, color: "#61dafb" },
-    { name: "Backend", value: 90, color: "#009688" },
-    { name: "Database", value: 85, color: "#336791" },
-    { name: "Cloud/DevOps", value: 82, color: "#FF9900" },
-    { name: "AI/ML", value: 87, color: "#412991" },
-    { name: "Tools", value: 86, color: "#F05032" }
+    { name: "Databases", value: 84, color: "#4479A1" },
+    { name: "Cloud/AWS", value: 86, color: "#FF9900" },
+    { name: "AI/APIs", value: 87, color: "#412991" },
+    { name: "DevOps/Git", value: 85, color: "#F05032" }
   ];
 
   return (
