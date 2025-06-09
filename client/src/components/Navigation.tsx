@@ -189,11 +189,8 @@ export default function Navigation() {
             onClick={() => setIsMobileMenuOpen(false)}
           >
             <motion.div 
-              className="fixed right-0 top-0 h-full w-80 border-l-2 border-tron p-6 shadow-2xl"
+              className="fixed right-0 top-0 h-full w-80 bg-black border-l-2 border-tron p-6 shadow-2xl"
               style={{
-                backgroundColor: '#000000',
-                background: '#000000',
-                opacity: 1,
                 transform: `translateX(${dragOffset}px)`
               }}
               initial={{ x: '100%', opacity: 0 }}
