@@ -205,7 +205,7 @@ export default function Projects() {
 
         {/* Enhanced Big Card Carousel Container */}
         <div 
-          className="relative h-[700px] mb-12 bg-gradient-to-br from-gray-900/50 via-black/30 to-gray-800/50 rounded-3xl border border-tron/20 backdrop-blur-sm overflow-hidden"
+          className="relative h-[800px] sm:h-[850px] lg:h-[900px] mb-12 bg-gradient-to-br from-gray-900/50 via-black/30 to-gray-800/50 rounded-3xl border border-tron/20 backdrop-blur-sm overflow-hidden"
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
@@ -244,7 +244,7 @@ export default function Projects() {
               exit={{ opacity: 0, scale: 0.98, y: -20 }}
               transition={{ duration: 0.5, ease: "easeInOut" }}
             >
-              <div className="h-full p-4 sm:p-6 lg:p-8 flex flex-col lg:flex-row gap-6 lg:gap-8 performance-optimized max-w-full overflow-hidden">
+              <div className="h-full p-4 sm:p-6 lg:p-8 flex flex-col lg:flex-row gap-6 lg:gap-8 performance-optimized max-w-full overflow-y-auto">
               {/* Left: Project Icon & Meta */}
               <div className="lg:w-1/3 flex flex-col items-center justify-center relative">
                 {/* Project Icon Container with Fixed Circles */}
@@ -353,7 +353,7 @@ export default function Projects() {
 
                 {/* Action Buttons */}
                 <motion.div
-                  className="flex flex-col sm:flex-row gap-3 w-full max-w-md mx-auto lg:mx-0"
+                  className="flex flex-col sm:flex-row gap-3 w-full max-w-lg mx-auto lg:mx-0 mt-auto pt-4"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.7 }}
