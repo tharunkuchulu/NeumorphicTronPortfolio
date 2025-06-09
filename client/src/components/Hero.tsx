@@ -320,53 +320,7 @@ export default function Hero() {
             Passionate about AI-driven development and cloud computing solutions.
           </motion.p>
 
-          {/* Holographic Profile Image */}
-          <motion.div
-            className="mb-12 flex justify-center"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 2.2, duration: 0.8 }}
-          >
-            <div className="relative w-32 h-32 md:w-40 md:h-40">
-              {/* Main Profile Container */}
-              <motion.div
-                className="absolute inset-0 rounded-full bg-gradient-to-br from-tron/30 via-cyan-400/20 to-tron/30 backdrop-blur-sm border-2 border-tron/50"
-                animate={{
-                  boxShadow: [
-                    '0 0 20px rgba(0, 255, 255, 0.3)',
-                    '0 0 40px rgba(0, 255, 255, 0.6)',
-                    '0 0 20px rgba(0, 255, 255, 0.3)'
-                  ]
-                }}
-                transition={{ duration: 3, repeat: Infinity }}
-              >
-                {/* Profile Icon/Avatar */}
-                <div className="absolute inset-4 rounded-full bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center border border-tron/30">
-                  <i className="fas fa-user text-3xl md:text-4xl text-tron"></i>
-                </div>
 
-                {/* Simple Holographic Effect */}
-                <motion.div
-                  className="absolute inset-0 rounded-full"
-                  animate={{
-                    opacity: [0, 0.3, 0]
-                  }}
-                  transition={{
-                    duration: 0.2,
-                    repeat: Infinity,
-                    repeatDelay: 8,
-                    ease: "easeInOut"
-                  }}
-                  style={{
-                    background: 'linear-gradient(45deg, transparent 30%, rgba(0, 255, 255, 0.1) 50%, transparent 70%)'
-                  }}
-                />
-              </motion.div>
-
-              {/* Static Outer Ring */}
-              <div className="absolute inset-[-10px] rounded-full border border-tron/20" />
-            </div>
-          </motion.div>
           
           <motion.div 
             className="flex flex-col sm:flex-row gap-6 justify-center items-center"
