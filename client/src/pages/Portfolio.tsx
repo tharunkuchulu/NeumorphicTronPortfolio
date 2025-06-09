@@ -47,37 +47,37 @@ export default function Portfolio() {
           <FloatingActionButton />
           
           {/* Footer */}
-          <footer className="py-8 border-t border-gray-800">
-            <div className="container mx-auto px-6">
-              <div className="flex flex-col items-center text-center space-y-4">
-                <div className="flex space-x-6">
+          <footer className="py-6 border-t border-gray-800/50 bg-dark-bg/80 backdrop-blur-sm">
+            <div className="container mx-auto px-6 max-w-4xl">
+              <div className="flex flex-col items-center text-center space-y-3">
+                <div className="flex space-x-4">
                   <a 
                     href="mailto:tharunvankayala@gmail.com" 
-                    className="text-gray-400 hover:text-tron transition-colors duration-300"
+                    className="text-gray-400 hover:text-tron transition-colors duration-300 p-2"
                     aria-label="Email"
                   >
-                    <i className="fas fa-envelope text-xl"></i>
+                    <i className="fas fa-envelope text-lg"></i>
                   </a>
                   <a 
                     href="https://github.com/tharunkuchulu" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="text-gray-400 hover:text-tron transition-colors duration-300"
+                    className="text-gray-400 hover:text-tron transition-colors duration-300 p-2"
                     aria-label="GitHub"
                   >
-                    <i className="fab fa-github text-xl"></i>
+                    <i className="fab fa-github text-lg"></i>
                   </a>
                   <a 
                     href="https://linkedin.com/in/tharun-vankayala" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="text-gray-400 hover:text-tron transition-colors duration-300"
+                    className="text-gray-400 hover:text-tron transition-colors duration-300 p-2"
                     aria-label="LinkedIn"
                   >
-                    <i className="fab fa-linkedin text-xl"></i>
+                    <i className="fab fa-linkedin text-lg"></i>
                   </a>
                 </div>
-                <div className="text-gray-400 text-sm">
+                <div className="text-gray-400 text-xs">
                   © 2024 All rights reserved.
                 </div>
               </div>
