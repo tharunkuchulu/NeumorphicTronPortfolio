@@ -6,6 +6,7 @@ import Skills from "@/components/Skills";
 import Experience from "@/components/Experience";
 import Education from "@/components/Education";
 import Certifications from "@/components/Certifications";
+import SoftSkills from "@/components/SoftSkills";
 import Contact from "@/components/Contact";
 import FloatingParticles from "@/components/FloatingParticles";
 
@@ -21,6 +22,7 @@ export default function Portfolio() {
       <Experience />
       <Education />
       <Certifications />
+      <SoftSkills />
       <Contact />
       
       {/* Footer */}

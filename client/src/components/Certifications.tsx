@@ -58,7 +58,7 @@ export default function Certifications() {
           animate={controls}
           transition={{ duration: 0.8 }}
         >
-          Certifications
+          Certifications & Achievements
         </motion.h2>
         
         <div className="max-w-6xl mx-auto">
