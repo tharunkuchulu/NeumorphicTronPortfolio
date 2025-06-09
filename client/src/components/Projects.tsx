@@ -396,7 +396,7 @@ export default function Projects() {
           </motion.button>
 
           {/* Small Cards Container */}
-          <div className="flex gap-4 overflow-hidden">
+          <div className="flex gap-3 sm:gap-4 overflow-x-auto sm:overflow-hidden px-4 sm:px-0 scrollbar-hide">
             {projects.map((project, index) => (
               <motion.div
                 key={project.id}

@@ -41,6 +41,16 @@
     overflow-x: hidden;
   }
 
+  /* Hide scrollbars for mobile project cards */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Orbitron', monospace;
   }
