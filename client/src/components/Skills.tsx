@@ -69,8 +69,8 @@ export default function Skills() {
         { name: "React.js", level: 90, icon: "fab fa-react", color: "#61dafb" },
         { name: "FastAPI", level: 88, icon: "fas fa-bolt", color: "#009688" },
         { name: "Node.js", level: 85, icon: "fab fa-node-js", color: "#339933" },
-        { name: "Express.js", level: 82, icon: "fas fa-server", color: "#000000" },
-        { name: "Next.js", level: 80, icon: "fas fa-forward", color: "#000000" }
+        { name: "Express.js", level: 82, icon: "fas fa-server", color: "#68D391" },
+        { name: "Next.js", level: 80, icon: "fas fa-forward", color: "#ffffff" }
       ]
     },
     {
@@ -87,7 +87,7 @@ export default function Skills() {
       skills: [
         { name: "AWS", level: 85, icon: "fab fa-aws", color: "#FF9900" },
         { name: "Docker", level: 82, icon: "fab fa-docker", color: "#2496ED" },
-        { name: "GitHub Actions", level: 80, icon: "fab fa-github", color: "#181717" },
+        { name: "GitHub Actions", level: 80, icon: "fab fa-github", color: "#00D4AA" },
         { name: "Linux", level: 78, icon: "fab fa-linux", color: "#FCC624" }
       ]
     },
@@ -95,9 +95,9 @@ export default function Skills() {
       title: "AI & ML",
       skills: [
         { name: "OpenAI API", level: 90, icon: "fas fa-robot", color: "#412991" },
-        { name: "LangChain", level: 85, icon: "fas fa-link", color: "#1C3C3C" },
+        { name: "LangChain", level: 85, icon: "fas fa-link", color: "#00ffff" },
         { name: "Pinecone", level: 82, icon: "fas fa-tree", color: "#00D4AA" },
-        { name: "Pandas", level: 88, icon: "fas fa-chart-bar", color: "#150458" }
+        { name: "Pandas", level: 88, icon: "fas fa-chart-bar", color: "#E91E63" }
       ]
     },
     {
@@ -270,39 +270,91 @@ export default function Skills() {
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.95 }}
                       >
-                        {/* Colorful Circular Progress */}
+                        {/* Futuristic Circular Progress */}
                         <div className="relative flex flex-col items-center">
+                          {/* Outer Glow Ring */}
                           <div 
-                            className="w-16 h-16 rounded-full border-4 flex items-center justify-center relative"
+                            className="absolute w-20 h-20 rounded-full opacity-30 animate-pulse"
+                            style={{
+                              background: `conic-gradient(from 0deg, transparent, ${skill.color}, transparent)`,
+                              filter: `blur(4px)`
+                            }}
+                          />
+                          
+                          {/* Main Skill Circle */}
+                          <div 
+                            className="relative w-16 h-16 rounded-full border-2 flex items-center justify-center backdrop-blur-sm"
                             style={{
                               borderColor: skill.color,
-                              backgroundColor: `${skill.color}20`,
-                              boxShadow: `0 0 15px ${skill.color}40`
+                              background: `linear-gradient(135deg, ${skill.color}15, rgba(0,0,0,0.8), ${skill.color}10)`,
+                              boxShadow: `
+                                0 0 20px ${skill.color}60,
+                                inset 0 0 10px ${skill.color}20,
+                                0 0 0 1px ${skill.color}40
+                              `
                             }}
                           >
-                            <i 
-                              className={`${skill.icon} text-lg`}
-                              style={{ color: skill.color }}
-                            ></i>
+                            {/* Inner Glow */}
                             <div 
-                              className="absolute -top-1 -right-1 text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center border-2"
+                              className="absolute inset-1 rounded-full opacity-20"
                               style={{
-                                backgroundColor: skill.color,
-                                color: '#000000',
-                                borderColor: '#ffffff',
-                                boxShadow: `0 0 8px ${skill.color}60`
+                                background: `radial-gradient(circle at 30% 30%, ${skill.color}60, transparent 70%)`
+                              }}
+                            />
+                            
+                            {/* Skill Icon */}
+                            <i 
+                              className={`${skill.icon} text-lg relative z-10`}
+                              style={{ 
+                                color: skill.color,
+                                filter: `drop-shadow(0 0 6px ${skill.color}80)`
+                              }}
+                            />
+                            
+                            {/* Percentage Badge */}
+                            <div 
+                              className="absolute -top-2 -right-2 text-xs font-bold rounded-full w-7 h-7 flex items-center justify-center border-2"
+                              style={{
+                                background: `linear-gradient(135deg, ${skill.color}, ${skill.color}CC)`,
+                                color: skill.color === '#ffffff' ? '#000000' : '#000000',
+                                borderColor: '#00ffff',
+                                boxShadow: `
+                                  0 0 12px ${skill.color}80,
+                                  0 0 4px #00ffff60,
+                                  inset 0 0 4px rgba(255,255,255,0.2)
+                                `
                               }}
                             >
                               {skill.level}
                             </div>
+                            
+                            {/* Rotating Border Effect */}
+                            <div 
+                              className="absolute inset-0 rounded-full opacity-50 animate-spin"
+                              style={{
+                                background: `conic-gradient(from 0deg, transparent 0deg, ${skill.color}60 ${skill.level * 3.6}deg, transparent ${skill.level * 3.6}deg)`,
+                                maskImage: 'radial-gradient(circle, transparent 70%, black 72%, black 74%, transparent 76%)'
+                              }}
+                            />
                           </div>
                           
-                          {/* Skill Name */}
+                          {/* Skill Name with Glow */}
                           <span 
-                            className="text-xs font-semibold mt-2 text-center"
-                            style={{ color: skill.color }}
+                            className="text-xs font-semibold mt-3 text-center relative"
+                            style={{ 
+                              color: skill.color,
+                              textShadow: `0 0 8px ${skill.color}60, 0 0 4px ${skill.color}40`
+                            }}
                           >
                             {skill.name}
+                            {/* Text Underline Glow */}
+                            <div 
+                              className="absolute bottom-0 left-1/2 transform -translate-x-1/2 h-0.5 w-0 group-hover:w-full transition-all duration-300"
+                              style={{
+                                backgroundColor: skill.color,
+                                boxShadow: `0 0 4px ${skill.color}80`
+                              }}
+                            />
                           </span>
                         </div>
 
