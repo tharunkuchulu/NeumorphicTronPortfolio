@@ -29,6 +29,32 @@
   --dark-card: hsl(240, 10%, 10%);
 }
 
+.light {
+  --background: hsl(0, 0%, 100%);
+  --foreground: hsl(240, 10%, 3.9%);
+  --muted: hsl(240, 4.8%, 95.9%);
+  --muted-foreground: hsl(240, 3.8%, 46.1%);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(240, 10%, 3.9%);
+  --card: hsl(0, 0%, 100%);
+  --card-foreground: hsl(240, 10%, 3.9%);
+  --border: hsl(240, 5.9%, 90%);
+  --input: hsl(240, 5.9%, 90%);
+  --primary: hsl(180, 100%, 40%);
+  --primary-foreground: hsl(0, 0%, 98%);
+  --secondary: hsl(240, 4.8%, 95.9%);
+  --secondary-foreground: hsl(240, 5.9%, 10%);
+  --accent: hsl(240, 4.8%, 95.9%);
+  --accent-foreground: hsl(240, 5.9%, 10%);
+  --destructive: hsl(0, 84.2%, 60.2%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --ring: hsl(240, 5%, 64.9%);
+  --tron: hsl(180, 100%, 40%);
+  --tron-dark: hsl(180, 100%, 30%);
+  --dark-bg: hsl(0, 0%, 98%);
+  --dark-card: hsl(240, 4.8%, 95.9%);
+}
+
 @layer base {
   * {
     @apply border-border;
@@ -42,6 +68,11 @@
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+
+  .light body {
+    background: linear-gradient(135deg, hsl(0, 0%, 98%) 0%, hsl(240, 4.8%, 95.9%) 100%);
   }
 
   /* Performance optimizations for buttery smooth scrolling */
@@ -143,6 +174,13 @@
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     transform: translateZ(0);
     will-change: transform;
+  }
+
+  .light .glass-card {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(0, 180, 180, 0.3);
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
   }
 
   .card-hover {
@@ -266,6 +304,73 @@
     background: hsl(var(--tron));
     border-radius: 50%;
     animation: float 4s infinite ease-in-out;
+  }
+
+  /* Advanced 3D Effects */
+  .holographic-effect {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .holographic-effect::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(0, 255, 255, 0.2),
+      transparent
+    );
+    animation: hologram-sweep 3s linear infinite;
+  }
+
+  @keyframes hologram-sweep {
+    0% { left: -100%; }
+    100% { left: 100%; }
+  }
+
+  .parallax-element {
+    transform-style: preserve-3d;
+    will-change: transform;
+  }
+
+  .neon-text {
+    text-shadow: 
+      0 0 5px hsl(var(--tron)),
+      0 0 10px hsl(var(--tron)),
+      0 0 20px hsl(var(--tron)),
+      0 0 40px hsl(var(--tron));
+  }
+
+  .quantum-border {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .quantum-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    padding: 2px;
+    background: linear-gradient(45deg, 
+      hsl(var(--tron)), 
+      transparent, 
+      hsl(var(--tron-dark)), 
+      transparent
+    );
+    border-radius: inherit;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    animation: quantum-flow 2s linear infinite;
+  }
+
+  @keyframes quantum-flow {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 100% 100%; }
   }
   
   .skill-bar::after {

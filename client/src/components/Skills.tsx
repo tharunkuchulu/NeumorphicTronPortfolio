@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import useScrollAnimation from "@/hooks/useScrollAnimation";
+import { useAudioEngine } from "@/hooks/useAudioEngine";
 import CircularProgress from "@/components/ui/CircularProgress";
 
 export default function Skills() {
@@ -8,51 +9,12 @@ export default function Skills() {
   const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
   const [selectedSkill, setSelectedSkill] = useState<string | null>(null);
   const [soundEnabled, setSoundEnabled] = useState(false);
-  const [viewMode, setViewMode] = useState<'grid' | 'radar'>('grid');
+  const [viewMode, setViewMode] = useState<'grid' | 'radar' | 'constellation'>('grid');
 
-  // Sound effects for skill interactions
-  const playHoverSound = () => {
-    if (!soundEnabled) return;
-    const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
-    const oscillator = audioContext.createOscillator();
-    const gainNode = audioContext.createGain();
-    
-    oscillator.connect(gainNode);
-    gainNode.connect(audioContext.destination);
-    
-    oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
-    oscillator.frequency.exponentialRampToValueAtTime(1200, audioContext.currentTime + 0.1);
-    
-    gainNode.gain.setValueAtTime(0, audioContext.currentTime);
-    gainNode.gain.linearRampToValueAtTime(0.1, audioContext.currentTime + 0.01);
-    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
-    
-    oscillator.start(audioContext.currentTime);
-    oscillator.stop(audioContext.currentTime + 0.1);
-  };
+  const { playHoverSound, playClickSound, playSuccessSound } = useAudioEngine({ enabled: soundEnabled });
 
-  const playClickSound = () => {
-    if (!soundEnabled) return;
-    const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
-    const oscillator = audioContext.createOscillator();
-    const gainNode = audioContext.createGain();
-    
-    oscillator.connect(gainNode);
-    gainNode.connect(audioContext.destination);
-    
-    oscillator.frequency.setValueAtTime(1200, audioContext.currentTime);
-    oscillator.frequency.exponentialRampToValueAtTime(800, audioContext.currentTime + 0.15);
-    
-    gainNode.gain.setValueAtTime(0, audioContext.currentTime);
-    gainNode.gain.linearRampToValueAtTime(0.15, audioContext.currentTime + 0.01);
-    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.15);
-    
-    oscillator.start(audioContext.currentTime);
-    oscillator.stop(audioContext.currentTime + 0.15);
-  };
-
-  // Technical Skills Data - Only technologies from your resume
-  const skillCategories = [
+  // Technical Skills Data - Enhanced with more detail
+  const skillCategories = useMemo(() => [
     {
       title: "Languages & Frameworks",
       skills: [
@@ -109,7 +71,7 @@ export default function Skills() {
         { name: "Pytest", level: 82, icon: "fas fa-vial", color: "#0052cc" }
       ]
     }
-  ];
+  ], []);
 
   // Radar Skills for chart view based on your actual experience
   const radarSkills = [
