@@ -270,17 +270,38 @@ export default function Skills() {
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.95 }}
                       >
-                        {/* Simplified Circular Progress */}
+                        {/* Colorful Circular Progress */}
                         <div className="relative flex flex-col items-center">
-                          <div className="w-16 h-16 rounded-full border-4 border-tron/30 flex items-center justify-center relative bg-dark-card">
-                            <i className={`${skill.icon} text-lg text-tron`}></i>
-                            <div className="absolute -top-1 -right-1 bg-tron text-black text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                          <div 
+                            className="w-16 h-16 rounded-full border-4 flex items-center justify-center relative"
+                            style={{
+                              borderColor: skill.color,
+                              backgroundColor: `${skill.color}20`,
+                              boxShadow: `0 0 15px ${skill.color}40`
+                            }}
+                          >
+                            <i 
+                              className={`${skill.icon} text-lg`}
+                              style={{ color: skill.color }}
+                            ></i>
+                            <div 
+                              className="absolute -top-1 -right-1 text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center border-2"
+                              style={{
+                                backgroundColor: skill.color,
+                                color: '#000000',
+                                borderColor: '#ffffff',
+                                boxShadow: `0 0 8px ${skill.color}60`
+                              }}
+                            >
                               {skill.level}
                             </div>
                           </div>
                           
                           {/* Skill Name */}
-                          <span className="text-xs font-semibold text-white mt-2 text-center">
+                          <span 
+                            className="text-xs font-semibold mt-2 text-center"
+                            style={{ color: skill.color }}
+                          >
                             {skill.name}
                           </span>
                         </div>
