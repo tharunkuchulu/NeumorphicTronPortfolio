@@ -265,110 +265,143 @@ export default function Skills() {
           </div>
         </motion.div>
 
-        {/* Grid View */}
+        {/* Grid View - Optimized Layout */}
         {viewMode === 'grid' && (
           <motion.div 
-            className="w-full max-w-6xl mx-auto px-4"
+            className="w-full max-w-7xl mx-auto px-4"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            {skillCategories.map((category, categoryIndex) => (
-              <motion.div
-                key={category.title}
-                className="mb-12"
-                initial={{ opacity: 0, x: -50 }}
-                animate={controls}
-                transition={{ duration: 0.6, delay: categoryIndex * 0.2 }}
-              >
-                {/* Category Header */}
-                <motion.h3 
-                  className="text-xl font-bold text-tron mb-6 text-center sm:text-left"
-                  whileHover={{ scale: 1.05 }}
+            {/* Compact Category Layout - 2x3 Grid */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+              {skillCategories.map((category, categoryIndex) => (
+                <motion.div
+                  key={category.title}
+                  className="bg-dark-card/30 backdrop-blur-sm rounded-xl p-6 border border-tron/20"
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={controls}
+                  transition={{ duration: 0.6, delay: categoryIndex * 0.1 }}
+                  whileHover={{ 
+                    scale: 1.02,
+                    borderColor: 'rgba(0, 255, 255, 0.4)',
+                    boxShadow: '0 0 20px rgba(0, 255, 255, 0.2)'
+                  }}
                 >
-                  {category.title}
-                </motion.h3>
+                  {/* Category Header */}
+                  <motion.h3 
+                    className="text-lg font-bold text-tron mb-4 text-center"
+                    whileHover={{ scale: 1.05 }}
+                  >
+                    {category.title}
+                  </motion.h3>
 
-                {/* Skills Grid - More compact with smaller circles */}
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 justify-items-center">
-                  {category.skills.map((skill, skillIndex) => (
-                    <motion.div
-                      key={skill.name}
-                      className="flex flex-col items-center space-y-2 hardware-accelerated relative"
-                      onMouseEnter={() => {
-                        setHoveredSkill(skill.name);
-                        playHoverSound();
-                      }}
-                      onMouseLeave={() => setHoveredSkill(null)}
-                      onClick={() => {
-                        setSelectedSkill(selectedSkill === skill.name ? null : skill.name);
-                        playClickSound();
-                      }}
-                      whileHover={{ y: -5 }}
-                    >
-                      <CircularProgress
-                        value={skill.level}
-                        size={100}
-                        strokeWidth={6}
-                        color={skill.color}
-                        icon={skill.icon}
-                        delay={categoryIndex * 0.2 + skillIndex * 0.05}
-                        animate={true}
-                      />
-                      
-                      {/* Skill Details */}
+                  {/* Skills in Compact Grid */}
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                    {category.skills.map((skill, skillIndex) => (
                       <motion.div
-                        className="text-center"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: categoryIndex * 0.2 + skillIndex * 0.05 + 0.8 }}
+                        key={skill.name}
+                        className="flex flex-col items-center space-y-1 hardware-accelerated relative"
+                        onMouseEnter={() => {
+                          setHoveredSkill(skill.name);
+                          playHoverSound();
+                        }}
+                        onMouseLeave={() => setHoveredSkill(null)}
+                        onClick={() => {
+                          setSelectedSkill(selectedSkill === skill.name ? null : skill.name);
+                          playClickSound();
+                        }}
+                        whileHover={{ y: -3, scale: 1.05 }}
                       >
-                        <h4 className="text-sm font-semibold text-white mb-0.5">{skill.name}</h4>
-                        <p className="text-xs text-gray-400">
-                          {skill.level >= 90 ? 'Expert' : skill.level >= 80 ? 'Advanced' : 'Intermediate'}
-                        </p>
-                      </motion.div>
-
-                      {/* Hover Glow Effect */}
-                      {hoveredSkill === skill.name && (
-                        <motion.div
-                          className="absolute inset-0 rounded-full pointer-events-none"
-                          style={{
-                            background: `radial-gradient(circle, ${skill.color}30 0%, transparent 70%)`,
-                            filter: `blur(15px)`
-                          }}
-                          initial={{ opacity: 0, scale: 0.8 }}
-                          animate={{ opacity: 1, scale: 1.2 }}
-                          exit={{ opacity: 0, scale: 0.8 }}
-                          transition={{ duration: 0.3 }}
+                        <CircularProgress
+                          value={skill.level}
+                          size={75}
+                          strokeWidth={4}
+                          color={skill.color}
+                          icon={skill.icon}
+                          delay={categoryIndex * 0.1 + skillIndex * 0.03}
+                          animate={true}
                         />
-                      )}
-                    </motion.div>
-                  ))}
-                </div>
-              </motion.div>
-            ))}
+                        
+                        {/* Skill Name Only */}
+                        <motion.div
+                          className="text-center"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          transition={{ delay: categoryIndex * 0.1 + skillIndex * 0.03 + 0.5 }}
+                        >
+                          <h4 className="text-xs font-semibold text-white leading-tight">{skill.name}</h4>
+                        </motion.div>
 
-            {/* Background Particles */}
-            {Array.from({ length: 10 }).map((_, i) => (
+                        {/* Hover Glow Effect */}
+                        {hoveredSkill === skill.name && (
+                          <motion.div
+                            className="absolute inset-0 rounded-full pointer-events-none"
+                            style={{
+                              background: `radial-gradient(circle, ${skill.color}30 0%, transparent 70%)`,
+                              filter: `blur(10px)`
+                            }}
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={{ opacity: 1, scale: 1.3 }}
+                            exit={{ opacity: 0, scale: 0.8 }}
+                            transition={{ duration: 0.3 }}
+                          />
+                        )}
+                      </motion.div>
+                    ))}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Skills Summary Stats */}
+            <motion.div 
+              className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+            >
+              {[
+                { label: 'Total Skills', value: skillCategories.reduce((sum, cat) => sum + cat.skills.length, 0), icon: 'fas fa-code' },
+                { label: 'Expert Level', value: skillCategories.flatMap(cat => cat.skills).filter(skill => skill.level >= 90).length, icon: 'fas fa-star' },
+                { label: 'Advanced', value: skillCategories.flatMap(cat => cat.skills).filter(skill => skill.level >= 80 && skill.level < 90).length, icon: 'fas fa-trophy' },
+                { label: 'Categories', value: skillCategories.length, icon: 'fas fa-layer-group' }
+              ].map((stat, index) => (
+                <motion.div
+                  key={stat.label}
+                  className="bg-dark-card/40 rounded-lg p-4 text-center border border-tron/10"
+                  whileHover={{ scale: 1.05, borderColor: 'rgba(0, 255, 255, 0.3)' }}
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ duration: 0.5, delay: 0.7 + index * 0.1 }}
+                >
+                  <i className={`${stat.icon} text-tron text-xl mb-2`} />
+                  <div className="text-2xl font-bold text-white">{stat.value}</div>
+                  <div className="text-xs text-gray-400">{stat.label}</div>
+                </motion.div>
+              ))}
+            </motion.div>
+
+            {/* Subtle Background Particles */}
+            {Array.from({ length: 6 }).map((_, i) => (
               <motion.div
                 key={`particle-${i}`}
-                className="absolute rounded-full bg-tron/30 pointer-events-none"
+                className="absolute rounded-full bg-tron/20 pointer-events-none"
                 style={{
-                  width: `${Math.random() * 3 + 1}px`,
-                  height: `${Math.random() * 3 + 1}px`,
+                  width: `${Math.random() * 2 + 1}px`,
+                  height: `${Math.random() * 2 + 1}px`,
                   left: `${Math.random() * 100}%`,
                   top: `${Math.random() * 100}%`
                 }}
                 animate={{
-                  y: [0, -50, 0],
-                  opacity: [0.3, 1, 0.3],
-                  scale: [0.5, 1.5, 0.5]
+                  y: [0, -30, 0],
+                  opacity: [0.2, 0.8, 0.2],
+                  scale: [0.5, 1.2, 0.5]
                 }}
                 transition={{
-                  duration: 4 + Math.random() * 2,
+                  duration: 6 + Math.random() * 2,
                   repeat: Infinity,
-                  delay: Math.random() * 2,
+                  delay: Math.random() * 3,
                   ease: "easeInOut"
                 }}
               />
