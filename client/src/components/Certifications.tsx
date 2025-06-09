@@ -61,19 +61,20 @@ export default function Certifications() {
           Certifications & Achievements
         </motion.h2>
         
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 auto-rows-fr">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
             {certifications.map((cert, index) => (
               <motion.div 
                 key={cert.title}
-                className={`glass-card card-hover performance-optimized p-6 rounded-2xl text-center relative overflow-hidden group ${cert.borderColor} border-2 min-h-[280px] flex flex-col justify-between`}
+                className={`glass-card card-hover performance-optimized p-8 rounded-2xl text-center relative overflow-hidden group ${cert.borderColor} border-2`}
                 initial={{ opacity: 0, y: 50 }}
                 animate={controls}
-                transition={{ duration: 0.6, delay: 0.1 + index * 0.1 }}
+                transition={{ duration: 0.6, delay: 0.2 + index * 0.2 }}
                 whileHover={{ 
-                  scale: 1.02,
-                  y: -8,
-                  boxShadow: "0 20px 40px rgba(0, 255, 255, 0.25)"
+                  scale: 1.05,
+                  rotateY: 5,
+                  rotateX: 5,
+                  boxShadow: "0 25px 50px rgba(0, 255, 255, 0.3)"
                 }}
               >
                 {/* Background gradient overlay */}
@@ -82,29 +83,29 @@ export default function Certifications() {
                 />
                 
                 {/* Content */}
-                <div className="relative z-10 flex flex-col h-full">
+                <div className="relative z-10">
                   <motion.div
-                    className="mb-4"
-                    whileHover={{ scale: 1.1, rotate: 10 }}
-                    transition={{ duration: 0.3 }}
+                    className="mb-6"
+                    whileHover={{ scale: 1.2, rotate: 360 }}
+                    transition={{ duration: 0.5 }}
                   >
-                    <i className={`${cert.icon} text-tron text-4xl block`}></i>
+                    <i className={`${cert.icon} text-tron text-5xl mb-4 block`}></i>
                   </motion.div>
                   
                   <motion.h3 
-                    className="font-orbitron text-lg font-semibold text-white mb-2 flex-grow"
+                    className="font-orbitron text-xl font-semibold text-white mb-3"
                     initial={{ opacity: 0 }}
                     animate={controls}
-                    transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
+                    transition={{ duration: 0.6, delay: 0.4 + index * 0.2 }}
                   >
                     {cert.title}
                   </motion.h3>
                   
                   <motion.p 
-                    className="text-gray-400 text-sm mb-4"
+                    className="text-gray-400 text-sm mb-6"
                     initial={{ opacity: 0 }}
                     animate={controls}
-                    transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
+                    transition={{ duration: 0.6, delay: 0.6 + index * 0.2 }}
                   >
                     {cert.subtitle}
                   </motion.p>
