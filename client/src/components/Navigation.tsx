@@ -145,8 +145,9 @@ export default function Navigation() {
 
       {/* Mobile Menu Button - Enhanced with Intelligent Animations */}
       <motion.button 
-        className="md:hidden fixed bottom-2.5 right-5 z-[9999] w-12 h-12 bg-black/80 border-2 border-tron rounded-lg flex items-center justify-center backdrop-blur-sm focus:outline-none"
+        className="md:hidden fixed bottom-2.5 right-5 z-[9999] w-12 h-12 bg-black/80 border-2 border-tron rounded-lg flex items-center justify-center backdrop-blur-sm focus:outline-none overflow-hidden"
         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        onTouchStart={createRipple}
         aria-label="Toggle mobile menu"
         whileHover={{
           scale: 1.1,
@@ -156,8 +157,9 @@ export default function Navigation() {
           transition: { duration: 0.2 }
         }}
         whileTap={{
-          scale: 0.95,
-          transition: { duration: 0.1 }
+          scale: 0.85,
+          backgroundColor: 'rgba(0, 255, 255, 0.3)',
+          transition: { duration: 0.1, type: "spring", stiffness: 500 }
         }}
         animate={{
           rotate: isMobileMenuOpen ? 180 : 0,
@@ -375,6 +377,40 @@ export default function Navigation() {
                       }}
                       transition={{ duration: 0.3 }}
                     />
+                    
+                    {/* Ripple Effect for Touch Feedback */}
+                    <AnimatePresence>
+                      {rippleEffect && (
+                        <motion.div
+                          className="absolute pointer-events-none rounded-full"
+                          style={{
+                            left: rippleEffect.x - 25,
+                            top: rippleEffect.y - 25,
+                            width: 50,
+                            height: 50,
+                            backgroundColor: 'rgba(0, 255, 255, 0.4)',
+                            border: '1px solid rgba(0, 255, 255, 0.8)'
+                          }}
+                          initial={{ scale: 0, opacity: 1 }}
+                          animate={{ 
+                            scale: [0, 0.5, 1, 1.8], 
+                            opacity: [1, 0.8, 0.4, 0],
+                            backgroundColor: [
+                              'rgba(0, 255, 255, 0.4)',
+                              'rgba(0, 255, 255, 0.3)',
+                              'rgba(0, 255, 255, 0.1)',
+                              'rgba(0, 255, 255, 0)'
+                            ]
+                          }}
+                          exit={{ scale: 2.5, opacity: 0 }}
+                          transition={{ 
+                            duration: 0.6,
+                            ease: [0.4, 0, 0.2, 1],
+                            times: [0, 0.3, 0.7, 1]
+                          }}
+                        />
+                      )}
+                    </AnimatePresence>
                   </motion.a>
                 ))}
               </motion.div>
