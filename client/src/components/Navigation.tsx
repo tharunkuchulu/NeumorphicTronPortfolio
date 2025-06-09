@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -114,8 +114,9 @@ export default function Navigation() {
         </div>
 
         {/* Mobile Menu Overlay */}
-        {isMobileMenuOpen && (
-          <motion.div 
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div 
             className="fixed inset-0 bg-black/80 backdrop-blur-sm z-40 md:hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -163,8 +164,9 @@ export default function Navigation() {
                 ))}
               </div>
             </motion.div>
-          </motion.div>
-        )}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </motion.nav>
   );
