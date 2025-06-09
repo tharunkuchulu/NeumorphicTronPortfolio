@@ -175,32 +175,31 @@ export default function Hero() {
       
       {/* Optimized Floating Data Particles */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none particle-system">
-        {Array.from({ length: 8 }).map((_, i) => (
+        {Array.from({ length: 4 }).map((_, i) => (
           <motion.div
             key={`particle-${i}`}
             className="absolute rounded-full floating-particle"
             style={{
-              left: `${Math.random() * 100}%`,
+              left: `${20 + i * 20}%`,
               top: `100%`,
-              width: `3px`,
-              height: `3px`,
+              width: `2px`,
+              height: `2px`,
               background: `#00ffff`,
-              boxShadow: `0 0 8px rgba(0, 255, 255, 0.6)`
+              boxShadow: `0 0 6px rgba(0, 255, 255, 0.5)`
             }}
             animate={{
-              y: [0, -600],
-              opacity: [0, 1, 0]
+              y: [0, -500],
+              opacity: [0, 0.8, 0]
             }}
             transition={{
-              duration: 8,
-              delay: i * 1,
+              duration: 6,
+              delay: i * 1.5,
               repeat: Infinity,
               ease: "linear",
-              repeatDelay: 2
+              repeatDelay: 3
             }}
           />
         ))}
-
       </div>
 
       <div className="container mx-auto px-6 text-center relative z-10">
