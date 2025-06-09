@@ -39,6 +39,41 @@
     font-family: 'Inter', sans-serif;
     background: linear-gradient(135deg, hsl(0, 0%, 5%) 0%, hsl(240, 10%, 10%) 100%);
     overflow-x: hidden;
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Performance optimizations for buttery smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  * {
+    box-sizing: border-box;
+    transform-style: preserve-3d;
+  }
+
+  /* Hardware acceleration for all animated elements */
+  .hardware-accelerated,
+  .glass-card,
+  [data-animate],
+  button,
+  a,
+  .motion-element {
+    will-change: transform, opacity;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+
+  /* Smooth transitions */
+  .smooth-transition {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .ultra-smooth {
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
   }
 
   /* Hide scrollbars for mobile project cards */
@@ -49,6 +84,25 @@
   
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
+  }
+
+  /* Performance optimized custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #00ffff, #22d3ee);
+    border-radius: 4px;
+    transition: background 0.3s ease;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #22d3ee, #00ffff);
   }
 
   h1, h2, h3, h4, h5, h6 {

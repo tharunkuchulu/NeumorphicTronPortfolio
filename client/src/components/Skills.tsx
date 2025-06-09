@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import useScrollAnimation from "@/hooks/useScrollAnimation";
+import CircularProgress from "@/components/ui/CircularProgress";
 
 export default function Skills() {
   const { ref, controls } = useScrollAnimation();
@@ -61,28 +62,39 @@ export default function Skills() {
     return Math.min(categoryMatch + levelBonus + proximityBonus, 1);
   };
 
-  const skillOrbs = [
-    // Core Programming Languages
-    { name: "Python", level: 90, x: 20, y: 15, size: 120, icon: "fab fa-python", color: "from-yellow-400 to-blue-500", category: "Languages", badge: "Expert" },
-    { name: "JavaScript", level: 85, x: 75, y: 25, size: 110, icon: "fab fa-js-square", color: "from-yellow-300 to-yellow-600", category: "Languages", badge: "Advanced" },
-    
-    // Frameworks
-    { name: "FastAPI", level: 88, x: 15, y: 70, size: 115, icon: "fas fa-bolt", color: "from-green-400 to-emerald-500", category: "Frameworks", badge: "Expert" },
-    { name: "React.js", level: 85, x: 65, y: 75, size: 110, icon: "fab fa-react", color: "from-blue-400 to-cyan-500", category: "Frameworks", badge: "Advanced" },
-    
-    // Cloud & DevOps
-    { name: "AWS", level: 88, x: 45, y: 10, size: 115, icon: "fab fa-aws", color: "from-orange-400 to-yellow-500", category: "Cloud", badge: "Expert" },
-    { name: "Docker", level: 80, x: 85, y: 60, size: 105, icon: "fab fa-docker", color: "from-blue-500 to-blue-700", category: "DevOps", badge: "Advanced" },
-    
-    // Databases
-    { name: "MySQL", level: 85, x: 10, y: 45, size: 108, icon: "fas fa-database", color: "from-blue-600 to-indigo-600", category: "Databases", badge: "Advanced" },
-    { name: "MongoDB", level: 80, x: 80, y: 85, size: 105, icon: "fas fa-leaf", color: "from-green-500 to-green-700", category: "Databases", badge: "Advanced" },
-    
-    // Additional Skills
-    { name: "Redux", level: 80, x: 50, y: 85, size: 105, icon: "fas fa-layer-group", color: "from-purple-500 to-purple-700", category: "State Management", badge: "Advanced" },
-    { name: "HTML/CSS", level: 92, x: 30, y: 50, size: 125, icon: "fab fa-html5", color: "from-orange-500 to-red-500", category: "Frontend", badge: "Master" },
-    { name: "CI/CD", level: 85, x: 70, y: 45, size: 108, icon: "fas fa-sync-alt", color: "from-teal-400 to-teal-600", category: "DevOps", badge: "Advanced" },
-    { name: "Git", level: 90, x: 25, y: 85, size: 120, icon: "fab fa-git-alt", color: "from-red-500 to-pink-500", category: "Version Control", badge: "Expert" }
+  const skillCategories = [
+    {
+      title: "Programming Languages",
+      skills: [
+        { name: "Python", level: 90, icon: "fab fa-python", color: "#3776ab" },
+        { name: "JavaScript", level: 85, icon: "fab fa-js-square", color: "#f7df1e" },
+        { name: "TypeScript", level: 80, icon: "fab fa-js-square", color: "#3178c6" },
+      ]
+    },
+    {
+      title: "Frameworks & Libraries",
+      skills: [
+        { name: "FastAPI", level: 88, icon: "fas fa-bolt", color: "#009688" },
+        { name: "React.js", level: 85, icon: "fab fa-react", color: "#61dafb" },
+        { name: "Redux", level: 80, icon: "fas fa-layer-group", color: "#764abc" },
+      ]
+    },
+    {
+      title: "Cloud & DevOps",
+      skills: [
+        { name: "AWS", level: 88, icon: "fab fa-aws", color: "#ff9900" },
+        { name: "Docker", level: 80, icon: "fab fa-docker", color: "#2496ed" },
+        { name: "CI/CD", level: 85, icon: "fas fa-sync-alt", color: "#326ce5" },
+      ]
+    },
+    {
+      title: "Databases",
+      skills: [
+        { name: "MySQL", level: 85, icon: "fas fa-database", color: "#00758f" },
+        { name: "MongoDB", level: 80, icon: "fas fa-leaf", color: "#47a248" },
+        { name: "PostgreSQL", level: 78, icon: "fas fa-database", color: "#336791" },
+      ]
+    }
   ];
 
   const radarSkills = [
@@ -245,81 +257,93 @@ export default function Skills() {
           </motion.button>
         </motion.div>
 
-        {/* Responsive Constellation View */}
+        {/* Interactive Skills Grid */}
         {!radarView && (
           <motion.div 
-            className="relative w-full mx-auto px-2 sm:px-4"
-            style={{ 
-              height: 'clamp(500px, 80vh, 800px)',
-              maxWidth: 'min(100vw - 2rem, 1400px)'
-            }}
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
+            className="w-full max-w-6xl mx-auto px-4"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            {/* Enhanced Cyberpunk Grid */}
-            <div className="absolute inset-0 opacity-15">
-              <div className="grid grid-cols-12 grid-rows-10 h-full w-full">
-                {Array.from({ length: 120 }).map((_, i) => (
-                  <motion.div
-                    key={i}
-                    className="border border-tron/20 relative"
-                    initial={{ opacity: 0 }}
-                    animate={{ 
-                      opacity: [0, 0.6, 0],
-                      borderColor: [
-                        'rgba(0, 255, 255, 0.2)',
-                        'rgba(0, 255, 255, 0.6)',
-                        'rgba(0, 255, 255, 0.2)'
-                      ]
-                    }}
-                    transition={{ 
-                      duration: 4, 
-                      delay: i * 0.02, 
-                      repeat: Infinity,
-                      ease: "easeInOut"
-                    }}
-                  >
-                    {i % 12 === 0 && (
-                      <motion.div
-                        className="absolute inset-0 bg-tron/10"
-                        animate={{ opacity: [0, 0.3, 0] }}
-                        transition={{ duration: 6, repeat: Infinity, delay: i * 0.1 }}
-                      />
-                    )}
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-
-            {/* Enhanced Particle Field */}
-            {Array.from({ length: 40 }).map((_, i) => (
+            {skillCategories.map((category, categoryIndex) => (
               <motion.div
-                key={i}
-                className="absolute rounded-full bg-tron"
-                style={{
-                  width: `${Math.random() * 4 + 1}px`,
-                  height: `${Math.random() * 4 + 1}px`,
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`
-                }}
-                animate={{
-                  y: [0, -100, 0],
-                  x: [0, Math.random() * 50 - 25, 0],
-                  opacity: [0.2, 1, 0.2],
-                  scale: [0.5, 2, 0.5]
-                }}
-                transition={{
-                  duration: 5 + Math.random() * 3,
-                  repeat: Infinity,
-                  delay: Math.random() * 3,
-                  ease: "easeInOut"
-                }}
-              />
+                key={category.title}
+                className="mb-12"
+                initial={{ opacity: 0, x: -50 }}
+                animate={controls}
+                transition={{ duration: 0.6, delay: categoryIndex * 0.2 }}
+              >
+                {/* Category Header */}
+                <motion.h3 
+                  className="text-2xl font-bold text-tron mb-8 text-center sm:text-left"
+                  whileHover={{ scale: 1.05 }}
+                >
+                  {category.title}
+                </motion.h3>
+
+                {/* Skills Grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
+                  {category.skills.map((skill, skillIndex) => (
+                    <motion.div
+                      key={skill.name}
+                      className="flex flex-col items-center space-y-4 hardware-accelerated"
+                      onMouseEnter={() => {
+                        setHoveredSkill(skill.name);
+                        playHoverSound();
+                      }}
+                      onMouseLeave={() => setHoveredSkill(null)}
+                      onClick={() => {
+                        setSelectedSkill(selectedSkill === skill.name ? null : skill.name);
+                        playClickSound();
+                      }}
+                      whileHover={{ y: -10 }}
+                    >
+                      <CircularProgress
+                        value={skill.level}
+                        size={140}
+                        strokeWidth={8}
+                        color={skill.color}
+                        icon={skill.icon}
+                        label={skill.name}
+                        delay={categoryIndex * 0.3 + skillIndex * 0.1}
+                        animate={true}
+                      />
+                      
+                      {/* Skill Details */}
+                      <motion.div
+                        className="text-center"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: categoryIndex * 0.3 + skillIndex * 0.1 + 1.2 }}
+                      >
+                        <h4 className="text-lg font-semibold text-white mb-1">{skill.name}</h4>
+                        <p className="text-sm text-gray-400">
+                          {skill.level >= 90 ? 'Expert' : skill.level >= 80 ? 'Advanced' : 'Intermediate'}
+                        </p>
+                      </motion.div>
+
+                      {/* Hover Glow Effect */}
+                      {hoveredSkill === skill.name && (
+                        <motion.div
+                          className="absolute inset-0 rounded-full pointer-events-none"
+                          style={{
+                            background: `radial-gradient(circle, ${skill.color}30 0%, transparent 70%)`,
+                            filter: `blur(20px)`
+                          }}
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{ opacity: 1, scale: 1.2 }}
+                          exit={{ opacity: 0, scale: 0.8 }}
+                          transition={{ duration: 0.3 }}
+                        />
+                      )}
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
             ))}
 
-            {/* Advanced Skill Orbs */}
-            {skillOrbs.map((skill, index) => (
+            {/* Background Particles */}
+            {Array.from({ length: 15 }).map((_, i) => (
               <motion.div
                 key={skill.name}
                 className="absolute cursor-pointer group"
