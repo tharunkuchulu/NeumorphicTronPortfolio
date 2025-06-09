@@ -96,7 +96,7 @@ export default function Navigation() {
 
       {/* Mobile Menu Button - Simple Tron Style */}
       <button 
-        className="md:hidden fixed top-4 right-5 z-[9999] w-12 h-12 bg-black/80 border-2 border-tron rounded-lg flex items-center justify-center backdrop-blur-sm hover:bg-tron/10 transition-all duration-300"
+        className="md:hidden fixed top-5 right-5 z-[9999] w-12 h-12 bg-black/80 border-2 border-tron rounded-lg flex items-center justify-center backdrop-blur-sm hover:bg-tron/10 transition-all duration-300 focus:outline-none"
         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         aria-label="Toggle mobile menu"
       >
