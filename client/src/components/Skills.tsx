@@ -42,8 +42,8 @@ export default function Skills() {
   ];
 
   const generateRadarPath = () => {
-    const center = { x: 150, y: 150 };
-    const radius = 120;
+    const center = { x: 200, y: 200 };
+    const radius = 150;
     const angleStep = (2 * Math.PI) / radarSkills.length;
     
     let path = "";
@@ -508,20 +508,20 @@ export default function Skills() {
         {/* Animated Radar Chart View */}
         {radarView && (
           <motion.div 
-            className="flex justify-center items-center h-[600px]"
+            className="flex justify-center items-center h-[700px] py-12"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
           >
-            <div className="relative w-96 h-96">
-              <svg viewBox="0 0 300 300" className="w-full h-full">
+            <div className="relative w-[500px] h-[500px]">
+              <svg viewBox="0 0 400 400" className="w-full h-full">
                 {/* Radar Grid */}
                 {[1, 2, 3, 4, 5].map((ring) => (
                   <motion.circle
                     key={ring}
-                    cx="150"
-                    cy="150"
-                    r={ring * 24}
+                    cx="200"
+                    cy="200"
+                    r={ring * 30}
                     fill="none"
                     stroke="rgba(0, 255, 255, 0.3)"
                     strokeWidth="1"
@@ -534,13 +534,13 @@ export default function Skills() {
                 {/* Radar Axes */}
                 {radarSkills.map((_, index) => {
                   const angle = (index * 60 - 90) * (Math.PI / 180);
-                  const x2 = 150 + Math.cos(angle) * 120;
-                  const y2 = 150 + Math.sin(angle) * 120;
+                  const x2 = 200 + Math.cos(angle) * 150;
+                  const y2 = 200 + Math.sin(angle) * 150;
                   return (
                     <motion.line
                       key={index}
-                      x1="150"
-                      y1="150"
+                      x1="200"
+                      y1="200"
                       x2={x2}
                       y2={y2}
                       stroke="rgba(0, 255, 255, 0.4)"
@@ -566,9 +566,9 @@ export default function Skills() {
                 {/* Skill Points */}
                 {radarSkills.map((skill, index) => {
                   const angle = (index * 60 - 90) * (Math.PI / 180);
-                  const radius = (skill.value / skill.max) * 120;
-                  const x = 150 + Math.cos(angle) * radius;
-                  const y = 150 + Math.sin(angle) * radius;
+                  const radius = (skill.value / skill.max) * 150;
+                  const x = 200 + Math.cos(angle) * radius;
+                  const y = 200 + Math.sin(angle) * radius;
                   
                   return (
                     <motion.g key={skill.name}>
@@ -592,8 +592,8 @@ export default function Skills() {
                       
                       {/* Skill Labels */}
                       <motion.text
-                        x={150 + Math.cos(angle) * 140}
-                        y={150 + Math.sin(angle) * 140 - 8}
+                        x={200 + Math.cos(angle) * 175}
+                        y={200 + Math.sin(angle) * 175 - 8}
                         textAnchor="middle"
                         dominantBaseline="middle"
                         fill="rgba(0, 255, 255, 1)"
@@ -607,8 +607,8 @@ export default function Skills() {
                       </motion.text>
                       
                       <motion.text
-                        x={150 + Math.cos(angle) * 140}
-                        y={150 + Math.sin(angle) * 140 + 8}
+                        x={200 + Math.cos(angle) * 175}
+                        y={200 + Math.sin(angle) * 175 + 8}
                         textAnchor="middle"
                         dominantBaseline="middle"
                         fill="rgba(255, 255, 255, 1)"
