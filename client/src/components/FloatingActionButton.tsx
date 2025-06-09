@@ -25,7 +25,15 @@ export default function FloatingActionButton() {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50" style={{ position: 'fixed', bottom: '24px', right: '24px' }}>
+    <div 
+      className="fixed bottom-4 right-4 xs:bottom-6 xs:right-6 z-[9999]" 
+      style={{ 
+        position: 'fixed', 
+        bottom: 'calc(env(safe-area-inset-bottom) + 16px)', 
+        right: 'calc(env(safe-area-inset-right) + 16px)',
+        zIndex: 9999
+      }}
+    >
       {/* Navigation Menu */}
       <AnimatePresence>
         {isOpen && (
@@ -40,7 +48,7 @@ export default function FloatingActionButton() {
               <motion.button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className="flex items-center gap-3 bg-dark-card/90 backdrop-blur-sm text-white px-4 py-3 rounded-full border border-tron/30 hover:border-tron transition-all duration-300 group"
+                className="flex items-center gap-2 xs:gap-3 bg-dark-card/90 backdrop-blur-sm text-white px-3 xs:px-4 py-2 xs:py-3 rounded-full border border-tron/30 hover:border-tron transition-all duration-300 group touch-manipulation"
                 initial={{ opacity: 0, x: 50 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: index * 0.05, duration: 0.3 }}
@@ -61,7 +69,7 @@ export default function FloatingActionButton() {
       {/* Main FAB Button */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-14 h-14 bg-gradient-to-r from-tron to-blue-500 text-white rounded-full shadow-lg flex items-center justify-center relative overflow-hidden"
+        className="w-12 h-12 xs:w-14 xs:h-14 bg-gradient-to-r from-tron to-blue-500 text-white rounded-full shadow-lg flex items-center justify-center relative overflow-hidden touch-manipulation"
         whileHover={{ 
           scale: 1.1,
           boxShadow: '0 0 30px rgba(0, 255, 255, 0.5)'
