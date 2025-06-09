@@ -61,20 +61,40 @@
     box-shadow: 0 20px 40px rgba(0, 255, 247, 0.2);
   }
 
-  /* Force buttons to remain interactive */
-  button, a, .cursor-pointer {
+  /* Force all interactive elements to remain active */
+  button, a, .cursor-pointer, [role="button"] {
+    pointer-events: auto !important;
+    user-select: none !important;
+  }
+
+  /* Completely override any disabled styling */
+  button:hover, a:hover, .cursor-pointer:hover, 
+  button:focus, a:focus, .cursor-pointer:focus,
+  button:active, a:active, .cursor-pointer:active {
+    opacity: 1 !important;
+    filter: none !important;
+    pointer-events: auto !important;
+    cursor: pointer !important;
+  }
+
+  /* Specifically target motion components */
+  [data-projection-id] {
     pointer-events: auto !important;
   }
 
-  /* Prevent disabled appearance on hover */
-  button:hover, a:hover, motion.a:hover, motion.button:hover {
+  [data-projection-id]:hover {
     opacity: 1 !important;
     filter: none !important;
   }
 
-  /* Fix for motion components */
-  [data-framer-component-type] {
-    pointer-events: auto !important;
+  /* Override any graying effects */
+  .glass-card button, .glass-card a {
+    transition: all 0.3s ease !important;
+  }
+
+  .glass-card button:hover, .glass-card a:hover {
+    opacity: 1 !important;
+    filter: brightness(1) !important;
   }
   
   .neon-border {

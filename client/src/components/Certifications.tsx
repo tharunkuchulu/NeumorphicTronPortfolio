@@ -117,29 +117,23 @@ export default function Certifications() {
                     transition={{ duration: 0.6, delay: 0.8 + index * 0.2 }}
                   >
                     {cert.link ? (
-                      <motion.a
+                      <a
                         href={cert.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="bg-tron/20 text-tron px-4 py-2 rounded-full border border-tron/30 text-xs font-semibold hover:bg-tron hover:text-black transition-all duration-300 cursor-pointer"
-                        style={{ pointerEvents: 'auto' }}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
+                        className="bg-tron/20 text-tron px-4 py-2 rounded-full border border-tron/30 text-xs font-semibold hover:bg-tron hover:text-black hover:scale-105 transition-all duration-300 cursor-pointer active:scale-95"
+                        style={{ pointerEvents: 'auto', display: 'inline-block' }}
                       >
                         <i className="fas fa-external-link-alt mr-1"></i>
                         View Certificate
-                      </motion.a>
+                      </a>
                     ) : (
-                      <motion.div 
-                        className="bg-tron/10 px-4 py-2 rounded-full border border-tron/30 cursor-pointer"
-                        style={{ pointerEvents: 'auto' }}
-                        whileHover={{ 
-                          backgroundColor: "rgba(0, 255, 255, 0.2)",
-                          borderColor: "rgba(0, 255, 255, 0.6)"
-                        }}
+                      <div 
+                        className="bg-tron/10 px-4 py-2 rounded-full border border-tron/30 cursor-pointer hover:bg-tron/20 hover:border-tron/60 hover:scale-105 transition-all duration-300"
+                        style={{ pointerEvents: 'auto', display: 'inline-block' }}
                       >
                         <span className="text-tron text-xs font-semibold">VERIFIED</span>
-                      </motion.div>
+                      </div>
                     )}
                   </motion.div>
                 </div>
