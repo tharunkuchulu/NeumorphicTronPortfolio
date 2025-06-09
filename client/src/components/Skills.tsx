@@ -371,16 +371,16 @@ export default function Skills() {
                   }}
                   transition={{ duration: 0.3 }}
                 >
-                  <div className="glass-card p-4 rounded-lg border border-tron/50 backdrop-blur-lg min-w-max">
-                    <div className="font-orbitron text-tron font-bold text-lg mb-1">
+                  <div className="glass-card p-4 rounded-lg border-2 border-tron/70 backdrop-blur-lg min-w-max bg-black/90">
+                    <div className="font-orbitron text-tron font-bold text-lg mb-1" style={{ textShadow: '0 0 10px rgba(0, 255, 255, 0.8)' }}>
                       {skill.name}
                     </div>
-                    <div className="text-white text-sm mb-2">
-                      Category: {skill.category}
+                    <div className="text-white text-sm mb-2" style={{ textShadow: '0 0 5px rgba(255, 255, 255, 0.5)' }}>
+                      Category: <span className="text-cyan-300">{skill.category}</span>
                     </div>
                     <div className="flex items-center gap-2 mb-2">
-                      <div className="text-xs text-gray-400">Proficiency:</div>
-                      <div className="flex-1 bg-gray-700 rounded-full h-2 relative overflow-hidden">
+                      <div className="text-xs text-cyan-200">Proficiency:</div>
+                      <div className="flex-1 bg-gray-800 rounded-full h-2 relative overflow-hidden border border-tron/30">
                         <motion.div
                           className="absolute top-0 left-0 h-full bg-gradient-to-r from-tron to-cyan-400 rounded-full"
                           initial={{ width: 0 }}
@@ -388,9 +388,11 @@ export default function Skills() {
                           transition={{ duration: 1, delay: 0.2 }}
                         />
                       </div>
-                      <div className="text-tron font-bold text-sm">{skill.level}%</div>
+                      <div className="text-tron font-bold text-sm" style={{ textShadow: '0 0 8px rgba(0, 255, 255, 0.8)' }}>
+                        {skill.level}%
+                      </div>
                     </div>
-                    <div className="text-xs text-gray-400 border-t border-gray-600 pt-2">
+                    <div className="text-xs text-cyan-300 border-t border-tron/30 pt-2" style={{ textShadow: '0 0 3px rgba(0, 255, 255, 0.5)' }}>
                       Click to select • Hover to explore
                     </div>
                   </div>
@@ -534,7 +536,9 @@ export default function Skills() {
                         y={150 + Math.sin(angle) * 140}
                         textAnchor="middle"
                         dominantBaseline="middle"
-                        className="fill-tron font-orbitron text-sm font-bold"
+                        fill="rgba(0, 255, 255, 1)"
+                        className="font-orbitron text-sm font-bold"
+                        style={{ filter: 'drop-shadow(0 0 4px rgba(0, 255, 255, 0.8))' }}
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.5, delay: 1.5 + index * 0.1 }}
@@ -547,7 +551,9 @@ export default function Skills() {
                         y={150 + Math.sin(angle) * 155}
                         textAnchor="middle"
                         dominantBaseline="middle"
-                        className="fill-white font-mono text-xs"
+                        fill="rgba(255, 255, 255, 1)"
+                        className="font-mono text-xs"
+                        style={{ filter: 'drop-shadow(0 0 2px rgba(255, 255, 255, 0.8))' }}
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.5, delay: 1.7 + index * 0.1 }}
