@@ -82,28 +82,88 @@ export default function Skills() {
           animate={controls}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <div className="glass-card p-2 rounded-full border border-tron/30">
+          <div className="glass-card p-2 rounded-full border border-tron/30 backdrop-blur-lg">
             <motion.button
               onClick={() => setRadarView(false)}
-              className={`px-6 py-3 rounded-full transition-all duration-300 ${
-                !radarView ? 'bg-tron text-black' : 'text-tron hover:bg-tron/20'
+              className={`px-6 py-3 rounded-full transition-all duration-300 relative overflow-hidden ${
+                !radarView 
+                  ? 'text-black font-bold border-2 border-tron' 
+                  : 'text-tron hover:bg-tron/20 border-2 border-transparent'
               }`}
+              style={{
+                background: !radarView 
+                  ? 'linear-gradient(45deg, rgba(0, 255, 255, 0.9), rgba(0, 255, 255, 1))'
+                  : 'transparent',
+                boxShadow: !radarView 
+                  ? '0 0 20px rgba(0, 255, 255, 0.6), inset 0 0 20px rgba(0, 255, 255, 0.2)'
+                  : 'none'
+              }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              animate={!radarView ? {
+                boxShadow: [
+                  '0 0 20px rgba(0, 255, 255, 0.6), inset 0 0 20px rgba(0, 255, 255, 0.2)',
+                  '0 0 30px rgba(0, 255, 255, 0.8), inset 0 0 30px rgba(0, 255, 255, 0.4)',
+                  '0 0 20px rgba(0, 255, 255, 0.6), inset 0 0 20px rgba(0, 255, 255, 0.2)'
+                ]
+              } : {}}
+              transition={!radarView ? { duration: 2, repeat: Infinity } : {}}
             >
-              <i className="fas fa-sphere mr-2"></i>
-              Constellation View
+              {!radarView && (
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+                  animate={{ x: ['-100%', '200%'] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                  style={{ transform: 'skewX(-20deg)' }}
+                />
+              )}
+              <motion.i 
+                className="fas fa-sphere mr-2 relative z-10"
+                animate={!radarView ? { rotate: [0, 360] } : {}}
+                transition={!radarView ? { duration: 4, repeat: Infinity } : {}}
+              />
+              <span className="relative z-10">Constellation View</span>
             </motion.button>
             <motion.button
               onClick={() => setRadarView(true)}
-              className={`px-6 py-3 rounded-full transition-all duration-300 ${
-                radarView ? 'bg-tron text-black' : 'text-tron hover:bg-tron/20'
+              className={`px-6 py-3 rounded-full transition-all duration-300 relative overflow-hidden ${
+                radarView 
+                  ? 'text-black font-bold border-2 border-tron' 
+                  : 'text-tron hover:bg-tron/20 border-2 border-transparent'
               }`}
+              style={{
+                background: radarView 
+                  ? 'linear-gradient(45deg, rgba(0, 255, 255, 0.9), rgba(0, 255, 255, 1))'
+                  : 'transparent',
+                boxShadow: radarView 
+                  ? '0 0 20px rgba(0, 255, 255, 0.6), inset 0 0 20px rgba(0, 255, 255, 0.2)'
+                  : 'none'
+              }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              animate={radarView ? {
+                boxShadow: [
+                  '0 0 20px rgba(0, 255, 255, 0.6), inset 0 0 20px rgba(0, 255, 255, 0.2)',
+                  '0 0 30px rgba(0, 255, 255, 0.8), inset 0 0 30px rgba(0, 255, 255, 0.4)',
+                  '0 0 20px rgba(0, 255, 255, 0.6), inset 0 0 20px rgba(0, 255, 255, 0.2)'
+                ]
+              } : {}}
+              transition={radarView ? { duration: 2, repeat: Infinity } : {}}
             >
-              <i className="fas fa-radar mr-2"></i>
-              Radar Chart
+              {radarView && (
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+                  animate={{ x: ['-100%', '200%'] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                  style={{ transform: 'skewX(-20deg)' }}
+                />
+              )}
+              <motion.i 
+                className="fas fa-radar mr-2 relative z-10"
+                animate={radarView ? { rotate: [0, 360] } : {}}
+                transition={radarView ? { duration: 3, repeat: Infinity } : {}}
+              />
+              <span className="relative z-10">Radar Chart</span>
             </motion.button>
           </div>
         </motion.div>
@@ -533,7 +593,7 @@ export default function Skills() {
                       {/* Skill Labels */}
                       <motion.text
                         x={150 + Math.cos(angle) * 140}
-                        y={150 + Math.sin(angle) * 140}
+                        y={150 + Math.sin(angle) * 140 - 8}
                         textAnchor="middle"
                         dominantBaseline="middle"
                         fill="rgba(0, 255, 255, 1)"
@@ -547,8 +607,8 @@ export default function Skills() {
                       </motion.text>
                       
                       <motion.text
-                        x={150 + Math.cos(angle) * 155}
-                        y={150 + Math.sin(angle) * 155}
+                        x={150 + Math.cos(angle) * 140}
+                        y={150 + Math.sin(angle) * 140 + 8}
                         textAnchor="middle"
                         dominantBaseline="middle"
                         fill="rgba(255, 255, 255, 1)"
