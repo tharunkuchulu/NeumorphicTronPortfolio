@@ -60,6 +60,22 @@
     transform: translateY(-5px) scale(1.02);
     box-shadow: 0 20px 40px rgba(0, 255, 247, 0.2);
   }
+
+  /* Force buttons to remain interactive */
+  button, a, .cursor-pointer {
+    pointer-events: auto !important;
+  }
+
+  /* Prevent disabled appearance on hover */
+  button:hover, a:hover, motion.a:hover, motion.button:hover {
+    opacity: 1 !important;
+    filter: none !important;
+  }
+
+  /* Fix for motion components */
+  [data-framer-component-type] {
+    pointer-events: auto !important;
+  }
   
   .neon-border {
     border: 2px solid hsl(var(--tron));

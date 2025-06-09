@@ -458,7 +458,8 @@ export default function Projects() {
                     href={project.github} 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="flex-1 text-center border border-tron px-4 py-2 bg-transparent text-tron text-sm font-semibold rounded-lg hover:bg-tron hover:text-black transition-all duration-300"
+                    className="flex-1 text-center border border-tron px-4 py-2 bg-transparent text-tron text-sm font-semibold rounded-lg hover:bg-tron hover:text-black transition-all duration-300 cursor-pointer"
+                    style={{ pointerEvents: 'auto' }}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
@@ -470,7 +471,8 @@ export default function Projects() {
                       href={project.demo} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="flex-1 text-center bg-tron text-black px-4 py-2 text-sm font-semibold rounded-lg hover:bg-cyan-400 transition-all duration-300"
+                      className="flex-1 text-center bg-tron text-black px-4 py-2 text-sm font-semibold rounded-lg hover:bg-cyan-400 transition-all duration-300 cursor-pointer"
+                      style={{ pointerEvents: 'auto' }}
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
@@ -479,6 +481,7 @@ export default function Projects() {
                   ) : (
                     <motion.div 
                       className="flex-1 text-center bg-gray-600 text-gray-300 px-4 py-2 text-sm font-semibold rounded-lg cursor-not-allowed hover:bg-gray-500 transition-all duration-300"
+                      style={{ pointerEvents: 'auto' }}
                       whileHover={{ scale: 1.02 }}
                     >
                       <i className="fas fa-clock mr-2"></i>Demo Soon

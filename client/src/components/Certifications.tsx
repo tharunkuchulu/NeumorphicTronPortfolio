@@ -121,7 +121,8 @@ export default function Certifications() {
                         href={cert.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="bg-tron/20 text-tron px-4 py-2 rounded-full border border-tron/30 text-xs font-semibold hover:bg-tron hover:text-black transition-all duration-300"
+                        className="bg-tron/20 text-tron px-4 py-2 rounded-full border border-tron/30 text-xs font-semibold hover:bg-tron hover:text-black transition-all duration-300 cursor-pointer"
+                        style={{ pointerEvents: 'auto' }}
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                       >
@@ -130,7 +131,8 @@ export default function Certifications() {
                       </motion.a>
                     ) : (
                       <motion.div 
-                        className="bg-tron/10 px-4 py-2 rounded-full border border-tron/30"
+                        className="bg-tron/10 px-4 py-2 rounded-full border border-tron/30 cursor-pointer"
+                        style={{ pointerEvents: 'auto' }}
                         whileHover={{ 
                           backgroundColor: "rgba(0, 255, 255, 0.2)",
                           borderColor: "rgba(0, 255, 255, 0.6)"
