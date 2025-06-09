@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { ThemeToggle } from "./ThemeToggle";
 
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -92,13 +93,16 @@ export default function Navigation() {
             ))}
           </div>
           
-          <button 
-            className="md:hidden text-tron"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="Toggle mobile menu"
-          >
-            <i className={`fas ${isMobileMenuOpen ? 'fa-times' : 'fa-bars'} text-xl`}></i>
-          </button>
+          <div className="flex items-center space-x-4">
+            <ThemeToggle />
+            <button 
+              className="md:hidden text-tron"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label="Toggle mobile menu"
+            >
+              <i className={`fas ${isMobileMenuOpen ? 'fa-times' : 'fa-bars'} text-xl`}></i>
+            </button>
+          </div>
         </div>
         
         {/* Mobile Menu */}
@@ -114,10 +118,9 @@ export default function Navigation() {
                 key={href}
                 href={href}
                 onClick={(e) => handleNavClick(e, href)}
-                className="block hover:text-tron transition-colors duration-300 capitalize py-3 px-4 rounded-lg hover:bg-tron/10 relative group"
+                className="block py-3 px-4 hover:text-tron transition-colors duration-300 capitalize"
               >
-                <span className="relative z-10">{href.slice(1)}</span>
-                <div className="absolute bottom-0 left-4 right-4 h-0.5 bg-tron scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+                {href.slice(1)}
               </a>
             ))}
           </motion.div>
