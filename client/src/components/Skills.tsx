@@ -7,6 +7,59 @@ export default function Skills() {
   const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
   const [selectedSkill, setSelectedSkill] = useState<string | null>(null);
   const [radarView, setRadarView] = useState(false);
+  const [soundEnabled, setSoundEnabled] = useState(false);
+
+  // Sound effects for skill interactions
+  const playHoverSound = () => {
+    if (!soundEnabled) return;
+    const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+    
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+    
+    oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+    oscillator.frequency.exponentialRampToValueAtTime(1200, audioContext.currentTime + 0.1);
+    
+    gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+    gainNode.gain.linearRampToValueAtTime(0.1, audioContext.currentTime + 0.01);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+    
+    oscillator.start(audioContext.currentTime);
+    oscillator.stop(audioContext.currentTime + 0.1);
+  };
+
+  const playClickSound = () => {
+    if (!soundEnabled) return;
+    const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+    
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+    
+    oscillator.frequency.setValueAtTime(1200, audioContext.currentTime);
+    oscillator.frequency.exponentialRampToValueAtTime(800, audioContext.currentTime + 0.15);
+    
+    gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+    gainNode.gain.linearRampToValueAtTime(0.15, audioContext.currentTime + 0.01);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.15);
+    
+    oscillator.start(audioContext.currentTime);
+    oscillator.stop(audioContext.currentTime + 0.15);
+  };
+
+  // Calculate connection strength between skills
+  const getConnectionStrength = (skill1: any, skill2: any) => {
+    const categoryMatch = skill1.category === skill2.category ? 0.4 : 0;
+    const levelSimilarity = 1 - Math.abs(skill1.level - skill2.level) / 100;
+    const levelBonus = levelSimilarity * 0.3;
+    const distance = Math.sqrt(Math.pow(skill1.x - skill2.x, 2) + Math.pow(skill1.y - skill2.y, 2));
+    const proximityBonus = distance < 30 ? 0.3 : distance < 50 ? 0.2 : 0;
+    
+    return Math.min(categoryMatch + levelBonus + proximityBonus, 1);
+  };
 
   const skillOrbs = [
     // Core Programming Languages
@@ -75,17 +128,18 @@ export default function Skills() {
           Technical Skills Nexus
         </motion.h2>
 
-        {/* View Toggle Controls */}
+        {/* Enhanced Controls Panel */}
         <motion.div 
-          className="flex justify-center mb-12"
+          className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-12"
           initial={{ opacity: 0, scale: 0.8 }}
           animate={controls}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
+          {/* View Toggle */}
           <div className="glass-card p-2 rounded-full border border-tron/30 backdrop-blur-lg">
             <motion.button
               onClick={() => setRadarView(false)}
-              className={`px-6 py-3 rounded-full transition-all duration-300 relative overflow-hidden ${
+              className={`px-4 sm:px-6 py-3 rounded-full transition-all duration-300 relative overflow-hidden text-sm sm:text-base ${
                 !radarView 
                   ? 'text-black font-bold border-2 border-tron' 
                   : 'text-tron hover:bg-tron/20 border-2 border-transparent'
@@ -122,11 +176,12 @@ export default function Skills() {
                 animate={!radarView ? { rotate: [0, 360] } : {}}
                 transition={!radarView ? { duration: 4, repeat: Infinity } : {}}
               />
-              <span className="relative z-10">Constellation View</span>
+              <span className="relative z-10 hidden sm:inline">Constellation View</span>
+              <span className="relative z-10 sm:hidden">Constellation</span>
             </motion.button>
             <motion.button
               onClick={() => setRadarView(true)}
-              className={`px-6 py-3 rounded-full transition-all duration-300 relative overflow-hidden ${
+              className={`px-4 sm:px-6 py-3 rounded-full transition-all duration-300 relative overflow-hidden text-sm sm:text-base ${
                 radarView 
                   ? 'text-black font-bold border-2 border-tron' 
                   : 'text-tron hover:bg-tron/20 border-2 border-transparent'
@@ -163,15 +218,41 @@ export default function Skills() {
                 animate={radarView ? { rotate: [0, 360] } : {}}
                 transition={radarView ? { duration: 3, repeat: Infinity } : {}}
               />
-              <span className="relative z-10">Radar Chart</span>
+              <span className="relative z-10 hidden sm:inline">Radar Chart</span>
+              <span className="relative z-10 sm:hidden">Radar</span>
             </motion.button>
           </div>
+
+          {/* Sound Control */}
+          <motion.button
+            onClick={() => setSoundEnabled(!soundEnabled)}
+            className={`glass-card px-4 py-3 rounded-full border transition-all duration-300 ${
+              soundEnabled 
+                ? 'border-tron text-tron bg-tron/10' 
+                : 'border-gray-600 text-gray-400 hover:border-tron/50'
+            }`}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <motion.i 
+              className={`fas ${soundEnabled ? 'fa-volume-up' : 'fa-volume-mute'} mr-2`}
+              animate={soundEnabled ? { scale: [1, 1.2, 1] } : {}}
+              transition={soundEnabled ? { duration: 2, repeat: Infinity } : {}}
+            />
+            <span className="hidden sm:inline">
+              {soundEnabled ? 'Sound On' : 'Sound Off'}
+            </span>
+          </motion.button>
         </motion.div>
 
-        {/* Constellation View */}
+        {/* Responsive Constellation View */}
         {!radarView && (
           <motion.div 
-            className="relative h-[700px] w-full max-w-7xl mx-auto"
+            className="relative w-full mx-auto px-2 sm:px-4"
+            style={{ 
+              height: 'clamp(500px, 80vh, 800px)',
+              maxWidth: 'min(100vw - 2rem, 1400px)'
+            }}
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
@@ -263,9 +344,15 @@ export default function Skills() {
                   rotateY: 360,
                   transition: { duration: 0.8 }
                 }}
-                onHoverStart={() => setHoveredSkill(skill.name)}
+                onHoverStart={() => {
+                  setHoveredSkill(skill.name);
+                  playHoverSound();
+                }}
                 onHoverEnd={() => setHoveredSkill(null)}
-                onClick={() => setSelectedSkill(selectedSkill === skill.name ? null : skill.name)}
+                onClick={() => {
+                  setSelectedSkill(selectedSkill === skill.name ? null : skill.name);
+                  playClickSound();
+                }}
               >
                 {/* Enhanced 3D Orb with Multiple Layers */}
                 <motion.div
@@ -460,46 +547,85 @@ export default function Skills() {
               </motion.div>
             ))}
 
-            {/* Enhanced Connection Network */}
+            {/* Advanced Connection Strength Network */}
             <svg className="absolute inset-0 w-full h-full pointer-events-none">
               {skillOrbs.map((skill, index) => 
                 skillOrbs.slice(index + 1).map((otherSkill, otherIndex) => {
                   const distance = Math.sqrt(
                     Math.pow(skill.x - otherSkill.x, 2) + Math.pow(skill.y - otherSkill.y, 2)
                   );
-                  if (distance < 35) {
+                  const connectionStrength = getConnectionStrength(skill, otherSkill);
+                  
+                  if (distance < 50 && connectionStrength > 0.2) {
+                    const lineId = `connection-${index}-${otherIndex}`;
+                    const isHighlighted = hoveredSkill === skill.name || hoveredSkill === otherSkill.name;
+                    const strokeWidth = Math.max(1, connectionStrength * 4);
+                    const opacity = Math.max(0.2, connectionStrength * 0.8);
+                    
                     return (
-                      <motion.line
-                        key={`${index}-${otherIndex}`}
-                        x1={`${skill.x}%`}
-                        y1={`${skill.y}%`}
-                        x2={`${otherSkill.x}%`}
-                        y2={`${otherSkill.y}%`}
-                        stroke="url(#connectionGradient)"
-                        strokeWidth="2"
-                        initial={{ pathLength: 0, opacity: 0 }}
-                        animate={{ 
-                          pathLength: 1, 
-                          opacity: [0.3, 0.8, 0.3],
-                          strokeWidth: [1, 3, 1]
-                        }}
-                        transition={{ 
-                          pathLength: { duration: 2, delay: index * 0.1 },
-                          opacity: { duration: 4, repeat: Infinity },
-                          strokeWidth: { duration: 4, repeat: Infinity }
-                        }}
-                      />
+                      <motion.g key={lineId}>
+                        <motion.line
+                          x1={`${skill.x}%`}
+                          y1={`${skill.y}%`}
+                          x2={`${otherSkill.x}%`}
+                          y2={`${otherSkill.y}%`}
+                          stroke={`url(#connectionGradient-${Math.floor(connectionStrength * 10)})`}
+                          strokeWidth={strokeWidth}
+                          strokeDasharray={connectionStrength > 0.7 ? "none" : "5,5"}
+                          initial={{ pathLength: 0, opacity: 0 }}
+                          animate={{ 
+                            pathLength: 1, 
+                            opacity: isHighlighted ? opacity * 1.5 : opacity,
+                            strokeWidth: isHighlighted ? strokeWidth * 1.5 : strokeWidth,
+                            filter: isHighlighted 
+                              ? `drop-shadow(0 0 ${strokeWidth * 2}px rgba(0, 255, 255, 0.8))`
+                              : 'none'
+                          }}
+                          transition={{ 
+                            pathLength: { duration: 2, delay: index * 0.1 },
+                            opacity: { duration: 0.3 },
+                            strokeWidth: { duration: 0.3 },
+                            filter: { duration: 0.3 }
+                          }}
+                        />
+                        
+                        {/* Connection Strength Indicator */}
+                        {connectionStrength > 0.6 && (
+                          <motion.circle
+                            cx={`${(skill.x + otherSkill.x) / 2}%`}
+                            cy={`${(skill.y + otherSkill.y) / 2}%`}
+                            r="3"
+                            fill="rgba(0, 255, 255, 0.8)"
+                            initial={{ scale: 0, opacity: 0 }}
+                            animate={{ 
+                              scale: [0.8, 1.2, 0.8],
+                              opacity: [0.6, 1, 0.6]
+                            }}
+                            transition={{ 
+                              duration: 2,
+                              repeat: Infinity,
+                              delay: connectionStrength * 2
+                            }}
+                          />
+                        )}
+                      </motion.g>
                     );
                   }
                   return null;
                 })
               )}
               <defs>
-                <linearGradient id="connectionGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="rgba(0, 255, 255, 0.8)" />
-                  <stop offset="50%" stopColor="rgba(0, 255, 255, 0.4)" />
-                  <stop offset="100%" stopColor="rgba(0, 255, 255, 0.8)" />
-                </linearGradient>
+                {/* Multiple gradients for different connection strengths */}
+                {Array.from({ length: 11 }).map((_, i) => {
+                  const intensity = i / 10;
+                  return (
+                    <linearGradient key={i} id={`connectionGradient-${i}`} x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stopColor={`rgba(0, 255, 255, ${0.4 + intensity * 0.4})`} />
+                      <stop offset="50%" stopColor={`rgba(${intensity * 100}, 255, 255, ${0.2 + intensity * 0.6})`} />
+                      <stop offset="100%" stopColor={`rgba(0, 255, 255, ${0.4 + intensity * 0.4})`} />
+                    </linearGradient>
+                  );
+                })}
               </defs>
             </svg>
           </motion.div>
