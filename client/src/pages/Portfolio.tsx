@@ -26,10 +26,7 @@ export default function Portfolio() {
       {/* Footer */}
       <footer className="py-8 border-t border-gray-800">
         <div className="container mx-auto px-6">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="font-orbitron text-xl font-bold text-tron mb-4 md:mb-0">
-              Tharun Vankayala
-            </div>
+          <div className="flex flex-col items-center text-center space-y-4">
             <div className="flex space-x-6">
               <a 
                 href="mailto:tharunvankayala@gmail.com" 
@@ -57,8 +54,8 @@ export default function Portfolio() {
                 <i className="fab fa-linkedin text-xl"></i>
               </a>
             </div>
-            <div className="text-gray-400 text-sm mt-4 md:mt-0">
-              © 2024 Tharun Vankayala. All rights reserved.
+            <div className="text-gray-400 text-sm">
+              © 2024 All rights reserved.
             </div>
           </div>
         </div>

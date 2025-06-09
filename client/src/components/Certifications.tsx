@@ -10,21 +10,40 @@ export default function Certifications() {
       subtitle: "Python - Codecademy",
       icon: "fas fa-certificate",
       color: "from-blue-500/20 to-purple-500/20",
-      borderColor: "border-blue-500/30"
+      borderColor: "border-blue-500/30",
+      link: null
     },
     {
-      title: "Python Programming",
+      title: "Python Programming (Basic)",
       subtitle: "HackerRank",
       icon: "fab fa-python",
       color: "from-green-500/20 to-teal-500/20",
-      borderColor: "border-green-500/30"
+      borderColor: "border-green-500/30",
+      link: "https://www.hackerrank.com/certificates/iframe/4bd4e565d7a7"
+    },
+    {
+      title: "Python Programming (Intermediate)",
+      subtitle: "HackerRank",
+      icon: "fab fa-python",
+      color: "from-green-500/20 to-teal-500/20",
+      borderColor: "border-green-500/30",
+      link: "https://www.hackerrank.com/certificates/iframe/b938cc2dd9e2"
+    },
+    {
+      title: "SQL",
+      subtitle: "HackerRank",
+      icon: "fas fa-database",
+      color: "from-purple-500/20 to-pink-500/20",
+      borderColor: "border-purple-500/30",
+      link: "https://www.hackerrank.com/certificates/iframe/e491d7f0c348"
     },
     {
       title: "AI Tools & Prompt Engineering",
       subtitle: "be10X",
       icon: "fas fa-robot",
       color: "from-tron/20 to-cyan-500/20",
-      borderColor: "border-tron/30"
+      borderColor: "border-tron/30",
+      link: null
     }
   ];
 
@@ -41,7 +60,7 @@ export default function Certifications() {
         </motion.h2>
         
         <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
             {certifications.map((cert, index) => (
               <motion.div 
                 key={cert.title}
@@ -95,15 +114,29 @@ export default function Certifications() {
                     animate={controls}
                     transition={{ duration: 0.6, delay: 0.8 + index * 0.2 }}
                   >
-                    <motion.div 
-                      className="bg-tron/10 px-4 py-2 rounded-full border border-tron/30"
-                      whileHover={{ 
-                        backgroundColor: "rgba(0, 255, 255, 0.2)",
-                        borderColor: "rgba(0, 255, 255, 0.6)"
-                      }}
-                    >
-                      <span className="text-tron text-xs font-semibold">VERIFIED</span>
-                    </motion.div>
+                    {cert.link ? (
+                      <motion.a
+                        href={cert.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="bg-tron/20 text-tron px-4 py-2 rounded-full border border-tron/30 text-xs font-semibold hover:bg-tron hover:text-black transition-all duration-300"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <i className="fas fa-external-link-alt mr-1"></i>
+                        View Certificate
+                      </motion.a>
+                    ) : (
+                      <motion.div 
+                        className="bg-tron/10 px-4 py-2 rounded-full border border-tron/30"
+                        whileHover={{ 
+                          backgroundColor: "rgba(0, 255, 255, 0.2)",
+                          borderColor: "rgba(0, 255, 255, 0.6)"
+                        }}
+                      >
+                        <span className="text-tron text-xs font-semibold">VERIFIED</span>
+                      </motion.div>
+                    )}
                   </motion.div>
                 </div>
                 
