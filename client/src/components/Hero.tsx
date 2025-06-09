@@ -78,123 +78,61 @@ export default function Hero() {
 
   return (
     <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden">
-      {/* Circuit Board Background Pattern */}
-      <div className="absolute inset-0 opacity-30 circuit-board">
-        {/* Horizontal Circuit Lines */}
-        {Array.from({ length: 8 }).map((_, i) => (
-          <motion.div
+      {/* Optimized Circuit Board Background */}
+      <div className="absolute inset-0 opacity-20 circuit-board">
+        {/* Static Circuit Lines */}
+        {Array.from({ length: 4 }).map((_, i) => (
+          <div
             key={`h-${i}`}
-            className="absolute w-full h-0.5 bg-gradient-to-r from-transparent via-tron to-transparent circuit-line"
-            style={{ top: `${(i + 1) * 12}%` }}
-            initial={{ scaleX: 0, opacity: 0 }}
-            animate={{ 
-              scaleX: [0, 1, 0.8, 1],
-              opacity: [0, 0.8, 0.4, 0.8]
-            }}
-            transition={{
-              duration: 3,
-              delay: i * 0.2,
-              repeat: Infinity,
-              repeatType: "reverse",
-              ease: "easeInOut"
-            }}
+            className="absolute w-full h-0.5 bg-gradient-to-r from-transparent via-tron/60 to-transparent"
+            style={{ top: `${(i + 1) * 20}%` }}
           />
         ))}
         
-        {/* Vertical Circuit Lines */}
-        {Array.from({ length: 6 }).map((_, i) => (
-          <motion.div
+        {Array.from({ length: 3 }).map((_, i) => (
+          <div
             key={`v-${i}`}
-            className="absolute h-full w-0.5 bg-gradient-to-b from-transparent via-tron to-transparent circuit-line"
-            style={{ left: `${(i + 1) * 16}%` }}
-            initial={{ scaleY: 0, opacity: 0 }}
-            animate={{ 
-              scaleY: [0, 1, 0.7, 1],
-              opacity: [0, 0.6, 0.3, 0.6]
-            }}
-            transition={{
-              duration: 4,
-              delay: i * 0.3,
-              repeat: Infinity,
-              repeatType: "reverse",
-              ease: "easeInOut"
-            }}
+            className="absolute h-full w-0.5 bg-gradient-to-b from-transparent via-tron/60 to-transparent"
+            style={{ left: `${(i + 1) * 25}%` }}
           />
         ))}
 
-        {/* Circuit Nodes */}
-        {Array.from({ length: 12 }).map((_, i) => (
-          <motion.div
+        {/* Static Circuit Nodes */}
+        {Array.from({ length: 6 }).map((_, i) => (
+          <div
             key={`node-${i}`}
-            className="absolute w-3 h-3 rounded-full"
+            className="absolute w-2 h-2 rounded-full bg-tron/70"
             style={{
-              left: `${15 + (i % 4) * 20}%`,
-              top: `${25 + Math.floor(i / 4) * 25}%`,
-              background: 'radial-gradient(circle, #00ffff 0%, #00ffff80 50%, transparent 70%)',
-              boxShadow: '0 0 10px rgba(0, 255, 255, 0.8)'
-            }}
-            animate={{
-              scale: [0.8, 1.4, 1],
-              opacity: [0.6, 1, 0.6],
-              boxShadow: [
-                '0 0 10px rgba(0, 255, 255, 0.8)',
-                '0 0 20px rgba(0, 255, 255, 1)',
-                '0 0 10px rgba(0, 255, 255, 0.8)'
-              ]
-            }}
-            transition={{
-              duration: 2,
-              delay: i * 0.15,
-              repeat: Infinity,
-              repeatType: "reverse",
-              ease: "easeInOut"
+              left: `${20 + (i % 3) * 30}%`,
+              top: `${30 + Math.floor(i / 3) * 40}%`,
+              boxShadow: '0 0 6px rgba(0, 255, 255, 0.6)'
             }}
           />
         ))}
       </div>
 
-      {/* Advanced Floating Geometric Shapes */}
+      {/* Simplified Geometric Shapes */}
       <motion.div 
         className="absolute top-20 left-16 w-16 h-16 border-2 border-tron/40"
-        style={{
-          borderImage: "linear-gradient(45deg, #00ffff, transparent, #00ffff) 1"
-        }}
         animate={{ 
-          y: [-15, 15, -15],
-          rotate: [0, 180, 360],
-          scale: [1, 1.1, 1]
+          opacity: [0.4, 0.8, 0.4]
         }}
         transition={{ 
-          duration: 8,
+          duration: 4,
           repeat: Infinity,
           ease: "easeInOut"
         }}
       />
 
-      <motion.div 
-        className="absolute top-32 right-20 w-12 h-12 border-2 border-tron/30 rotate-45"
-        animate={{ 
-          y: [10, -10, 10],
-          rotate: [45, 225, 405],
-          borderColor: ['rgba(0, 255, 255, 0.3)', 'rgba(0, 255, 255, 0.8)', 'rgba(0, 255, 255, 0.3)']
-        }}
-        transition={{ 
-          duration: 6,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 1
-        }}
-      />
+      <div className="absolute top-32 right-20 w-12 h-12 border-2 border-tron/30 rotate-45" />
 
       <motion.div 
         className="absolute bottom-32 left-20 w-20 h-20 border border-tron/25 rounded-full"
         animate={{ 
-          scale: [1, 1.3, 1],
-          opacity: [0.25, 0.6, 0.25],
-          rotate: [0, 360]
+          opacity: [0.25, 0.5, 0.25]
         }}
         transition={{ 
-          duration: 10,
+          duration: 6,
           repeat: Infinity,
           ease: "easeInOut",
           delay: 2
@@ -235,32 +173,30 @@ export default function Hero() {
         <div className="w-10 h-10 border border-tron/40 transform rotate-45 clip-path-hexagon"></div>
       </motion.div>
       
-      {/* Enhanced Floating Data Particles */}
+      {/* Optimized Floating Data Particles */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none particle-system">
-        {Array.from({ length: 20 }).map((_, i) => (
+        {Array.from({ length: 8 }).map((_, i) => (
           <motion.div
             key={`particle-${i}`}
             className="absolute rounded-full floating-particle"
             style={{
               left: `${Math.random() * 100}%`,
               top: `100%`,
-              width: `${2 + Math.random() * 3}px`,
-              height: `${2 + Math.random() * 3}px`,
-              background: `radial-gradient(circle, #00ffff ${Math.random() * 50 + 50}%, transparent 70%)`,
-              boxShadow: `0 0 ${5 + Math.random() * 10}px rgba(0, 255, 255, 0.8)`
+              width: `3px`,
+              height: `3px`,
+              background: `#00ffff`,
+              boxShadow: `0 0 8px rgba(0, 255, 255, 0.6)`
             }}
             animate={{
-              y: [0, -800],
-              x: [0, (Math.random() - 0.5) * 200],
-              opacity: [0, 0.8, 1, 0.6, 0],
-              scale: [0.3, 1, 1.2, 0.8, 0.2]
+              y: [0, -600],
+              opacity: [0, 1, 0]
             }}
             transition={{
-              duration: 6 + Math.random() * 4,
-              delay: i * 0.3,
+              duration: 8,
+              delay: i * 1,
               repeat: Infinity,
-              ease: "easeOut",
-              repeatDelay: Math.random() * 3
+              ease: "linear",
+              repeatDelay: 2
             }}
           />
         ))}
@@ -409,113 +345,26 @@ export default function Hero() {
                   <i className="fas fa-user text-3xl md:text-4xl text-tron"></i>
                 </div>
 
-                {/* Holographic Distortion Effects */}
+                {/* Simple Holographic Effect */}
                 <motion.div
                   className="absolute inset-0 rounded-full"
-                  style={{
-                    background: 'linear-gradient(45deg, transparent 30%, rgba(0, 255, 255, 0.1) 50%, transparent 70%)',
-                    filter: 'blur(1px)'
-                  }}
                   animate={{
-                    x: [0, 2, -2, 0],
-                    opacity: [0, 0.8, 0.3, 0]
+                    opacity: [0, 0.3, 0]
                   }}
                   transition={{
-                    duration: 0.15,
+                    duration: 0.2,
                     repeat: Infinity,
-                    repeatDelay: 4,
+                    repeatDelay: 8,
                     ease: "easeInOut"
                   }}
-                />
-
-                {/* Glitch Lines */}
-                <motion.div
-                  className="absolute inset-0 rounded-full overflow-hidden"
-                  animate={{
-                    opacity: [0, 1, 0]
-                  }}
-                  transition={{
-                    duration: 0.1,
-                    repeat: Infinity,
-                    repeatDelay: 6
-                  }}
-                >
-                  {Array.from({ length: 3 }).map((_, i) => (
-                    <motion.div
-                      key={i}
-                      className="absolute w-full h-0.5 bg-tron/60"
-                      style={{ top: `${30 + i * 20}%` }}
-                      animate={{
-                        x: ['-100%', '200%'],
-                        opacity: [0, 1, 0]
-                      }}
-                      transition={{
-                        duration: 0.2,
-                        delay: i * 0.05,
-                        repeat: Infinity,
-                        repeatDelay: 5
-                      }}
-                    />
-                  ))}
-                </motion.div>
-
-                {/* Color Shift Effect */}
-                <motion.div
-                  className="absolute inset-0 rounded-full"
-                  animate={{
-                    background: [
-                      'transparent',
-                      'rgba(255, 0, 100, 0.1)',
-                      'rgba(0, 255, 100, 0.1)',
-                      'transparent'
-                    ]
-                  }}
-                  transition={{
-                    duration: 0.3,
-                    repeat: Infinity,
-                    repeatDelay: 8
+                  style={{
+                    background: 'linear-gradient(45deg, transparent 30%, rgba(0, 255, 255, 0.1) 50%, transparent 70%)'
                   }}
                 />
-
-                {/* Scan Line Effect */}
-                <motion.div
-                  className="absolute inset-0 rounded-full overflow-hidden"
-                  animate={{
-                    opacity: [0, 1, 0]
-                  }}
-                  transition={{
-                    duration: 0.5,
-                    repeat: Infinity,
-                    repeatDelay: 7
-                  }}
-                >
-                  <motion.div
-                    className="absolute w-full h-1 bg-gradient-to-r from-transparent via-tron to-transparent"
-                    animate={{
-                      y: ['-10%', '110%']
-                    }}
-                    transition={{
-                      duration: 1,
-                      repeat: Infinity,
-                      repeatDelay: 10,
-                      ease: "easeInOut"
-                    }}
-                  />
-                </motion.div>
               </motion.div>
 
-              {/* Outer Holographic Ring */}
-              <motion.div
-                className="absolute inset-[-10px] rounded-full border border-tron/20"
-                animate={{
-                  rotate: [0, 360],
-                  scale: [1, 1.05, 1]
-                }}
-                transition={{
-                  rotate: { duration: 20, repeat: Infinity, ease: "linear" },
-                  scale: { duration: 4, repeat: Infinity, ease: "easeInOut" }
-                }}
-              />
+              {/* Static Outer Ring */}
+              <div className="absolute inset-[-10px] rounded-full border border-tron/20" />
             </div>
           </motion.div>
           
