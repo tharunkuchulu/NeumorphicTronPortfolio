@@ -59,8 +59,8 @@ export default function Contact() {
     {
       icon: "fas fa-envelope",
       title: "Email",
-      value: "tharun.vankayala@gmail.com",
-      href: "mailto:tharun.vankayala@gmail.com"
+      value: "tharunvankayala@gmail.com",
+      href: "mailto:tharunvankayala@gmail.com"
     },
     {
       icon: "fas fa-phone",
@@ -193,12 +193,12 @@ export default function Contact() {
                 {info.href ? (
                   <a 
                     href={info.href} 
-                    className="text-gray-400 text-sm hover:text-tron transition-colors"
+                    className="text-gray-400 text-sm hover:text-tron transition-colors break-words break-all px-2"
                   >
                     {info.value}
                   </a>
                 ) : (
-                  <p className="text-gray-400 text-sm">{info.value}</p>
+                  <p className="text-gray-400 text-sm break-words">{info.value}</p>
                 )}
               </motion.div>
             ))}
