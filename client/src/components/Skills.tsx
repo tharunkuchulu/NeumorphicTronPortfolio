@@ -101,6 +101,8 @@ export default function Skills() {
     {
       title: "Development Tools",
       skills: [
+        { name: "VS Code", level: 90, icon: "fas fa-code", color: "#007ACC" },
+        { name: "Postman", level: 85, icon: "fas fa-paper-plane", color: "#FF6C37" },
         { name: "Data Structures", level: 88, icon: "fas fa-project-diagram", color: "#ffd700" },
         { name: "Algorithms", level: 85, icon: "fas fa-code-branch", color: "#32cd32" },
         { name: "OOP", level: 90, icon: "fas fa-cube", color: "#ff6347" },
