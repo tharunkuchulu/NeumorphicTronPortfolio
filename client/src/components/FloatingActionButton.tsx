@@ -26,7 +26,7 @@ export default function FloatingActionButton() {
 
   return (
     <div 
-      className="fixed bottom-4 right-4 xs:bottom-6 xs:right-6 z-[9999]" 
+      className="floating-action-button fixed bottom-4 right-4 xs:bottom-6 xs:right-6 z-[9999]" 
       style={{ 
         position: 'fixed', 
         bottom: 'calc(env(safe-area-inset-bottom) + 16px)', 
@@ -59,7 +59,7 @@ export default function FloatingActionButton() {
                 whileTap={{ scale: 0.95 }}
               >
                 <i className={`${item.icon} text-tron group-hover:scale-110 transition-transform`} />
-                <span className="text-sm font-medium whitespace-nowrap">{item.label}</span>
+                <span className="text-xs xs:text-sm font-medium whitespace-nowrap">{item.label}</span>
               </motion.button>
             ))}
           </motion.div>

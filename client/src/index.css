@@ -49,6 +49,24 @@
     scroll-behavior: smooth;
   }
 
+  /* Mobile viewport and FAB positioning fixes */
+  @supports (padding: max(0px)) {
+    .floating-action-button {
+      bottom: max(16px, env(safe-area-inset-bottom));
+      right: max(16px, env(safe-area-inset-right));
+    }
+  }
+
+  /* Ensure FAB is always visible on mobile */
+  @media (max-width: 768px) {
+    .floating-action-button {
+      position: fixed !important;
+      z-index: 9999 !important;
+      bottom: 16px !important;
+      right: 16px !important;
+    }
+  }
+
   * {
     box-sizing: border-box;
     transform-style: preserve-3d;
