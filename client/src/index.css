@@ -140,7 +140,38 @@
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(0, 255, 247, 0.3);
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateZ(0);
+    will-change: transform;
+  }
+
+  .card-hover {
+    transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+    transform: translateZ(0);
+  }
+
+  .card-hover:hover {
+    transform: translateY(-8px) translateZ(0);
+    box-shadow: 
+      0 25px 50px rgba(0, 0, 0, 0.4), 
+      0 0 30px rgba(0, 255, 255, 0.15),
+      0 0 0 1px rgba(0, 255, 255, 0.2);
+  }
+
+  .performance-optimized {
+    transform: translateZ(0);
+    will-change: transform;
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+
+  .smooth-transition {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .hover-glow:hover {
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+    border-color: rgba(0, 255, 255, 0.6);
   }
   
   .glass-card:hover {

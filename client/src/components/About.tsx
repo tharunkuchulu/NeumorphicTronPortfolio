@@ -22,7 +22,7 @@ export default function About() {
             animate={controls}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <div className="glass-card p-8 rounded-2xl text-center">
+            <div className="glass-card card-hover p-8 rounded-2xl text-center performance-optimized">
               <h3 className="font-orbitron text-2xl font-semibold mb-6 text-tron">
                 <i className="fas fa-user-astronaut mr-3"></i>
                 Profile Summary

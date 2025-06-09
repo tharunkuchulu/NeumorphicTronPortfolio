@@ -28,12 +28,13 @@ export default function Navigation() {
 
   return (
     <motion.nav 
-      className={`fixed top-0 w-full z-50 glass-card rounded-none border-x-0 border-t-0 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 w-full z-50 glass-card rounded-none border-x-0 border-t-0 transition-all duration-300 ${
         isScrolled ? 'backdrop-blur-lg bg-opacity-90' : ''
       }`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
+      style={{ position: 'fixed' }}
     >
       <div className="container mx-auto px-6 py-4">
         <div className="flex justify-between items-center">

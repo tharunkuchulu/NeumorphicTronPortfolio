@@ -213,7 +213,7 @@ export default function Projects() {
               exit={{ opacity: 0, scale: 0.98, y: -20 }}
               transition={{ duration: 0.5, ease: "easeInOut" }}
             >
-              <div className="h-full p-8 flex flex-col lg:flex-row gap-8">
+              <div className="h-full p-8 flex flex-col lg:flex-row gap-8 performance-optimized">
               {/* Left: Project Icon & Meta */}
               <div className="lg:w-1/3 flex flex-col items-center justify-center relative">
                 {/* Project Icon Container with Fixed Circles */}
