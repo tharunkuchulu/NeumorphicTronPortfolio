@@ -94,12 +94,9 @@
     }
   }
 
-  * {
-    box-sizing: border-box;
-  }
-
   /* Global performance optimizations */
   * {
+    box-sizing: border-box;
     transform-style: flat;
     backface-visibility: hidden;
   }
@@ -208,11 +205,6 @@
     outline: 2px solid #00ffff;
     outline-offset: 2px;
     box-shadow: 0 0 0 4px rgba(0, 255, 255, 0.1);
-  }
-
-  /* Performance optimizations */
-  * {
-    box-sizing: border-box;
   }
 
   img, video {

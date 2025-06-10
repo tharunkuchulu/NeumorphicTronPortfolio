@@ -42,10 +42,12 @@ export default function Contact() {
       });
       form.reset();
     },
-    onError: () => {
+    onError: (error: any) => {
+      console.error("Contact form error:", error);
+      const errorMessage = error?.message || "Network error occurred";
       toast({
         title: "Failed to send message",
-        description: "Please try again later or contact me directly.",
+        description: `${errorMessage}. Please try again later or contact me directly.`,
         variant: "destructive",
       });
     }
