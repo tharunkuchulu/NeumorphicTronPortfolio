@@ -195,7 +195,7 @@ export default function Navigation() {
             
             {/* Menu Panel - completely isolated */}
             <motion.div 
-              className="fixed right-0 top-0 w-80 border-l-2 border-tron shadow-2xl"
+              className="w-80 border-l-2 border-tron shadow-2xl"
               style={{
                 background: 'rgba(0, 0, 0, 0.8)',
                 backgroundColor: 'rgba(0, 0, 0, 0.8)',
@@ -203,13 +203,15 @@ export default function Navigation() {
                 backdropFilter: 'blur(10px)',
                 WebkitBackdropFilter: 'blur(10px)',
                 transform: `translateX(${dragOffset}px)`,
-                zIndex: 50,
+                zIndex: 9999,
                 height: '100vh',
                 maxHeight: '100vh',
                 overflowY: 'auto',
                 position: 'fixed',
                 right: 0,
-                top: 0
+                top: 0,
+                left: 'auto',
+                bottom: 'auto'
               }}
               initial={{ x: '100%', opacity: 0 }}
               animate={{ 
