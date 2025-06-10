@@ -195,7 +195,7 @@ export default function Navigation() {
             
             {/* Menu Panel - completely isolated */}
             <motion.div 
-              className="fixed right-0 top-0 w-80 border-l-2 border-tron p-6 shadow-2xl"
+              className="fixed right-0 top-0 w-80 border-l-2 border-tron shadow-2xl"
               style={{
                 background: '#000000',
                 backgroundColor: '#000000',
@@ -253,77 +253,78 @@ export default function Navigation() {
               onClick={(e) => e.stopPropagation()}
               onWheel={(e) => e.stopPropagation()}
             >
-              <motion.div 
-                className="flex justify-between items-center mb-8"
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ 
-                  opacity: 1, 
-                  y: 0,
-                  transition: { delay: 0.2, duration: 0.4 }
-                }}
-                exit={{ opacity: 0, y: -20 }}
-              >
-                <motion.h3 
-                  className="text-tron font-orbitron text-xl font-bold"
-                  initial={{ opacity: 0, x: -20 }}
+              <div className="h-full flex flex-col" style={{ padding: '1.5rem' }}>
+                <motion.div 
+                  className="flex justify-between items-center mb-8"
+                  initial={{ opacity: 0, y: -20 }}
                   animate={{ 
                     opacity: 1, 
-                    x: 0,
-                    transition: { delay: 0.3, duration: 0.4 }
+                    y: 0,
+                    transition: { delay: 0.2, duration: 0.4 }
+                  }}
+                  exit={{ opacity: 0, y: -20 }}
+                >
+                  <motion.h3 
+                    className="text-tron font-orbitron text-xl font-bold"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ 
+                      opacity: 1, 
+                      x: 0,
+                      transition: { delay: 0.3, duration: 0.4 }
+                    }}
+                  >
+                    Navigation
+                  </motion.h3>
+                  <motion.button 
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="text-gray-400 hover:text-tron transition-colors duration-300"
+                    initial={{ opacity: 0, rotate: -90 }}
+                    animate={{ 
+                      opacity: 1, 
+                      rotate: 0,
+                      transition: { delay: 0.4, duration: 0.3 }
+                    }}
+                    whileHover={{ 
+                      scale: 1.1, 
+                      rotate: 90,
+                      transition: { duration: 0.2 }
+                    }}
+                    whileTap={{ scale: 0.9 }}
+                  >
+                    <i className="fas fa-times text-xl"></i>
+                  </motion.button>
+                </motion.div>
+                
+                <motion.div 
+                  className="space-y-4"
+                  initial="hidden"
+                  animate="visible"
+                  exit="hidden"
+                  variants={{
+                    visible: {
+                      transition: {
+                        staggerChildren: 0.1,
+                        delayChildren: 0.5
+                      }
+                    },
+                    hidden: {
+                      transition: {
+                        staggerChildren: 0.05,
+                        staggerDirection: -1
+                      }
+                    }
                   }}
                 >
-                  Navigation
-                </motion.h3>
-                <motion.button 
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-gray-400 hover:text-tron transition-colors duration-300"
-                  initial={{ opacity: 0, rotate: -90 }}
-                  animate={{ 
-                    opacity: 1, 
-                    rotate: 0,
-                    transition: { delay: 0.4, duration: 0.3 }
-                  }}
-                  whileHover={{ 
-                    scale: 1.1, 
-                    rotate: 90,
-                    transition: { duration: 0.2 }
-                  }}
-                  whileTap={{ scale: 0.9 }}
-                >
-                  <i className="fas fa-times text-xl"></i>
-                </motion.button>
-              </motion.div>
-              
-              <motion.div 
-                className="space-y-4"
-                initial="hidden"
-                animate="visible"
-                exit="hidden"
-                variants={{
-                  visible: {
-                    transition: {
-                      staggerChildren: 0.1,
-                      delayChildren: 0.5
-                    }
-                  },
-                  hidden: {
-                    transition: {
-                      staggerChildren: 0.05,
-                      staggerDirection: -1
-                    }
-                  }
-                }}
-              >
-                {[
-                  { href: '#hero', label: 'Home', icon: 'fas fa-home' },
-                  { href: '#about', label: 'About', icon: 'fas fa-user' },
-                  { href: '#projects', label: 'Projects', icon: 'fas fa-code' },
-                  { href: '#skills', label: 'Skills', icon: 'fas fa-cog' },
-                  { href: '#experience', label: 'Experience', icon: 'fas fa-briefcase' },
-                  { href: '#education', label: 'Education', icon: 'fas fa-graduation-cap' },
-                  { href: '#certifications', label: 'Certifications', icon: 'fas fa-certificate' },
-                  { href: '#contact', label: 'Contact', icon: 'fas fa-envelope' }
-                ].map((item, index) => (
+                  {[
+                    { href: '#hero', label: 'Home', icon: 'fas fa-home' },
+                    { href: '#about', label: 'About', icon: 'fas fa-user' },
+                    { href: '#projects', label: 'Projects', icon: 'fas fa-code' },
+                    { href: '#skills', label: 'Skills', icon: 'fas fa-cog' },
+                    { href: '#experience', label: 'Experience', icon: 'fas fa-briefcase' },
+                    { href: '#education', label: 'Education', icon: 'fas fa-graduation-cap' },
+                    { href: '#certifications', label: 'Certifications', icon: 'fas fa-certificate' },
+                    { href: '#contact', label: 'Contact', icon: 'fas fa-envelope' }
+                  ].map((item, index) => (
                   <motion.a
                     key={item.href}
                     href={item.href}
@@ -428,6 +429,7 @@ export default function Navigation() {
                   </motion.a>
                 ))}
               </motion.div>
+              </div>
             </motion.div>
           </>
         )}
