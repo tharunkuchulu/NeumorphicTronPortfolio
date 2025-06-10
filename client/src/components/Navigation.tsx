@@ -195,7 +195,7 @@ export default function Navigation() {
             
             {/* Menu Panel - completely isolated */}
             <motion.div 
-              className="fixed right-0 top-0 w-80 border-l-2 border-tron shadow-2xl"
+              className="sticky right-0 top-0 w-80 border-l-2 border-tron shadow-2xl"
               style={{
                 background: '#000000',
                 backgroundColor: '#000000',
@@ -207,7 +207,7 @@ export default function Navigation() {
                 height: '100vh',
                 maxHeight: '100vh',
                 overflowY: 'auto',
-                position: 'fixed'
+                position: 'sticky'
               }}
               initial={{ x: '100%', opacity: 0 }}
               animate={{ 
