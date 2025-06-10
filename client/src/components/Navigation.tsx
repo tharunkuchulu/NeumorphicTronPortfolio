@@ -128,7 +128,7 @@ export default function Navigation() {
                 {/* Shimmer effect */}
                 <motion.div
                   className="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-100"
-                  style={{ width: '100%' }}
+                  style={{ width: '100%', backgroundSize: '200% 100%' }}
                   animate={{ x: ['-100%', '200%'] }}
                   transition={{ 
                     duration: 1.5, 

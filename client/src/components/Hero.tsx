@@ -231,6 +231,7 @@ export default function Hero() {
               {/* Holographic Scan Line */}
               <motion.div
                 className="absolute inset-0 bg-gradient-to-r from-transparent via-tron/20 to-transparent"
+                style={{ backgroundSize: '200% 100%' }}
                 animate={{
                   x: ['-100%', '200%']
                 }}

@@ -185,6 +185,7 @@ export default function SoftSkills() {
                   {/* Reflection effect */}
                   <motion.div
                     className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 skew-x-12 transition-opacity duration-700"
+                    style={{ backgroundSize: '200% 100%' }}
                     animate={{ x: ['-100%', '200%'] }}
                     transition={{ 
                       duration: 1.5, 
