@@ -149,7 +149,9 @@ export default function Navigation() {
           className="md:hidden fixed bottom-2.5 right-5 z-[9999] w-12 h-12 bg-black/80 border-2 border-tron rounded-lg flex items-center justify-center backdrop-blur-sm focus:outline-none overflow-hidden"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           onTouchStart={createRipple}
-          aria-label="Toggle mobile menu"
+          aria-label={isMobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+          aria-expanded={isMobileMenuOpen}
+          aria-controls="mobile-navigation-menu"
           whileHover={{
             scale: 1.1,
             backgroundColor: 'rgba(0, 255, 255, 0.1)',
@@ -195,6 +197,7 @@ export default function Navigation() {
             
             {/* Menu Panel with viewport anchoring */}
             <motion.div 
+              id="mobile-navigation-menu"
               className="border-l-2 border-tron shadow-2xl mobile-menu-panel-fixed"
               style={{
                 position: 'sticky',
