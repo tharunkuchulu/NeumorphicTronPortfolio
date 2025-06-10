@@ -199,7 +199,7 @@ export default function Navigation() {
               style={{
                 position: 'sticky',
                 top: '0',
-                right: '0',
+                left: 'calc(100% - 320px)',
                 bottom: '0',
                 width: '320px',
                 height: '100vh',
@@ -211,7 +211,8 @@ export default function Navigation() {
                 overflowX: 'hidden',
                 transform: `translate3d(${dragOffset}px, 0, 0)`,
                 willChange: 'transform',
-                contain: 'layout style paint'
+                contain: 'layout style paint',
+                marginLeft: 'auto'
               }}
               initial={{ x: '100%', opacity: 0 }}
               animate={{ 

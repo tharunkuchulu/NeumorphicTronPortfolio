@@ -53,11 +53,12 @@
   .mobile-menu-panel-fixed {
     position: sticky !important;
     top: 0 !important;
-    right: 0 !important;
+    left: calc(100% - 320px) !important;
     bottom: 0 !important;
     transform-origin: right center !important;
     isolation: isolate;
     contain: layout style paint;
+    margin-left: auto !important;
   }
 
   /* Mobile viewport and FAB positioning fixes */
