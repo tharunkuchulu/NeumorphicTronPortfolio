@@ -49,6 +49,17 @@
     scroll-behavior: smooth;
   }
 
+  /* Mobile menu panel positioning override */
+  .mobile-menu-panel-fixed {
+    position: fixed !important;
+    top: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    transform-origin: right center !important;
+    isolation: isolate;
+    contain: layout style paint;
+  }
+
   /* Mobile viewport and FAB positioning fixes */
   @supports (padding: max(0px)) {
     .floating-action-button {

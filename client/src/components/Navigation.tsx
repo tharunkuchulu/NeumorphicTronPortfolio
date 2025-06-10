@@ -193,13 +193,14 @@ export default function Navigation() {
               onClick={() => setIsMobileMenuOpen(false)}
             />
             
-            {/* Menu Panel with enforced positioning */}
+            {/* Menu Panel with viewport anchoring */}
             <motion.div 
-              className="border-l-2 border-tron shadow-2xl"
+              className="border-l-2 border-tron shadow-2xl mobile-menu-panel-fixed"
               style={{
                 position: 'fixed',
-                top: '0px',
-                right: '0px',
+                top: '0',
+                right: '0',
+                bottom: '0',
                 width: '320px',
                 height: '100vh',
                 backgroundColor: 'rgba(0, 0, 0, 0.8)',
@@ -208,10 +209,9 @@ export default function Navigation() {
                 zIndex: 99999,
                 overflowY: 'auto',
                 overflowX: 'hidden',
-                transform: `translateX(${dragOffset}px)`,
-                margin: 0,
-                padding: 0,
-                boxSizing: 'border-box'
+                transform: `translate3d(${dragOffset}px, 0, 0)`,
+                willChange: 'transform',
+                contain: 'layout style paint'
               }}
               initial={{ x: '100%', opacity: 0 }}
               animate={{ 
