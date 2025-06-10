@@ -195,7 +195,7 @@ export default function Navigation() {
             
             {/* Menu Panel - completely isolated */}
             <motion.div 
-              className="fixed right-0 top-0 h-full w-80 border-l-2 border-tron p-6 shadow-2xl"
+              className="fixed right-0 top-0 w-80 border-l-2 border-tron p-6 shadow-2xl"
               style={{
                 background: '#000000',
                 backgroundColor: '#000000',
@@ -203,7 +203,11 @@ export default function Navigation() {
                 backdropFilter: 'none',
                 WebkitBackdropFilter: 'none',
                 transform: `translateX(${dragOffset}px)`,
-                zIndex: 50
+                zIndex: 50,
+                height: '100vh',
+                maxHeight: '100vh',
+                overflowY: 'auto',
+                position: 'fixed'
               }}
               initial={{ x: '100%', opacity: 0 }}
               animate={{ 
@@ -247,6 +251,7 @@ export default function Navigation() {
               onTouchMove={handleTouchMove}
               onTouchEnd={handleTouchEnd}
               onClick={(e) => e.stopPropagation()}
+              onWheel={(e) => e.stopPropagation()}
             >
               <motion.div 
                 className="flex justify-between items-center mb-8"
