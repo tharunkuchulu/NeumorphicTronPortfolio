@@ -179,7 +179,7 @@ export default function Navigation() {
         </motion.button>
       </motion.nav>
 
-      {/* Mobile Menu Panel - OUTSIDE glass-card scope */}
+      {/* Mobile Menu Panel */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <>
@@ -193,22 +193,25 @@ export default function Navigation() {
               onClick={() => setIsMobileMenuOpen(false)}
             />
             
-            {/* Menu Panel - viewport anchored */}
+            {/* Menu Panel with enforced positioning */}
             <motion.div 
-              className="w-80 border-l-2 border-tron shadow-2xl"
+              className="border-l-2 border-tron shadow-2xl"
               style={{
+                position: 'fixed',
+                top: '0px',
+                right: '0px',
+                width: '320px',
+                height: '100vh',
                 backgroundColor: 'rgba(0, 0, 0, 0.8)',
                 backdropFilter: 'blur(10px)',
                 WebkitBackdropFilter: 'blur(10px)',
-                transform: `translateX(${dragOffset}px)`,
-                zIndex: 9999,
-                height: '100vh',
-                width: '320px',
-                position: 'fixed',
-                right: '0px',
-                top: '0px',
+                zIndex: 99999,
                 overflowY: 'auto',
-                overflowX: 'hidden'
+                overflowX: 'hidden',
+                transform: `translateX(${dragOffset}px)`,
+                margin: 0,
+                padding: 0,
+                boxSizing: 'border-box'
               }}
               initial={{ x: '100%', opacity: 0 }}
               animate={{ 
