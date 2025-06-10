@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import PageTransition from "./PageTransition";
 
 export default function Hero() {
   const [displayText, setDisplayText] = useState("");
@@ -76,9 +77,17 @@ export default function Hero() {
     }
   };
 
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 1200);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden performance-optimized">
-      {/* Optimized Circuit Board Background */}
+      <PageTransition isLoading={isLoading} skeletonType="hero">
+        {/* Optimized Circuit Board Background */}
       <div className="absolute inset-0 opacity-20 circuit-board">
         {/* Static Circuit Lines */}
         {Array.from({ length: 4 }).map((_, i) => (
@@ -358,7 +367,8 @@ export default function Hero() {
             </motion.button>
           </motion.div>
         </motion.div>
-      </div>
+        </div>
+      </PageTransition>
     </section>
   );
 }
