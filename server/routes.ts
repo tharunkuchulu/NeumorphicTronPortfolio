@@ -4,6 +4,7 @@ import { z } from "zod";
 import path from "path";
 import fs from "fs";
 import { fileURLToPath } from 'url';
+import { sendContactEmail } from './email.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -21,20 +22,33 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const validatedData = contactSchema.parse(req.body);
       
-      // In a real application, you would send an email here
-      // For now, we'll just log the contact form data
-      console.log("Contact form submission:", validatedData);
-      
-      // You could integrate with services like:
-      // - Nodemailer for email sending
-      // - SendGrid API
-      // - AWS SES
-      // - Or store in a database
-      
-      res.json({ 
-        success: true, 
-        message: "Contact form submitted successfully" 
-      });
+      // Send email if email service is configured
+      if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
+        const emailSent = await sendContactEmail({
+          name: validatedData.name,
+          email: validatedData.email,
+          message: `Subject: ${validatedData.subject}\n\n${validatedData.message}`
+        });
+        
+        if (emailSent) {
+          res.json({ 
+            success: true, 
+            message: "Message sent successfully" 
+          });
+        } else {
+          res.status(500).json({ 
+            success: false, 
+            message: "Failed to send message. Please try again." 
+          });
+        }
+      } else {
+        // Fallback: log the message for manual processing
+        console.log("Contact form submission:", validatedData);
+        res.json({ 
+          success: true, 
+          message: "Message received. I'll get back to you soon!" 
+        });
+      }
     } catch (error) {
       if (error instanceof z.ZodError) {
         res.status(400).json({ 
