@@ -42,26 +42,11 @@
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    transform: translate3d(0, 0, 0);
-    backface-visibility: hidden;
-    -webkit-transform: translate3d(0, 0, 0);
-    -webkit-backface-visibility: hidden;
   }
 
   /* Performance optimizations for buttery smooth scrolling */
   html {
     scroll-behavior: smooth;
-    transform: translate3d(0, 0, 0);
-    -webkit-transform: translate3d(0, 0, 0);
-    -webkit-font-smoothing: subpixel-antialiased;
-    text-rendering: optimizeSpeed;
-  }
-
-  /* Advanced performance tweaks */
-  #root {
-    transform: translate3d(0, 0, 0);
-    contain: layout style paint;
-    isolation: isolate;
   }
 
   /* Mobile menu panel positioning override */
@@ -94,11 +79,9 @@
     }
   }
 
-  /* Global performance optimizations */
   * {
     box-sizing: border-box;
-    transform-style: flat;
-    backface-visibility: hidden;
+    transform-style: preserve-3d;
   }
 
   /* Hardware acceleration for all animated elements */
@@ -108,23 +91,10 @@
   button,
   a,
   .motion-element {
-    transform: translate3d(0, 0, 0);
     will-change: transform, opacity;
+    transform: translateZ(0);
     backface-visibility: hidden;
-    contain: layout style paint;
-  }
-
-  /* Optimize high-frequency animations */
-  .continuous-animation {
-    will-change: transform;
-    contain: strict;
-    transform: translate3d(0, 0, 0);
-  }
-
-  /* Reduce paint complexity */
-  .reduce-paint {
-    contain: layout style paint;
-    isolation: isolate;
+    perspective: 1000px;
   }
 
   /* Smooth transitions */
@@ -148,54 +118,31 @@
 
   /* Performance optimized custom scrollbar */
   ::-webkit-scrollbar {
-    width: 6px;
+    width: 8px;
   }
 
   ::-webkit-scrollbar-track {
-    background: transparent;
+    background: rgba(0, 0, 0, 0.1);
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #00ffff;
-    border-radius: 3px;
-    will-change: background;
+    background: linear-gradient(180deg, #00ffff, #22d3ee);
+    border-radius: 4px;
+    transition: background 0.3s ease;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: #22d3ee;
+    background: linear-gradient(180deg, #22d3ee, #00ffff);
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Orbitron', monospace;
   }
 
-  /* Ultra-smooth scrolling optimizations */
+  /* Smooth scrolling for the entire page */
   html {
     scroll-behavior: smooth;
     scroll-padding-top: 80px;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-gutter: stable;
-  }
-
-  /* Eliminate scroll jank */
-  * {
-    -webkit-overflow-scrolling: touch;
-  }
-
-  /* Viewport optimizations */
-  @media (max-width: 768px) {
-    * {
-      -webkit-tap-highlight-color: transparent;
-      -webkit-touch-callout: none;
-      -webkit-user-select: none;
-      user-select: none;
-    }
-    
-    button, a, [role="button"] {
-      -webkit-user-select: none;
-      user-select: none;
-      touch-action: manipulation;
-    }
   }
 
   /* Enhanced focus states for accessibility */
@@ -207,6 +154,11 @@
     box-shadow: 0 0 0 4px rgba(0, 255, 255, 0.1);
   }
 
+  /* Performance optimizations */
+  * {
+    box-sizing: border-box;
+  }
+
   img, video {
     max-width: 100%;
     height: auto;
@@ -216,29 +168,26 @@
 @layer components {
   .glass-card {
     background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(10px);
     border: 1px solid rgba(0, 255, 247, 0.3);
-    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    transform: translate3d(0, 0, 0);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateZ(0);
     will-change: transform;
-    contain: layout style;
   }
 
 
 
   .card-hover {
-    transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1), box-shadow 0.3s ease;
-    transform: translate3d(0, 0, 0);
-    will-change: transform;
+    transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+    transform: translateZ(0);
   }
 
   .card-hover:hover {
-    transform: translate3d(0, -8px, 0);
+    transform: translateY(-8px) translateZ(0);
     box-shadow: 
-      0 20px 40px rgba(0, 0, 0, 0.3), 
-      0 0 20px rgba(0, 255, 255, 0.1),
-      0 0 0 1px rgba(0, 255, 255, 0.15);
+      0 25px 50px rgba(0, 0, 0, 0.4), 
+      0 0 30px rgba(0, 255, 255, 0.15),
+      0 0 0 1px rgba(0, 255, 255, 0.2);
   }
 
   .performance-optimized {

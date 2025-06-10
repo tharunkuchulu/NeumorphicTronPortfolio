@@ -10,36 +10,38 @@ interface Particle {
 }
 
 export default function FloatingParticles() {
-  // Reduced particles for better performance
+  // Use static particles to prevent memory leaks and improve performance
   const particles = useMemo<Particle[]>(() => {
-    return Array.from({ length: 4 }, (_, i) => ({
+    return Array.from({ length: 6 }, (_, i) => ({
       id: i,
-      x: 20 + (i * 20), // Fixed positions to reduce calculations
-      y: 20 + (i * 15),
-      delay: i * 1.2,
-      duration: 8 + (i % 2)
+      x: Math.random() * 100,
+      y: Math.random() * 100,
+      delay: i * 0.8,
+      duration: 6 + (i % 3)
     }));
   }, []);
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-0 reduce-paint">
+    <div className="fixed inset-0 pointer-events-none z-0">
       {particles.map((particle) => (
         <motion.div
           key={particle.id}
-          className="absolute w-1 h-1 bg-tron rounded-full opacity-50 continuous-animation"
+          className="absolute w-1 h-1 bg-tron rounded-full opacity-60"
           style={{
             left: `${particle.x}%`,
             top: `${particle.y}%`,
           }}
           animate={{
-            y: [-15, -25, -15],
-            opacity: [0.3, 0.8, 0.3],
+            y: [-20, -40, -20],
+            x: [-10, 10, -10],
+            scale: [1, 1.5, 1],
+            opacity: [0.6, 1, 0.6],
           }}
           transition={{
             duration: particle.duration,
             repeat: Infinity,
             delay: particle.delay,
-            ease: "linear",
+            ease: "easeInOut",
           }}
         />
       ))}
