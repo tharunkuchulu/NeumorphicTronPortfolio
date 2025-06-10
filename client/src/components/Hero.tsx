@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import PageTransition from "./PageTransition";
+import { useTransition, useSmartNavigation } from "./GlobalTransitionManager";
 
 export default function Hero() {
+  const { sectionLoadingStates } = useTransition();
+  const { navigateToSection } = useSmartNavigation();
   const [displayText, setDisplayText] = useState("");
   const [showCursor, setShowCursor] = useState(true);
   const [currentTitleIndex, setCurrentTitleIndex] = useState(0);
@@ -68,27 +71,14 @@ export default function Hero() {
   };
 
   const handleViewProjects = () => {
-    const projectsSection = document.querySelector('#projects');
-    if (projectsSection) {
-      projectsSection.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-      });
-    }
+    navigateToSection('projects');
   };
-
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 1200);
-    return () => clearTimeout(timer);
-  }, []);
 
   return (
     <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden performance-optimized">
-      <PageTransition isLoading={isLoading} skeletonType="hero">
-        {/* Optimized Circuit Board Background */}
-      <div className="absolute inset-0 opacity-20 circuit-board">
+      <PageTransition isLoading={sectionLoadingStates.hero || false} skeletonType="hero">
+          {/* Optimized Circuit Board Background */}
+          <div className="absolute inset-0 opacity-20 circuit-board">
         {/* Static Circuit Lines */}
         {Array.from({ length: 4 }).map((_, i) => (
           <div
