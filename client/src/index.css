@@ -163,25 +163,7 @@
     will-change: transform;
   }
 
-  .mobile-menu-panel {
-    background: #000000 !important;
-    background-color: #000000 !important;
-    background-image: none !important;
-    backdrop-filter: none !important;
-    opacity: 1 !important;
-    position: relative !important;
-  }
 
-  .mobile-menu-panel::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: #000000;
-    z-index: -1;
-  }
 
   .card-hover {
     transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);

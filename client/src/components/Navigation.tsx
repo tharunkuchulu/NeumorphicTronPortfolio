@@ -193,7 +193,7 @@ export default function Navigation() {
               onClick={() => setIsMobileMenuOpen(false)}
             />
             
-            {/* Menu Panel - completely isolated */}
+            {/* Menu Panel - viewport anchored */}
             <motion.div 
               className="w-80 border-l-2 border-tron shadow-2xl"
               style={{
@@ -203,13 +203,12 @@ export default function Navigation() {
                 transform: `translateX(${dragOffset}px)`,
                 zIndex: 9999,
                 height: '100vh',
-                maxHeight: '100vh',
-                overflowY: 'auto',
+                width: '320px',
                 position: 'fixed',
-                right: 0,
-                top: 0,
-                left: 'auto',
-                bottom: 'auto'
+                right: '0px',
+                top: '0px',
+                overflowY: 'auto',
+                overflowX: 'hidden'
               }}
               initial={{ x: '100%', opacity: 0 }}
               animate={{ 
@@ -255,7 +254,12 @@ export default function Navigation() {
               onClick={(e) => e.stopPropagation()}
               onWheel={(e) => e.stopPropagation()}
             >
-              <div className="h-full flex flex-col justify-start" style={{ padding: '1.5rem', paddingTop: '2rem' }}>
+              <div className="flex flex-col" style={{ 
+                height: '100vh',
+                padding: '1.5rem', 
+                paddingTop: '2rem',
+                position: 'relative'
+              }}>
                 <motion.div 
                   className="flex justify-between items-center mb-8"
                   initial={{ opacity: 0, y: -20 }}
