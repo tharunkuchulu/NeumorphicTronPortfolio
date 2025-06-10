@@ -11,14 +11,12 @@ import Contact from "@/components/Contact";
 import FloatingParticles from "@/components/FloatingParticles";
 import FloatingActionButton from "@/components/FloatingActionButton";
 import ScrollProgress from "@/components/ScrollProgress";
-import AIGreeting from "@/components/AIGreeting";
 
 export default function Portfolio() {
   return (
     <div className="min-h-screen bg-dark-bg text-white relative">
       <ScrollProgress />
       <FloatingParticles />
-      <AIGreeting />
       <Navigation />
       <Hero />
       <About />

@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import AIGreeting from "./AIGreeting";
 
 export default function Hero() {
   const [displayText, setDisplayText] = useState("");
@@ -79,8 +78,6 @@ export default function Hero() {
 
   return (
     <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden performance-optimized">
-      {/* AI Greeting Component */}
-      <AIGreeting />
       {/* Optimized Circuit Board Background */}
       <div className="absolute inset-0 opacity-20 circuit-board">
         {/* Static Circuit Lines */}
