@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AnalyticsProvider } from "@/components/AnalyticsProvider";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
+import { TransitionProvider } from "@/components/GlobalTransitionManager";
 import Portfolio from "@/pages/Portfolio";
 import NotFound from "@/pages/not-found";
 
@@ -22,10 +23,12 @@ function App() {
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
         <AnalyticsProvider>
-          <TooltipProvider>
-            <Toaster />
-            <Router />
-          </TooltipProvider>
+          <TransitionProvider>
+            <TooltipProvider>
+              <Toaster />
+              <Router />
+            </TooltipProvider>
+          </TransitionProvider>
         </AnalyticsProvider>
       </QueryClientProvider>
     </ErrorBoundary>
