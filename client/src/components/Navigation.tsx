@@ -197,7 +197,7 @@ export default function Navigation() {
             <motion.div 
               className="border-l-2 border-tron shadow-2xl mobile-menu-panel-fixed"
               style={{
-                position: 'fixed',
+                position: 'sticky',
                 top: '0',
                 right: '0',
                 bottom: '0',
