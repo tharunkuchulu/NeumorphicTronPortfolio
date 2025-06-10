@@ -4,8 +4,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 export default function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
-  const [dragOffset, setDragOffset] = useState(0);
-  const [touchStart, setTouchStart] = useState<{ x: number; y: number } | null>(null);
   const [rippleEffect, setRippleEffect] = useState<{ x: number; y: number } | null>(null);
 
   const createRipple = (e: React.MouseEvent | React.TouchEvent) => {
@@ -25,36 +23,23 @@ export default function Navigation() {
     }
   };
 
-  const handleTouchStart = (e: React.TouchEvent) => {
-    const touch = e.touches[0];
-    setTouchStart({ x: touch.clientX, y: touch.clientY });
-  };
-
-  const handleTouchMove = (e: React.TouchEvent) => {
-    if (!touchStart) return;
-    const touch = e.touches[0];
-    const deltaX = touch.clientX - touchStart.x;
-    if (deltaX > 0) {
-      setDragOffset(deltaX);
-    }
-  };
-
-  const handleTouchEnd = () => {
-    if (dragOffset > 100) {
-      setIsMobileMenuOpen(false);
-    }
-    setDragOffset(0);
-    setTouchStart(null);
-  };
-
   useEffect(() => {
     if (isMobileMenuOpen) {
       document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+      document.body.style.height = '100%';
     } else {
       document.body.style.overflow = 'unset';
+      document.body.style.position = 'unset';
+      document.body.style.width = 'unset';
+      document.body.style.height = 'unset';
     }
     return () => {
       document.body.style.overflow = 'unset';
+      document.body.style.position = 'unset';
+      document.body.style.width = 'unset';
+      document.body.style.height = 'unset';
     };
   }, [isMobileMenuOpen]);
 
@@ -137,7 +122,7 @@ export default function Navigation() {
         </motion.button>
       </div>
 
-      {/* Redesigned Mobile Navigation Panel */}
+      {/* Mobile Navigation Panel with Enhanced Scroll Prevention */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div 
@@ -150,6 +135,7 @@ export default function Navigation() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setIsMobileMenuOpen(false)}
+            onTouchMove={(e) => e.preventDefault()}
           >
             <motion.div 
               className="fixed right-0 top-0 h-full w-80"
@@ -158,7 +144,8 @@ export default function Navigation() {
                 borderLeft: '2px solid #00ffff',
                 boxShadow: '0 0 50px rgba(0, 255, 255, 0.4), inset 0 0 30px rgba(0, 255, 255, 0.15)',
                 backdropFilter: 'blur(25px)',
-                transform: `translateX(${dragOffset}px)`
+                overflowY: 'auto',
+                overscrollBehavior: 'contain'
               }}
               initial={{ x: '100%', opacity: 0 }}
               animate={{ 
@@ -182,29 +169,11 @@ export default function Navigation() {
                   opacity: { duration: 0.2 }
                 }
               }}
-              drag="x"
-              dragConstraints={{ left: 0, right: 320 }}
-              dragElastic={0.2}
-              onDragStart={() => setTouchStart({ x: 0, y: 0 })}
-              onDrag={(event, info) => {
-                if (info.offset.x > 0) {
-                  setDragOffset(info.offset.x);
-                }
-              }}
-              onDragEnd={(event, info) => {
-                if (info.offset.x > 106) {
-                  setIsMobileMenuOpen(false);
-                }
-                setDragOffset(0);
-                setTouchStart(null);
-              }}
-              onTouchStart={handleTouchStart}
-              onTouchMove={handleTouchMove}
-              onTouchEnd={handleTouchEnd}
               onClick={(e) => e.stopPropagation()}
+              onTouchMove={(e) => e.stopPropagation()}
             >
               {/* Animated Circuit Background Pattern */}
-              <div className="absolute inset-0 opacity-15">
+              <div className="absolute inset-0 opacity-15 pointer-events-none">
                 {Array.from({ length: 3 }).map((_, i) => (
                   <motion.div
                     key={`circuit-${i}`}
