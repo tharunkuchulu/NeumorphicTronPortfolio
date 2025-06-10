@@ -197,9 +197,7 @@ export default function Navigation() {
             <motion.div 
               className="w-80 border-l-2 border-tron shadow-2xl"
               style={{
-                background: 'rgba(0, 0, 0, 0.8)',
                 backgroundColor: 'rgba(0, 0, 0, 0.8)',
-                backgroundImage: 'none',
                 backdropFilter: 'blur(10px)',
                 WebkitBackdropFilter: 'blur(10px)',
                 transform: `translateX(${dragOffset}px)`,
