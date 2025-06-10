@@ -18,27 +18,6 @@ export default function Navigation() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Reset scroll position when menu opens
-  useEffect(() => {
-    if (isMobileMenuOpen) {
-      // Force scroll to top of menu panel content
-      const menuPanel = document.querySelector('[data-menu-panel]');
-      if (menuPanel) {
-        menuPanel.scrollTop = 0;
-      }
-      // Prevent body scroll when menu is open
-      document.body.classList.add('menu-open');
-    } else {
-      // Restore body scroll when menu closes
-      document.body.classList.remove('menu-open');
-    }
-
-    return () => {
-      // Cleanup: always restore scroll on unmount
-      document.body.classList.remove('menu-open');
-    };
-  }, [isMobileMenuOpen]);
-
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     const target = document.querySelector(href);
@@ -214,10 +193,9 @@ export default function Navigation() {
               onClick={() => setIsMobileMenuOpen(false)}
             />
             
-            {/* Menu Panel - completely isolated with scroll context reset */}
+            {/* Menu Panel - completely isolated */}
             <motion.div 
               className="fixed right-0 top-0 w-80 border-l-2 border-tron shadow-2xl"
-              data-menu-panel
               style={{
                 background: '#000000',
                 backgroundColor: '#000000',
@@ -229,9 +207,7 @@ export default function Navigation() {
                 height: '100vh',
                 maxHeight: '100vh',
                 overflowY: 'auto',
-                position: 'fixed',
-                isolation: 'isolate',
-                contain: 'layout style paint'
+                position: 'fixed'
               }}
               initial={{ x: '100%', opacity: 0 }}
               animate={{ 
@@ -275,22 +251,9 @@ export default function Navigation() {
               onTouchMove={handleTouchMove}
               onTouchEnd={handleTouchEnd}
               onClick={(e) => e.stopPropagation()}
-              onWheel={(e) => {
-                e.stopPropagation();
-                e.preventDefault();
-              }}
-              onScroll={(e) => e.stopPropagation()}
+              onWheel={(e) => e.stopPropagation()}
             >
-              <div 
-                className="h-full flex flex-col justify-start" 
-                style={{ 
-                  padding: '1.5rem', 
-                  paddingTop: '2rem',
-                  position: 'relative',
-                  top: 0,
-                  scrollBehavior: 'auto'
-                }}
-              >
+              <div className="h-full flex flex-col justify-start" style={{ padding: '1.5rem', paddingTop: '2rem' }}>
                 <motion.div 
                   className="flex justify-between items-center mb-8"
                   initial={{ opacity: 0, y: -20 }}
