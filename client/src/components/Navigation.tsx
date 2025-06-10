@@ -253,7 +253,7 @@ export default function Navigation() {
               onClick={(e) => e.stopPropagation()}
               onWheel={(e) => e.stopPropagation()}
             >
-              <div className="h-full flex flex-col" style={{ padding: '1.5rem' }}>
+              <div className="h-full flex flex-col justify-start" style={{ padding: '1.5rem', paddingTop: '2rem' }}>
                 <motion.div 
                   className="flex justify-between items-center mb-8"
                   initial={{ opacity: 0, y: -20 }}
@@ -296,7 +296,7 @@ export default function Navigation() {
                 </motion.div>
                 
                 <motion.div 
-                  className="space-y-4"
+                  className="flex-1 space-y-4"
                   initial="hidden"
                   animate="visible"
                   exit="hidden"
