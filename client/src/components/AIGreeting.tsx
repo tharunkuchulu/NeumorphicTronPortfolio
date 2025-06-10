@@ -54,15 +54,39 @@ export default function AIGreeting() {
   };
 
   const generateGreeting = async () => {
-    setIsLoading(true);
-    
-    // Use intelligent fallback system (bypassing API due to quota limits)
-    setTimeout(() => {
+    try {
+      setIsLoading(true);
+      
+      const requestBody = {
+        timeOfDay: new Date().getHours(),
+        userAgent: navigator.userAgent,
+        timestamp: new Date().toISOString(),
+      };
+
+      const response = await fetch('/api/greeting', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestBody),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setGreeting(data);
+        setIsVisible(true);
+      } else {
+        const fallbackGreeting = generateFallbackGreeting();
+        setGreeting(fallbackGreeting);
+        setIsVisible(true);
+      }
+    } catch (error) {
       const fallbackGreeting = generateFallbackGreeting();
       setGreeting(fallbackGreeting);
       setIsVisible(true);
+    } finally {
       setIsLoading(false);
-    }, 800); // Simulate processing time for realistic feel
+    }
   };
 
   useEffect(() => {
@@ -131,7 +155,7 @@ export default function AIGreeting() {
               >
                 <div className="w-2 h-2 bg-tron rounded-full animate-pulse"></div>
                 <span className="text-xs text-tron font-mono uppercase tracking-wider">
-                  AI NEURAL INTERFACE
+                  ARIA - DEEPSEEK NEURAL NET
                 </span>
                 <div className="w-2 h-2 bg-tron rounded-full animate-pulse"></div>
               </motion.div>

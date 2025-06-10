@@ -22,9 +22,10 @@ const greetingSchema = z.object({
   timestamp: z.string()
 });
 
-// the newest OpenAI model is "gpt-4o" which was released May 13, 2024. do not change this unless explicitly requested by the user
-const openai = new OpenAI({ 
-  apiKey: process.env.OPENAI_API_KEY 
+// DeepSeek API configuration
+const deepseek = new OpenAI({ 
+  apiKey: process.env.DEEPSEEK_API_KEY,
+  baseURL: 'https://api.deepseek.com'
 });
 
 export async function registerRoutes(app: Express): Promise<Server> {
@@ -81,9 +82,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const currentDate = new Date(timestamp);
       const dayOfWeek = currentDate.toLocaleDateString('en-US', { weekday: 'long' });
 
-      // Generate AI greeting using OpenAI
-      const response = await openai.chat.completions.create({
-        model: "gpt-4o",
+      // Generate AI greeting using DeepSeek
+      const response = await deepseek.chat.completions.create({
+        model: "deepseek-chat",
         messages: [
           {
             role: "system",
