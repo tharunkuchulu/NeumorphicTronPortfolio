@@ -180,19 +180,30 @@ export default function Navigation() {
       {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {isMobileMenuOpen && (
-          <motion.div 
-            className="fixed inset-0 z-40 md:hidden"
-            style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setIsMobileMenuOpen(false)}
-          >
+          <>
+            {/* Dark overlay for backdrop */}
             <motion.div 
-              className="fixed right-0 top-0 h-full w-80 border-l-2 border-tron p-6 shadow-2xl mobile-menu-panel"
+              className="fixed inset-0 z-40 md:hidden"
+              style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsMobileMenuOpen(false)}
+            />
+            
+            {/* Menu Panel - completely separate from overlay */}
+            <motion.div 
+              className="fixed right-0 top-0 h-full w-80 border-l-2 border-tron p-6 shadow-2xl"
               style={{
+                background: '#000000',
+                backgroundColor: '#000000',
+                backgroundImage: 'none',
+                backdropFilter: 'none',
+                WebkitBackdropFilter: 'none',
+                opacity: 1,
                 transform: `translateX(${dragOffset}px)`,
-                zIndex: 1000
+                zIndex: 50,
+                position: 'fixed'
               }}
               initial={{ x: '100%', opacity: 0 }}
               animate={{ 
@@ -413,7 +424,7 @@ export default function Navigation() {
                 ))}
               </motion.div>
             </motion.div>
-          </motion.div>
+          </>
         )}
       </AnimatePresence>
     </motion.nav>
