@@ -1,7 +1,6 @@
 import { motion, useAnimation, AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import useScrollAnimation from '../hooks/useScrollAnimation';
-import PageTransition from './PageTransition';
 
 const projects = [
   {
@@ -128,13 +127,6 @@ export default function Projects() {
     }
   };
 
-  const [isProjectsLoading, setIsProjectsLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setIsProjectsLoading(false), 1000);
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
     <section ref={ref} id="projects" className="min-h-screen py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
       {/* Background Elements */}
@@ -163,10 +155,9 @@ export default function Projects() {
         </div>
       </div>
 
-      <PageTransition isLoading={isProjectsLoading} skeletonType="projects">
-        <div className="relative z-10 max-w-7xl mx-auto">
-          {/* Section Header */}
-          <motion.div
+      <div className="relative z-10 max-w-7xl mx-auto">
+        {/* Section Header */}
+        <motion.div
           className="text-center mb-16"
           initial={{ opacity: 0, y: -30 }}
           animate={controls}
@@ -537,8 +528,7 @@ export default function Projects() {
             <span className="sm:hidden">GitHub Projects</span>
           </motion.a>
         </motion.div>
-        </div>
-      </PageTransition>
+      </div>
     </section>
   );
 }

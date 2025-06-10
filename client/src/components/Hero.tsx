@@ -1,11 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import PageTransition from "./PageTransition";
-import { useTransition, useSmartNavigation } from "./GlobalTransitionManager";
 
 export default function Hero() {
-  const { sectionLoadingStates } = useTransition();
-  const { navigateToSection } = useSmartNavigation();
   const [displayText, setDisplayText] = useState("");
   const [showCursor, setShowCursor] = useState(true);
   const [currentTitleIndex, setCurrentTitleIndex] = useState(0);
@@ -71,14 +67,19 @@ export default function Hero() {
   };
 
   const handleViewProjects = () => {
-    navigateToSection('projects');
+    const projectsSection = document.querySelector('#projects');
+    if (projectsSection) {
+      projectsSection.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
   };
 
   return (
     <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden performance-optimized">
-      <PageTransition isLoading={sectionLoadingStates.hero || false} skeletonType="hero">
-          {/* Optimized Circuit Board Background */}
-          <div className="absolute inset-0 opacity-20 circuit-board">
+      {/* Optimized Circuit Board Background */}
+      <div className="absolute inset-0 opacity-20 circuit-board">
         {/* Static Circuit Lines */}
         {Array.from({ length: 4 }).map((_, i) => (
           <div
@@ -357,8 +358,7 @@ export default function Hero() {
             </motion.button>
           </motion.div>
         </motion.div>
-        </div>
-      </PageTransition>
+      </div>
     </section>
   );
 }

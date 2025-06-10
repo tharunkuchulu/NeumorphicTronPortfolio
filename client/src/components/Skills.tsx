@@ -1,8 +1,7 @@
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import useScrollAnimation from "@/hooks/useScrollAnimation";
 import CircularProgress from "@/components/ui/CircularProgress";
-import PageTransition from "./PageTransition";
 
 export default function Skills() {
   const { ref, controls } = useScrollAnimation();
@@ -10,12 +9,6 @@ export default function Skills() {
   const [selectedSkill, setSelectedSkill] = useState<string | null>(null);
   const [soundEnabled, setSoundEnabled] = useState(false);
   const [viewMode, setViewMode] = useState<'grid' | 'radar'>('grid');
-  const [isSkillsLoading, setIsSkillsLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setIsSkillsLoading(false), 1500);
-    return () => clearTimeout(timer);
-  }, []);
 
   // Optimized sound effects with shared audio context
   const playHoverSound = () => {
@@ -143,8 +136,7 @@ export default function Skills() {
   return (
     <section id="skills" className="py-20 bg-gradient-to-br from-dark-bg to-dark-card">
       <div className="container mx-auto px-6" ref={ref}>
-        <PageTransition isLoading={isSkillsLoading} skeletonType="skills">
-          {/* Header Section */}
+        {/* Header Section */}
         <motion.div className="text-center mb-16">
           <motion.h2 
             className="font-orbitron text-4xl font-bold mb-6 text-tron"
@@ -536,7 +528,6 @@ export default function Skills() {
             </div>
           </motion.div>
         )}
-        </PageTransition>
       </div>
     </section>
   );
