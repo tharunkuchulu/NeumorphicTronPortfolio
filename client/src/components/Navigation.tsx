@@ -189,10 +189,10 @@ export default function Navigation() {
             onClick={() => setIsMobileMenuOpen(false)}
           >
             <motion.div 
-              className="fixed right-0 top-0 h-full w-80 border-l-2 border-tron p-6 shadow-2xl"
+              className="fixed right-0 top-0 h-full w-80 border-l-2 border-tron p-6 shadow-2xl mobile-menu-panel"
               style={{
-                backgroundColor: 'rgb(0, 0, 0)',
-                transform: `translateX(${dragOffset}px)`
+                transform: `translateX(${dragOffset}px)`,
+                zIndex: 1000
               }}
               initial={{ x: '100%', opacity: 0 }}
               animate={{ 
