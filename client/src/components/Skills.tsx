@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import useScrollAnimation from "@/hooks/useScrollAnimation";
 import CircularProgress from "@/components/ui/CircularProgress";
+import PageTransition from "./PageTransition";
 
 export default function Skills() {
   const { ref, controls } = useScrollAnimation();
