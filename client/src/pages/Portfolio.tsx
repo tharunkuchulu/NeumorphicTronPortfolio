@@ -31,9 +31,9 @@ export default function Portfolio() {
 
       
       {/* Footer */}
-      <footer className="py-8 border-t border-gray-800">
+      <footer className="py-4 border-t border-gray-800">
         <div className="container mx-auto px-6">
-          <div className="flex flex-col items-center text-center space-y-4">
+          <div className="flex flex-col items-center text-center space-y-2">
             <div className="flex space-x-6">
               <a 
                 href="mailto:tharunvankayala@gmail.com" 
