@@ -1,9 +1,11 @@
 [build]
-  command = "npm run build"
-  publish = "dist"
+base = "NeumorphicTronPortfolio"
+publish = "NeumorphicTronPortfolio/dist/public"
+command = "npm run build"
 
 [[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-  force = true
+from = "/*"
+to = "/index.html"
+status = 200
+force = true
+
