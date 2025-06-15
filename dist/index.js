@@ -271,7 +271,7 @@ app.use((req, res, next) => {
     serveStatic(app);
   }
   const port = 5e3;
-  server.listen(port, "127.0.0.1", () => {
+  server.listen(port, "0.0.0.0", () => {
     log(`serving on http://127.0.0.1:${port}`);
   });
 })();
